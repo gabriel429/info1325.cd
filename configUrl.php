@@ -18,6 +18,10 @@ define('CSS_DIR', BASE_URL . 'css/');
 define('JS_DIR', BASE_URL . 'js/');
 define('IMG_DIR', BASE_URL . 'img/');
 define('FONTS_DIR', BASE_URL . 'fonts/');
+// Debug flags
+if (!defined('DEBUG_ASSETS')) {
+    define('DEBUG_ASSETS', false);
+}
 
 // Dossiers côté serveur
 define('ROOT_DIR', rtrim($_SERVER['DOCUMENT_ROOT'], '/\\') . PROJECT_ROOT_URL);

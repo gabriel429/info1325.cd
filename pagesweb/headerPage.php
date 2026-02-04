@@ -55,10 +55,13 @@
         
 			<?php
 			// Debug helper: show resolved CSS paths and whether files exist on server
+			// Only output debug comments when DEBUG_ASSETS is enabled.
 			$s1 = rtrim(ROOT_DIR, '/') . '/css/style.css';
 			$s2 = rtrim(ROOT_DIR, '/') . '/css/responsive.css';
-			echo "<!-- ASSET_DEBUG: style=" . htmlspecialchars(CSS_DIR . 'style.css') . " exists=" . (file_exists($s1) ? '1' : '0') . " -->\n";
-			echo "<!-- ASSET_DEBUG: responsive=" . htmlspecialchars(CSS_DIR . 'responsive.css') . " exists=" . (file_exists($s2) ? '1' : '0') . " -->\n";
+			if (defined('DEBUG_ASSETS') && DEBUG_ASSETS) {
+			    echo "<!-- ASSET_DEBUG: style=" . htmlspecialchars(CSS_DIR . 'style.css') . " exists=" . (file_exists($s1) ? '1' : '0') . " -->\n";
+			    echo "<!-- ASSET_DEBUG: responsive=" . htmlspecialchars(CSS_DIR . 'responsive.css') . " exists=" . (file_exists($s2) ? '1' : '0') . " -->\n";
+			}
 			?>
 		<!-- Slicknav -->
 
