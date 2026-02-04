@@ -52,6 +52,14 @@
 
         <link rel="stylesheet" href="<?= CSS_DIR ?>icofont.css">
 
+        
+			<?php
+			// Debug helper: show resolved CSS paths and whether files exist on server
+			$s1 = rtrim(ROOT_DIR, '/') . '/css/style.css';
+			$s2 = rtrim(ROOT_DIR, '/') . '/css/responsive.css';
+			echo "<!-- ASSET_DEBUG: style=" . htmlspecialchars(CSS_DIR . 'style.css') . " exists=" . (file_exists($s1) ? '1' : '0') . " -->\n";
+			echo "<!-- ASSET_DEBUG: responsive=" . htmlspecialchars(CSS_DIR . 'responsive.css') . " exists=" . (file_exists($s2) ? '1' : '0') . " -->\n";
+			?>
 		<!-- Slicknav -->
 
 		<link rel="stylesheet" href="<?= CSS_DIR ?>slicknav.min.css">
