@@ -22,51 +22,45 @@
         <link rel="stylesheet" href="<?= CSS_DIR ?>style.css">
         <link rel="stylesheet" href="<?= CSS_DIR ?>responsive.css">
 <!-- Start Fun-facts -->
+<?php
+require_once __DIR__ . '/../configUrl.php';
+require_once __DIR__ . '/../defConstLiens.php';
+require_once $dateDbConnect; // provides $pdo
+
+// Try to load 4 fun facts from DB, fallback to defaults
+$stmt = $pdo->query('SELECT * FROM fun_facts ORDER BY `position` ASC LIMIT 4');
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$defaults = [
+    1 => ['value'=>'34','text'=>"% des femmes font parties du Gouvernement National"],
+    2 => ['value'=>'8.5','text'=>"% des femmes occupent des postes de responsabilité au sein de la police"],
+    3 => ['value'=>'13.6','text'=>"% des sieges sont occupés par des femmes au parlement(Assemblée Nationale)"],
+    4 => ['value'=>'3','text'=>"% des Plans d'Action Provinciaux ont été élaborés et adoptés"],
+];
+$facts = [];
+foreach ($rows as $r) {
+    $facts[(int)$r['position']] = $r;
+}
+for ($i=1;$i<=4;$i++) {
+    if (!isset($facts[$i])) $facts[$i] = ['value'=>$defaults[$i]['value'],'text'=>$defaults[$i]['text']];
+}
+?>
  <h2> Selon le rapport pays SN1325 2025</h2>
-		<div id="fun-facts" class="fun-facts section overlay">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Fun -->
-						<div class="single-fun">
-								<div class="content">
-								<span class="counter">34</span>
-								<p>% des femmes font parties du Gouvernement National</p>
-							</div>
-						</div>
-						<!-- End Single Fun -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Fun -->
-						<div class="single-fun">
-								<div class="content">
-								<span class="counter">8.5</span>
-								<p>% des femmes occupent des postes de responsabilité au sein de la police</p>
-							</div>
-						</div>
-						<!-- End Single Fun -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Fun -->
-						<div class="single-fun">
-								<div class="content">
-								<span class="counter">13.6</span>
-								<p>% des sieges sont occupés par des femmes au parlement(Assemblée Nationale)</p>
-							</div>
-						</div>
-						<!-- End Single Fun -->
-					</div>
-					<div class="col-lg-3 col-md-6 col-12">
-						<!-- Start Single Fun -->
-						<div class="single-fun">
-								<div class="content">
-								<span class="counter">3</span>
-								<p>% des Plans d'Action Provinciaux ont été élaborés et adoptés</p>
-							</div>
-						</div>
-						<!-- End Single Fun -->
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--/ End Fun-facts -->
+        <div id="fun-facts" class="fun-facts section overlay">
+            <div class="container">
+                <div class="row">
+                    <?php for ($i=1;$i<=4;$i++): ?>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Start Single Fun -->
+                        <div class="single-fun">
+                                <div class="content">
+                                <span class="counter"><?= htmlspecialchars($facts[$i]['value']) ?></span>
+                                <p><?= htmlspecialchars($facts[$i]['text']) ?></p>
+                            </div>
+                        </div>
+                        <!-- End Single Fun -->
+                    </div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
+        <!--/ End Fun-facts -->
