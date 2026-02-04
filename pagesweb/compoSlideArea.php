@@ -12,6 +12,9 @@ try {
 	$slides = [];
 }
 
+// debug: output number of slides found (view page source to see)
+echo "<!-- SLIDES_FOUND:" . count($slides) . " -->\n";
+
 function slideImagePath($row, $pos){
 	if (!empty($row['image'])) return IMG_DIR . 'slider/' . $row['image'];
 	// try legacy files in /img root named slider.jpg, slider2.jpg, slider3.jpg or slider.png
