@@ -20,6 +20,17 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS axes (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
+    // Validation serveur : limites de longueur
+    $titleMax = 80;
+    $descMax = 300;
+    $bad = false;
+    for ($i = 1; $i <= 6; $i++) {
+        $ti = $_POST['title'][$i] ?? '';
+        $di = $_POST['description'][$i] ?? '';
+        if (mb_strlen($ti) > $titleMax) { $message = "<div class='alert alert-danger'>Le titre #$i dépasse $titleMax caractères.</div>"; $bad = true; break; }
+        if (mb_strlen($di) > $descMax) { $message = "<div class='alert alert-danger'>La description #$i dépasse $descMax caractères.</div>"; $bad = true; break; }
+    }
+    if (!$bad) {
     try {
         $pdo->beginTransaction();
         // allow up to 6 axes
@@ -48,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
         $pdo->rollBack();
         $message = "<div class='alert alert-danger'>Erreur : " . htmlspecialchars($e->getMessage()) . "</div>";
     }
+    } // end !bad
 }
 
 // Load existing
@@ -98,19 +110,84 @@ for ($i=1;$i<=6;$i++) {
                     <div class="card-body">
                         <div class="mb-2">
                             <label class="form-label">Titre (h4)</label>
-                            <input type="text" name="title[<?= $i ?>]" class="form-control" value="<?= $t ?>" required>
+                            <input type="text" name="title[<?= $i ?>]" class="form-control axis-title" value="<?= $t ?>" required maxlength="80" data-index="<?= $i ?>">
                         </div>
                         <div>
                             <label class="form-label">Description (p)</label>
-                            <textarea name="description[<?= $i ?>]" class="form-control" rows="3"><?= $d ?></textarea>
+                            <textarea name="description[<?= $i ?>]" class="form-control axis-desc" rows="3" maxlength="300" data-index="<?= $i ?>"><?= $d ?></textarea>
                         </div>
                     </div>
                 </div>
             </div>
 <?php endfor; ?>
         </div>
-        <button class="btn btn-primary">Enregistrer</button>
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary" id="saveBtn">Enregistrer</button>
+            <button type="button" class="btn btn-outline-secondary" id="resetPreview">Réinitialiser aperçu</button>
+        </div>
     </form>
+
+    <!-- Aperçu en direct -->
+    <hr>
+    <h5>Aperçu des axes</h5>
+    <div class="row" id="axesPreview">
+        <?php for ($i=1;$i<=6;$i++):
+            $a = $axes[$i];
+        ?>
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="preview-title" data-index="<?= $i ?>"><?= htmlspecialchars($a['title']) ?></h4>
+                    <p class="preview-desc" data-index="<?= $i ?>"><?= htmlspecialchars($a['description']) ?></p>
+                </div>
+            </div>
+        </div>
+        <?php endfor; ?>
+    </div>
 </div>
 </body>
 </html>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    const titleInputs = document.querySelectorAll('.axis-title');
+    const descInputs = document.querySelectorAll('.axis-desc');
+
+    function updatePreviewFor(index, title, desc){
+        const t = document.querySelector('.preview-title[data-index="'+index+'"]');
+        const d = document.querySelector('.preview-desc[data-index="'+index+'"]');
+        if(t) t.textContent = title || '';
+        if(d) d.textContent = desc || '';
+    }
+
+    titleInputs.forEach(i=>{
+        i.addEventListener('input', e=>{
+            const idx = e.target.dataset.index;
+            updatePreviewFor(idx, e.target.value, document.querySelector('.axis-desc[data-index="'+idx+'"]')?.value || '');
+        });
+    });
+    descInputs.forEach(i=>{
+        i.addEventListener('input', e=>{
+            const idx = e.target.dataset.index;
+            updatePreviewFor(idx, document.querySelector('.axis-title[data-index="'+idx+'"]')?.value || '', e.target.value);
+        });
+    });
+
+    document.getElementById('resetPreview').addEventListener('click', ()=>{
+        titleInputs.forEach(i=>i.value='');
+        descInputs.forEach(i=>i.value='');
+        document.querySelectorAll('.preview-title').forEach(t=>t.textContent='');
+        document.querySelectorAll('.preview-desc').forEach(d=>d.textContent='');
+    });
+
+    // client-side simple validation before submit
+    document.getElementById('saveBtn').addEventListener('click', function(e){
+        const tMax = 80, dMax = 300;
+        for(let i=1;i<=6;i++){
+            const ti = document.querySelector('.axis-title[data-index="'+i+'"]').value || '';
+            const di = document.querySelector('.axis-desc[data-index="'+i+'"]').value || '';
+            if(ti.length > tMax){ alert('Le titre #'+i+' dépasse '+tMax+' caractères'); e.preventDefault(); return; }
+            if(di.length > dMax){ alert('La description #'+i+' dépasse '+dMax+' caractères'); e.preventDefault(); return; }
+        }
+    });
+});
+</script>
