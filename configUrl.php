@@ -51,6 +51,6 @@ define('URL_ADDSPACEADMIN', BASE_URL . 'pagesweb/add-space/');
 define('URL_MANAGE_FUNFACTS', BASE_URL . 'pagesweb/manage_funfacts/');
 define('URL_ALLDOCUMENTATIONS', BASE_URL . 'pagesweb/all-documentations/');
 define('URL_SUCCESSADDDOCUMENTATION', BASE_URL . 'pagesweb/success-add-documentation/');
+
 define('URL_LOGOUT', BASE_URL . 'pagesweb/logout/');
 
-?>
