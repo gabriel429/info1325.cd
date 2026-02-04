@@ -268,6 +268,8 @@
 
 <!-- Main JS -->
 <!-- GMaps JS (doit être chargé avant les scripts qui utilisent `GMaps`) -->
+<!-- Google Maps API (remplacez YOUR_API_KEY par votre clé) -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 <script src="<?= JS_DIR ?>gmaps.min.js"></script>
 <script src="<?= JS_DIR ?>map-active.js"></script>
 
