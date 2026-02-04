@@ -172,6 +172,11 @@
 
                         <p>© Copyright 2025 | Tous droits réservés <a href="<?= URL_CONTACT ?>" target="_blank">Secrétariat National Permanent 1325</a></p>
 
+                        <div style="margin-top:6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+                            <a href="<?= URL_AUTHENTIFICATION ?>" style="font-size:13px;color:rgba(255,255,255,0.85);opacity:0.9;text-decoration:none;padding:6px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.06);background:transparent;">Administration</a>
+                            <a href="https://www.akilig.com/" target="_blank" style="font-size:12px;color:rgba(255,255,255,0.7);text-decoration:none;">Développé par Akili Groupe : https://www.akilig.com/</a>
+                        </div>
+
                     </div>
 
                 </div>
