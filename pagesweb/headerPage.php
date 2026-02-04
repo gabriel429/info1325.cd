@@ -82,25 +82,24 @@
 
         <link rel="stylesheet" href="<?= CSS_DIR ?>responsive.css">
 
-        <style>
-
-            .breadcrumbs-ac {
-
-                background-image: url('../img/actualites/1762163084_rt.png');
-
-                background-size: cover;
-
-                background-position: center;
-
-                background-repeat: no-repeat;
-
-                position: relative;
-
-                padding: 120px 0px;
-
-            }
-
-        </style>
+		<style>
+			/* Réduction des grands espaces entre sections pour la page d'accueil */
+			.breadcrumbs-ac {
+				background-image: url('../img/actualites/1762163084_rt.png');
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				position: relative;
+				padding: 40px 0px; /* réduit de 120px à 40px */
+			}
+			/* règle globale plus serrée pour les sections */
+			section, .section, .section-padding {
+				padding-top: 30px !important;
+				padding-bottom: 30px !important;
+				margin-top: 0 !important;
+				margin-bottom: 0 !important;
+			}
+		</style>
 
 		
 
