@@ -5,8 +5,8 @@
 $isLocal = in_array($_SERVER['SERVER_NAME'], ['localhost', '109.234.160.5']);
 
 if (!defined('PROJECT_ROOT_URL')) {
-    // En local on sert le site à la racine; en production ce projet est dans /info1325/
-    define('PROJECT_ROOT_URL', $isLocal ? '/' : '/info1325/');
+    // Servir le site depuis la racine '/' (production et local)
+    define('PROJECT_ROOT_URL', '/');
 }
 
 // URL de base
