@@ -1,5 +1,7 @@
 <?php
+// Start session and output buffering to avoid "headers already sent" issues
 session_start();
+ob_start();
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // provides $pdo
