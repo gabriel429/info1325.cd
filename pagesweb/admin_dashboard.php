@@ -39,6 +39,7 @@ $role = $_SESSION['role'] ?? 'user';
         <div class="col-md-4"><a class="card p-3 h-100 text-decoration-none" href="<?= URL_MANAGE_FUNFACTS ?>">⚙️ Gérer Fun Facts</a></div>
         <div class="col-md-4"><a class="card p-3 h-100 text-decoration-none" href="<?= URL_MANAGE_AXES ?>">🧭 Gérer Axes</a></div>
         <div class="col-md-4"><a class="card p-3 h-100 text-decoration-none" href="<?= URL_MANAGE_SLIDER ?>">🎞️ Gérer Slider</a></div>
+        <div class="col-md-4"><a class="card p-3 h-100 text-decoration-none" href="<?= BASE_URL ?>pagesweb/manage_users.php">👥 Gérer utilisateurs</a></div>
         <div class="col-md-4"><a class="card p-3 h-100 text-decoration-none" href="<?= URL_ALLDOCUMENTATIONS ?>">📚 Toutes les documentations</a></div>
         <div class="col-md-4"><a class="card p-3 h-100 text-decoration-none" href="<?= URL_ADDDOCUMENTATIONS ?>">➕ Ajouter documentation</a></div>
     </div>
