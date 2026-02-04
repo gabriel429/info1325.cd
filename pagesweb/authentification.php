@@ -13,6 +13,8 @@
         // Exemple simple (tu peux l’améliorer avec une table users)
         if ($email === 'admin@sn1325.cd' && $password === 'admin123') {
             $_SESSION['user'] = $email;
+            // role-based access: 'admin' can manage everything
+            $_SESSION['role'] = 'admin';
             header('Location:'.URL_ADDSPACEADMIN);
             exit;
         } else {

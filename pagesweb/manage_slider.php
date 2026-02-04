@@ -4,7 +4,8 @@ require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // provides $pdo
 
-if (!isset($_SESSION['user'])) {
+// require login + specific role (admin or slider manager)
+if (!isset($_SESSION['user']) || !in_array($_SESSION['role'] ?? '', ['admin','slider'])) {
     header('Location:' . URL_AUTHENTIFICATION);
     exit;
 }

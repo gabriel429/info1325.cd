@@ -126,7 +126,9 @@ if (!isset($_SESSION['user'])) {
 
         <a href="<?=URL_ADDDOCUMENTATIONS; ?>" class="btn btn-info btn-custom">📚 Espace Documentation</a>
 
+        <?php if (in_array($_SESSION['role'] ?? '', ['admin','slider'])): ?>
         <a href="<?= URL_MANAGE_SLIDER; ?>" class="btn btn-secondary btn-custom">🎞️ Gérer le slider</a>
+        <?php endif; ?>
 
 
     </div>
