@@ -60,7 +60,7 @@
 	color:#777;
 	margin-bottom:8px;
 }
-/* Limiter le titre à 3 lignes */
+/* Limiter et justifier le titre à 3 lignes */
 .single-news .news-content h2 a{
 	display:-webkit-box;
 	-webkit-line-clamp:3;
@@ -68,6 +68,13 @@
 	overflow:hidden;
 	text-overflow:ellipsis;
 	display:block;
+	text-align:justify;
+}
+.single-news .news-content h2 a:after{
+	content: "";
+	display:inline-block;
+	width:100%;
+	height:0;
 }
 </style>
 		<section class="blog section" id="blog">
