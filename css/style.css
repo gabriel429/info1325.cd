@@ -3519,22 +3519,20 @@ body{
 
 }
 
-.clients .single-clients img {
-
-	width: 100%;
-
-	cursor: pointer;
-
-	text-align: center;
-
-	float: none;
-
-	padding: 0 35px;
-
+.clients .single-clients{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	padding: 8px 12px;
 }
-
-/* Prevent the generic .overlay pseudo-element from covering client logos */
-.clients.overlay:before {
+.clients .single-clients img {
+	max-height:80px;
+	width:auto;
+	display:block;
+	margin:0 auto;
+	padding: 0 15px;
+	object-fit:contain;
+}
 	display: none;
 }
 
