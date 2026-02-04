@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /includes/
+
+Crawl-delay: 1
+
+Sitemap: https://info1325.cd/sitemap.xml
