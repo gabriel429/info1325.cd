@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/mwbi6090/public_html
+    - export DEPLOYPATH=/home/mwbi6090/info1325.cd
     # Nettoyer le dossier de destination (optionnel)
     - /bin/rm -rf $DEPLOYPATH/*
     - /bin/rm -rf $DEPLOYPATH/.* 2>/dev/null || true
