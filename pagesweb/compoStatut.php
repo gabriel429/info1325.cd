@@ -27,9 +27,15 @@ require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // provides $pdo
 
-// Try to load 4 fun facts from DB, fallback to defaults
-$stmt = $pdo->query('SELECT * FROM fun_facts ORDER BY `position` ASC LIMIT 4');
-$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$rows = [];
+// Try to load 4 fun facts from DB, fallback to defaults if table missing or error
+try {
+    $stmt = $pdo->query('SELECT * FROM fun_facts ORDER BY `position` ASC LIMIT 4');
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Table may not exist on this environment yet; we'll use defaults below
+    $rows = [];
+}
 $defaults = [
     1 => ['value'=>'34','text'=>"% des femmes font parties du Gouvernement National"],
     2 => ['value'=>'8.5','text'=>"% des femmes occupent des postes de responsabilité au sein de la police"],
