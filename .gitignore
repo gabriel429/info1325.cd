@@ -1,0 +1,35 @@
+# .gitignore pour projet PHP / WAMP
+
+# Composer
+/vendor/
+/composer.lock
+
+# Node
+/node_modules/
+/npm-debug.log
+/yarn.lock
+/package-lock.json
+
+# Environnements
+.env
+.env.local
+.env.*.local
+
+# Logs, caches et uploads
+*.log
+logs/
+cache/
+tmp/
+temp/
+uploads/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.sublime*
+*.swp
