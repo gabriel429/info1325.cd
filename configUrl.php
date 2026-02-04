@@ -1,4 +1,5 @@
-﻿<?php
+﻿
+<?php
 
 // Racine du projet (en local '/Akili/', en prod '/')
 
