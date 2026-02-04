@@ -43,6 +43,10 @@ $role = $_SESSION['role'] ?? 'user';
         <div class="col-md-4"><a class="card p-3 h-100 text-decoration-none" href="<?= URL_ADDDOCUMENTATIONS ?>">➕ Ajouter documentation</a></div>
     </div>
 
+    <div class="mt-4">
+        <a class="btn btn-outline-primary" href="<?= BASE_URL ?>pagesweb/change_password.php">Changer mon mot de passe</a>
+    </div>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
