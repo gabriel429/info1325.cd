@@ -2076,8 +2076,13 @@ body{
 
 	background:#fff;
 
-	padding-bottom: 50px !important;
+	padding-bottom: 0 !important;
 
+}
+
+/* remove extra vertical gap when why-choose is followed by portfolio */
+.portfolio.section{
+	padding-top: 0 !important;
 }
 
 .why-choose .choose-right{
