@@ -41,10 +41,10 @@
 								if (!empty($a['image'])) {
 									$imgSrc = IMG_DIR . 'axes/' . $a['image'];
 								} else {
-									$svg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">'<
-										.'<rect fill="#e9ecef" width="100%" height="100%"/>'
-										.'<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6c757d" font-size="20">Image manquante</text>'
-										.'</svg>';
+									$svg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">'
+										. '<rect fill="#e9ecef" width="100%" height="100%"/>'
+										. '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6c757d" font-size="20">Image manquante</text>'
+										. '</svg>';
 									$imgSrc = 'data:image/svg+xml;utf8,' . rawurlencode($svg);
 								}
 							?>
