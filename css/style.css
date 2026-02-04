@@ -1,3 +1,51 @@
+./* Compatibility: ensure old '.services' selectors keep the same look as '.axes' */
+.services .single-service, .axes .single-service{
+	padding:20px 30px 25px;
+	background:#fff;
+	-webkit-box-shadow:0 6px 20px rgba(0,0,0,.06);
+	box-shadow:0 6px 20px rgba(0,0,0,.06);
+	margin-bottom:30px;
+}
+.services .single-service i, .axes .single-service i{
+	font-size:24px;
+	color:#0877d1;
+	line-height:63px;
+	width:63px;
+	height:63px;
+	border-radius:50%;
+	text-align:center;
+	background:rgba(8,119,209,0.06);
+	display:inline-block;
+}
+.services .single-service h4, .axes .single-service h4{
+	font-size:18px;
+	line-height:26px;
+	margin-bottom:10px;
+}
+.services .single-service h4 a, .axes .single-service h4 a{
+	color:#111;
+	font-weight:700;
+}
+.services .single-service h4 a:hover, .axes .single-service h4 a:hover{
+	color:#0877d1;
+}
+.services .single-service p, .axes .single-service p{
+	color:#777;
+}
+.services-details-img, .axes-details-img{
+	padding:40px 0 0;
+}
+.services-details-img img, .axes-details-img img{width:100%}
+.services-details-img h2, .axes-details-img h2{font-size:30px}
+.services-details-img P, .axes-details-img P{color:#777}
+.services-details-img blockquote, .axes-details-img blockquote{
+	padding:40px;
+	background:#fff;
+	-webkit-box-shadow:0 12px 30px rgba(0,0,0,.06);
+	box-shadow:0 12px 30px rgba(0,0,0,.06);
+}
+.services-details-img blockquote i, .axes-details-img blockquote i{font-size:20px;color:#0877d1}
+
 /* =====================================
 
 Template Name: 	Mediplus.

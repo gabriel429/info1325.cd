@@ -1308,6 +1308,6 @@ Version:	1.1
 }
 
 /* Responsive: axes (formerly services) */
-.axes .single-service{padding:20px 30px 25px}
-.axes .single-service h4{font-size:18px}
-.axes-details-img{padding:30px 0}
+.axes .single-service, .services .single-service{padding:20px 30px 25px}
+.axes .single-service h4, .services .single-service h4{font-size:18px}
+.axes-details-img, .services-details-img{padding:30px 0}
