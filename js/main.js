@@ -78,18 +78,22 @@ Version:	1.1
 		/*===============================
 			Hero Slider JS
 		=================================*/ 
-		$(".hero-slider").owlCarousel({
-			loop:true,
-			autoplay:true,
-			smartSpeed: 500,
-			autoplayTimeout:3500,
-			singleItem: true,
-			autoplayHoverPause:true,
-			items:1,
-			nav:true,
-			navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-			dots:false,
-		});
+		if (typeof $.fn.owlCarousel === 'function') {
+			$(".hero-slider").owlCarousel({
+				loop:true,
+				autoplay:true,
+				smartSpeed: 500,
+				autoplayTimeout:3500,
+				singleItem: true,
+				autoplayHoverPause:true,
+				items:1,
+				nav:true,
+				navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>', '<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+				dots:false,
+			});
+		} else {
+			console.warn('Owl Carousel not loaded: .hero-slider will remain static.');
+		}
 
 		/*===============================
 			Testimonial Slider JS
