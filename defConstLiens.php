@@ -43,7 +43,7 @@
     $compoGaleriPath = __DIR__ . '/pagesweb/compoGaleri.php'; // chemin correct
     if (!file_exists($compoGaleriPath)) {die("Erreur : composante galerie introuvable : $compoGaleriPath");}
 
-    $compoPartenairePath = __DIR__ . '/pagesweb/compoPartenaires.php'; // chemin correct
+    $compoPartenairePath = __DIR__ . '/pagesweb/compoPartenaires.php'; // partners band implementation
     if (!file_exists($compoPartenairePath)) {die("Erreur : composante partenaire introuvable : $compoPartenairePath");}
 
     $compoMinistrePath = __DIR__ . '/pagesweb/compoMinistre.php'; // chemin correct

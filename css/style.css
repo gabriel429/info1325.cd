@@ -6,6 +6,49 @@
 	box-shadow:0 6px 20px rgba(0,0,0,.06);
 	margin-bottom:30px;
 }
+
+/* Partners band styling */
+.partners-band{
+	background:#f8f9fb;
+	padding:12px 0;
+}
+.partners-band .partners-slider{ /* carousel track */
+	align-items:center;
+}
+.partners-band .single-partner{ text-align:center; padding:6px 12px; }
+.partners-band .single-partner img{ max-height:80px; max-width:180px; object-fit:contain; display:inline-block; }
+@media (max-width:768px){
+	.partners-band .single-partner img{ max-height:56px; }
+}
+
+
+/* Ensure all axes cards have the same height and clipped text */
+.axes .single-service{
+	height:320px;
+	display:flex;
+	flex-direction:column;
+	justify-content:flex-end;
+	padding:0; /* card content uses inner .ss-content padding */
+	margin-bottom:24px;
+}
+.axes .single-service .ss-overlay{ /* overlay already absolutely positioned */ }
+.axes .single-service .ss-content{
+	padding:20px;
+	display:flex;
+	flex-direction:column;
+	justify-content:flex-end;
+}
+.axes .single-service .ss-content p{
+	margin:0;
+	color:rgba(255,255,255,0.95);
+	overflow:hidden;
+	display:-webkit-box;
+	-webkit-line-clamp:4;
+	-webkit-box-orient:vertical;
+}
+@media (max-width:767px){
+	.axes .single-service{ height:auto; min-height:220px; }
+}
 .services .single-service i, .axes .single-service i{
 	font-size:24px;
 	color:#0877d1;
@@ -1238,6 +1281,75 @@ body{
 
 	background-repeat:no-repeat;
 
+}
+
+/* Remove vertical spacing for top slider section (body > section.slider > div) */
+body > section.slider,
+body > section.slider.section {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+body > section.slider > div {
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+/* Ensure hero slider is flush to its section: remove vertical gaps */
+.hero-slider,
+.hero-slider.owl-theme,
+.hero-slider.owl-loaded,
+.hero-slider.owl-theme.owl-loaded {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.hero-slider .owl-stage-outer,
+.hero-slider .owl-stage,
+.hero-slider .owl-item,
+.hero-slider .owl-carousel {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.hero-slider .single-slider {
+	margin: 0 !important;
+	padding: 0 !important;
+	height: 100% !important;
+}
+/* If container (.container or .row) adds vertical padding, reset inside hero-slider */
+.hero-slider .container,
+.hero-slider .row {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Force hero-slider to match section size: 1216x660 (desktop) */
+body > section.slider {
+	height: 660px !important;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+.hero-slider {
+	width: 1216px;
+	max-width: 100%;
+	height: 660px;
+	margin: 0 auto;
+}
+.hero-slider .single-slider {
+	height: 660px !important;
+	min-height: 660px !important;
+	max-height: 660px !important;
+	background-size: cover !important;
+	background-position: center !important;
+}
+/* Scale the slider proportionally on small viewports */
+@media (max-width:1216px){
+	body > section.slider{ height: auto !important; }
+	.hero-slider, .hero-slider .single-slider{
+		width: 100% !important;
+		height: calc(100vw * 660 / 1216) !important; /* preserve aspect ratio */
+		min-height: 220px !important;
+	}
 }
 
 .slider .single-slider .text{

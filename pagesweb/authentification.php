@@ -43,13 +43,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([':email'=>$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user && password_verify($password, $user['password'])) {
-            // Successful login
-            session_regenerate_id(true);
-            $_SESSION['user'] = $user['email'];
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $user['role'];
+          // Successful login
+          session_regenerate_id(true);
+          $_SESSION['user'] = $user['email'];
+          $_SESSION['user_id'] = $user['id'];
+          $_SESSION['role'] = $user['role'];
+          // Redirect admins directly to the admin dashboard
+          if (isset($user['role']) && $user['role'] === 'admin') {
+            header('Location: ' . URL_ADMINISTRATEUR);
+          } else {
             header('Location: ' . URL_ADDSPACEADMIN);
-            exit;
+          }
+          exit;
         } else {
             $error = 'Email ou mot de passe incorrect.';
         }

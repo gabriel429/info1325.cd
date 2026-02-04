@@ -184,6 +184,25 @@ Version:	1.1
 					1170: { items:5 },
 				}
 			});
+
+			// Partners slider (horizontal band of logos)
+			$('.partners-slider').owlCarousel({
+				items:6,
+				autoplay:true,
+				autoplayTimeout:2500,
+				margin:10,
+				smartSpeed: 600,
+				autoplayHoverPause:true,
+				loop:true,
+				nav:false,
+				dots:false,
+				responsive:{
+					300: { items:2 },
+					480: { items:3 },
+					768: { items:4 },
+					1170: { items:6 },
+				}
+			});
 		} else {
 			console.warn('Owl Carousel not loaded: .clients-slider will remain static.');
 		}

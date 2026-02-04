@@ -304,6 +304,7 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php if (in_array($_SESSION['role'] ?? '', ['admin','slider'])): ?>
             <a href="<?= URL_MANAGE_SLIDER; ?>" class="btn btn-outline-light me-2">🎞️ Gérer Slider</a>
         <?php endif; ?>
+        <a href="<?= URL_MANAGE_PARTENAIRES; ?>" class="btn btn-outline-light me-2">🤝 Gérer Partenaires</a>
 
         <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
 

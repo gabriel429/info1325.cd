@@ -10,6 +10,8 @@ if (!isset($_SESSION['user'])) {
 }
 
 $message = '';
+// collect upload error messages to show to admin
+$uploadErrors = [];
 
 // Create table if not exists (add image column)
 $pdo->exec("CREATE TABLE IF NOT EXISTS axes (
@@ -50,16 +52,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
             $desc = trim($_POST['description'][$i] ?? '');
             // handle image upload for this axis
             $uploadedImage = null;
-            if (isset($_FILES['image']) && isset($_FILES['image']['name'][$i]) && $_FILES['image']['error'][$i] === UPLOAD_ERR_OK) {
-                $tmp = $_FILES['image']['tmp_name'][$i];
-                $orig = basename($_FILES['image']['name'][$i]);
-                $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
-                if (in_array($ext, ['jpg','jpeg','png','webp','gif'])) {
-                    $fileName = time() . '_' . $i . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $orig);
-                    $dest = $targetDir . $fileName;
-                    if (move_uploaded_file($tmp, $dest)) {
-                        $uploadedImage = $fileName;
+            if (isset($_FILES['image']) && isset($_FILES['image']['name'][$i])) {
+                $err = $_FILES['image']['error'][$i] ?? UPLOAD_ERR_NO_FILE;
+                if ($err === UPLOAD_ERR_OK) {
+                    $tmp = $_FILES['image']['tmp_name'][$i];
+                    $orig = basename($_FILES['image']['name'][$i]);
+                    $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
+                    if (in_array($ext, ['jpg','jpeg','png','webp','gif'])) {
+                        $fileName = time() . '_' . $i . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $orig);
+                        $dest = $targetDir . $fileName;
+                        if (move_uploaded_file($tmp, $dest)) {
+                            $uploadedImage = $fileName;
+                        } else {
+                            $uploadErrors[] = "Impossible de déplacer le fichier pour l'axe #$i";
+                        }
+                    } else {
+                        $uploadErrors[] = "Extension non autorisée pour l'axe #$i : .$ext";
                     }
+                } elseif ($err !== UPLOAD_ERR_NO_FILE) {
+                    $uploadErrors[] = "Erreur upload (code $err) pour l'axe #$i";
                 }
             }
             if ($title === '' && $desc === '') {
@@ -75,16 +86,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
                     $stmt = $pdo->prepare('UPDATE axes SET title = :title, description = :desc, image = :img WHERE `position` = :pos');
                     $stmt->execute([':title'=>$title, ':desc'=>$desc, ':img'=>$uploadedImage, ':pos'=>$i]);
                 } else {
+                    // keep existing image when no new file uploaded
                     $stmt = $pdo->prepare('UPDATE axes SET title = :title, description = :desc WHERE `position` = :pos');
                     $stmt->execute([':title'=>$title, ':desc'=>$desc, ':pos'=>$i]);
                 }
             } else {
+                // insert new record; image may be null when not provided
                 $stmt = $pdo->prepare('INSERT INTO axes (`position`, title, description, image) VALUES (:pos, :title, :desc, :img)');
                 $stmt->execute([':pos'=>$i, ':title'=>$title, ':desc'=>$desc, ':img'=>$uploadedImage]);
             }
         }
         $pdo->commit();
         $message = "<div class='alert alert-success'>Axes sauvegardés.</div>";
+        if (!empty($uploadErrors)) {
+            $message .= "<div class='alert alert-warning'><strong>Upload :</strong><ul>";
+            foreach ($uploadErrors as $ue) $message .= '<li>' . htmlspecialchars($ue) . '</li>';
+            $message .= "</ul></div>";
+        }
     } catch (Exception $e) {
         $pdo->rollBack();
         $message = "<div class='alert alert-danger'>Erreur : " . htmlspecialchars($e->getMessage()) . "</div>";
@@ -127,7 +145,7 @@ for ($i=1;$i<=6;$i++) {
 </nav>
 <div class="container py-4">
     <?= $message ?>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="save" value="1">
         <div class="row">
 <?php for ($i=1;$i<=6;$i++):
@@ -159,7 +177,7 @@ for ($i=1;$i<=6;$i++) {
 <?php endfor; ?>
         </div>
         <div class="d-flex gap-2">
-            <button class="btn btn-primary" id="saveBtn">Enregistrer</button>
+            <button type="submit" class="btn btn-primary" id="saveBtn">Enregistrer</button>
             <button type="button" class="btn btn-outline-secondary" id="resetPreview">Réinitialiser aperçu</button>
         </div>
     </form>
