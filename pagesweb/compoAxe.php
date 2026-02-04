@@ -30,6 +30,9 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Axe -->
 						<div class="single-service">
+							<?php if (!empty($a['image'])): ?>
+								<div class="service-img" style="margin-bottom:12px;"><img src="<?= IMG_DIR ?>axes/<?= htmlspecialchars($a['image']) ?>" alt="<?= htmlspecialchars($a['title']) ?>" style="width:100%;height:160px;object-fit:cover;border-radius:4px;"></div>
+							<?php endif; ?>
 							<h4><a href="service-details.html"><?= htmlspecialchars($a['title']) ?></a></h4>
 							<?php if (!empty($a['description'])): ?>
 							<p><?= htmlspecialchars($a['description']) ?></p>

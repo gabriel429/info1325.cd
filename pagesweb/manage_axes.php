@@ -11,13 +11,22 @@ if (!isset($_SESSION['user'])) {
 
 $message = '';
 
-// Create table if not exists
+// Create table if not exists (add image column)
 $pdo->exec("CREATE TABLE IF NOT EXISTS axes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     `position` INT NOT NULL UNIQUE,
     `title` VARCHAR(255) NOT NULL,
-    `description` TEXT NOT NULL
+    `description` TEXT NOT NULL,
+    `image` VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+
+// Ensure image column exists (for older installs)
+try {
+    $pdo->query("SELECT image FROM axes LIMIT 1");
+} catch (PDOException $e) {
+    // try to add column
+    try { $pdo->exec("ALTER TABLE axes ADD COLUMN image VARCHAR(255) DEFAULT NULL"); } catch (Exception $ignore) {}
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     // Validation serveur : limites de longueur
@@ -34,9 +43,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     try {
         $pdo->beginTransaction();
         // allow up to 6 axes
+        $targetDir = __DIR__ . '/../img/axes/';
+        if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
         for ($i = 1; $i <= 6; $i++) {
             $title = trim($_POST['title'][$i] ?? '');
             $desc = trim($_POST['description'][$i] ?? '');
+            // handle image upload for this axis
+            $uploadedImage = null;
+            if (isset($_FILES['image']) && isset($_FILES['image']['name'][$i]) && $_FILES['image']['error'][$i] === UPLOAD_ERR_OK) {
+                $tmp = $_FILES['image']['tmp_name'][$i];
+                $orig = basename($_FILES['image']['name'][$i]);
+                $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION));
+                if (in_array($ext, ['jpg','jpeg','png','webp','gif'])) {
+                    $fileName = time() . '_' . $i . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', $orig);
+                    $dest = $targetDir . $fileName;
+                    if (move_uploaded_file($tmp, $dest)) {
+                        $uploadedImage = $fileName;
+                    }
+                }
+            }
             if ($title === '' && $desc === '') {
                 $stmt = $pdo->prepare('DELETE FROM axes WHERE `position` = :pos');
                 $stmt->execute([':pos'=>$i]);
@@ -46,11 +71,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
             $stmt->execute([':pos'=>$i]);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row) {
-                $stmt = $pdo->prepare('UPDATE axes SET title = :title, description = :desc WHERE `position` = :pos');
-                $stmt->execute([':title'=>$title, ':desc'=>$desc, ':pos'=>$i]);
+                if ($uploadedImage) {
+                    $stmt = $pdo->prepare('UPDATE axes SET title = :title, description = :desc, image = :img WHERE `position` = :pos');
+                    $stmt->execute([':title'=>$title, ':desc'=>$desc, ':img'=>$uploadedImage, ':pos'=>$i]);
+                } else {
+                    $stmt = $pdo->prepare('UPDATE axes SET title = :title, description = :desc WHERE `position` = :pos');
+                    $stmt->execute([':title'=>$title, ':desc'=>$desc, ':pos'=>$i]);
+                }
             } else {
-                $stmt = $pdo->prepare('INSERT INTO axes (`position`, title, description) VALUES (:pos, :title, :desc)');
-                $stmt->execute([':pos'=>$i, ':title'=>$title, ':desc'=>$desc]);
+                $stmt = $pdo->prepare('INSERT INTO axes (`position`, title, description, image) VALUES (:pos, :title, :desc, :img)');
+                $stmt->execute([':pos'=>$i, ':title'=>$title, ':desc'=>$desc, ':img'=>$uploadedImage]);
             }
         }
         $pdo->commit();
@@ -115,6 +145,13 @@ for ($i=1;$i<=6;$i++) {
                         <div>
                             <label class="form-label">Description (p)</label>
                             <textarea name="description[<?= $i ?>]" class="form-control axis-desc" rows="3" maxlength="300" data-index="<?= $i ?>"><?= $d ?></textarea>
+                        </div>
+                        <div class="mt-2">
+                            <label class="form-label">Image (optionnelle)</label>
+                            <input type="file" name="image[<?= $i ?>]" accept="image/*" class="form-control">
+                            <?php if (!empty($axes[$i]['image'])): ?>
+                                <div class="mt-2"><img src="<?= IMG_DIR ?>axes/<?= htmlspecialchars($axes[$i]['image']) ?>" alt="axe-<?= $i ?>" style="max-width:120px;max-height:80px;object-fit:cover;border:1px solid #ddd;padding:2px;"></div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
