@@ -60,6 +60,15 @@
 	color:#777;
 	margin-bottom:8px;
 }
+/* Limiter le titre à 3 lignes */
+.single-news .news-content h2 a{
+	display:-webkit-box;
+	-webkit-line-clamp:3;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	display:block;
+}
 </style>
 		<section class="blog section" id="blog">
 			<div class="container">
