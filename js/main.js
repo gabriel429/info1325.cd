@@ -302,8 +302,10 @@ Version:	1.1
 
 		/*====================
 			Google Maps JS
-		======================*/
-		var map = new GMaps({
+		========================*/
+		// Create map only when the target element exists to avoid "No element defined." errors
+		if (typeof GMaps !== 'undefined' && $('#map').length) {
+			var map = new GMaps({
 				el: '#map',
 				lat: 23.011245,
 				lng: 90.884780,
@@ -314,10 +316,10 @@ Version:	1.1
 				lng: 90.884780,
 				title: 'Marker with InfoWindow',
 				infoWindow: {
-				content: '<p>welcome to Medipro</p>'
-			}
-		
-		});
+					content: '<p>welcome to Medipro</p>'
+				}
+			});
+		}
 	});
 	
 	/*====================

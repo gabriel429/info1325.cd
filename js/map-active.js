@@ -2,6 +2,8 @@ $(document).ready(function(){
 /*====================================
 	Google Map JS
 ======================================*/ 	
+// Only initialize when GMaps is available and target element exists
+if (typeof GMaps !== 'undefined' && $('#myMap').length) {
 (function(){
 
 	var map;
@@ -76,5 +78,7 @@ $(document).ready(function(){
 
 	map.setStyle("map_style");
 }());
+
+} // end if
 
 });
