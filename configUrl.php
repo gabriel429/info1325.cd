@@ -50,7 +50,7 @@ define('URL_GALERI', BASE_URL . 'pagesweb/compoGaleri/');
 define('URL_STATUT', BASE_URL . 'pagesweb/compoStatut/');
 define('URL_AUTHENTIFICATION', BASE_URL . 'pagesweb/authentification/');
 define('URL_ADDACTUALITES', BASE_URL . 'pagesweb/add-actualites/');
-define('URL_ADMINISTRATEUR', BASE_URL . 'pagesweb/administrateur/');
+define('URL_ADMINISTRATEUR', BASE_URL . 'pagesweb/admin_dashboard/');
 define('URL_ADDDOCUMENTATIONS', BASE_URL . 'pagesweb/add-documentation/');
 define('URL_ADDSPACEADMIN', BASE_URL . 'pagesweb/add-space/');
 define('URL_MANAGE_FUNFACTS', BASE_URL . 'pagesweb/manage_funfacts/');
