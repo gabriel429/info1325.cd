@@ -12,8 +12,14 @@
 					<?php
 					// load up to 6 axes from DB; fallback to static content if missing
 					require_once $dateDbConnect; // ensure $pdo is available
-					$stmt = $pdo->query('SELECT * FROM axes ORDER BY `position` ASC LIMIT 6');
-					$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+					$rows = [];
+					try {
+						$stmt = $pdo->query('SELECT * FROM axes ORDER BY `position` ASC LIMIT 6');
+						$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+					} catch (PDOException $e) {
+						// table may not exist yet on this environment; fallback to defaults below
+						$rows = [];
+					}
 					$defaults = [
 						1 => ['title'=>'PREVENTION','description'=>'Intégrer la perspective de genre dans la prévention des conflits et éliminer les violences basées sur le genre'],
 						2 => ['title'=>'PARTICIPATION','description'=>'Garantir la participation pleine et effective des femmes à tous les niveaux de prise de décision'],
