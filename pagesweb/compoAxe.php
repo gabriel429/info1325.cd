@@ -35,36 +35,37 @@
 					?>
 					<div class="col-lg-4 col-md-6 col-12">
 						<!-- Start Single Axe -->
-						<div class="single-service">
-							<?php
-								// Always render an image: uploaded image or SVG placeholder
-								if (!empty($a['image'])) {
-									$imgSrc = IMG_DIR . 'axes/' . $a['image'];
-								} else {
-									// try default files named axis_1.jpg, axis_1.png, etc.
-									$found = null;
-									$basePath = __DIR__ . '/../img/axes/';
-									$nameBase = 'axis_' . $i;
-									$exts = ['jpg','jpeg','png','webp','gif'];
-									foreach ($exts as $e) {
-										if (file_exists($basePath . $nameBase . '.' . $e)) { $found = $nameBase . '.' . $e; break; }
-									}
-									if ($found) {
-										$imgSrc = IMG_DIR . 'axes/' . $found;
-									} else {
-										$svg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">'
-											. '<rect fill="#e9ecef" width="100%" height="100%"/>'
-											. '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6c757d" font-size="20">Image manquante</text>'
-											. '</svg>';
-										$imgSrc = 'data:image/svg+xml;utf8,' . rawurlencode($svg);
-									}
+						<?php
+							// Always render background image: uploaded image or default file or SVG placeholder
+							if (!empty($a['image'])) {
+								$imgSrc = IMG_DIR . 'axes/' . $a['image'];
+							} else {
+								$found = null;
+								$basePath = __DIR__ . '/../img/axes/';
+								$nameBase = 'axis_' . $i;
+								$exts = ['jpg','jpeg','png','webp','gif'];
+								foreach ($exts as $e) {
+									if (file_exists($basePath . $nameBase . '.' . $e)) { $found = $nameBase . '.' . $e; break; }
 								}
-							?>
-							<div class="service-img" style="margin-bottom:12px;"><img src="<?= $imgSrc ?>" alt="<?= htmlspecialchars($a['title']) ?>" style="width:100%;height:160px;object-fit:cover;border-radius:4px;"></div>
-							<h4><a href="service-details.html"><?= htmlspecialchars($a['title']) ?></a></h4>
-							<?php if (!empty($a['description'])): ?>
-							<p><?= htmlspecialchars($a['description']) ?></p>
-							<?php endif; ?>
+								if ($found) {
+									$imgSrc = IMG_DIR . 'axes/' . $found;
+								} else {
+									$svg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400">'
+										. '<rect fill="#e9ecef" width="100%" height="100%"/>'
+										. '<text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#6c757d" font-size="20">Image manquante</text>'
+										. '</svg>';
+									$imgSrc = 'data:image/svg+xml;utf8,' . rawurlencode($svg);
+								}
+							}
+						?>
+						<div class="single-service" style="background-image:url('<?= $imgSrc ?>');background-size:cover;background-position:center;position:relative;min-height:220px;border-radius:6px;overflow:hidden;">
+							<div class="ss-overlay" style="position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.2));z-index:1;"></div>
+							<div class="ss-content" style="position:relative;z-index:2;padding:20px;color:#fff;">
+								<h4 style="margin-top:0;margin-bottom:8px;"><a href="service-details.html" style="color:#fff;text-decoration:none;text-shadow:0 2px 6px rgba(0,0,0,0.6);"><?= htmlspecialchars($a['title']) ?></a></h4>
+								<?php if (!empty($a['description'])): ?>
+								<p style="color:rgba(255,255,255,0.95);text-shadow:0 1px 3px rgba(0,0,0,0.6);margin-bottom:0;"><?= htmlspecialchars($a['description']) ?></p>
+								<?php endif; ?>
+							</div>
 						</div>
 						<!-- End Single Axe -->
 					</div>
