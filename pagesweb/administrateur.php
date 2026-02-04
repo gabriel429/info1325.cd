@@ -300,6 +300,7 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <a href="<?= URL_ADDACTUALITES; ?>" class="btn btn-outline-light me-2">📋 Formulaire d'Ajout actualité</a>
         <a href="<?= URL_MANAGE_FUNFACTS; ?>" class="btn btn-outline-light me-2">⚙️ Gérer Fun Facts</a>
+        <a href="<?= URL_MANAGE_AXES; ?>" class="btn btn-outline-light me-2">🧭 Gérer Axes</a>
 
         <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
 
