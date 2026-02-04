@@ -3533,6 +3533,16 @@ body{
 
 }
 
+/* Prevent the generic .overlay pseudo-element from covering client logos */
+.clients.overlay:before {
+	display: none;
+}
+
+.clients .container {
+	position: relative;
+	z-index: 2;
+}
+
 /*========================
 
 	End Clients CSS
