@@ -1,0 +1,13 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/mwbi6090/public_html
+    # Nettoyer le dossier de destination (optionnel)
+    - /bin/rm -rf $DEPLOYPATH/*
+    - /bin/rm -rf $DEPLOYPATH/.* 2>/dev/null || true
+    # Copier tous les fichiers
+    - /bin/cp -r * $DEPLOYPATH/
+    - /bin/cp -r .* $DEPLOYPATH/ 2>/dev/null || true
+    # Corriger les permissions
+    - /bin/chmod -R 755 $DEPLOYPATH
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
