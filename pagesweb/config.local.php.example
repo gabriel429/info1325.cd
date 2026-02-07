@@ -1,0 +1,18 @@
+<?php
+/**
+ * Fichier de configuration local (ne pas versionner)
+ *
+ * Copiez ce fichier en config.local.php et remplissez avec vos identifiants
+ * Le fichier config.local.php est ignoré par Git pour des raisons de sécurité
+ */
+
+return [
+    'db' => [
+        'host' => 'localhost',
+        'database' => 'mwbi6090_sn1325',
+        'username' => 'votre_utilisateur',
+        'password' => 'votre_mot_de_passe',
+        'charset' => 'utf8mb4'
+    ],
+    'environment' => 'production', // ou 'local'
+];

@@ -33,3 +33,9 @@ desktop.ini
 .idea/
 *.sublime*
 *.swp
+
+# Fichiers temporaires Claude
+tmpclaude-*
+
+# Configuration locale (si utilisée)
+pagesweb/config.local.php

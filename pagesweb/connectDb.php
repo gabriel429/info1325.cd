@@ -1,14 +1,24 @@
 <?php
 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
+    // Détection de l'environnement
+    $isLocal = in_array($_SERVER['SERVER_NAME'] ?? 'localhost', ['localhost', '127.0.0.1']);
+
+    // Configuration des erreurs selon l'environnement
+    if ($isLocal) {
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+    } else {
+        error_reporting(0);
+        ini_set('display_errors', 0);
+        ini_set('display_startup_errors', 0);
+    }
 
 // Configuration de la base de données
 $host = 'localhost';
 $db   = 'mwbi6090_sn1325';
-$user = 'root';
-$pass = '';
+$user = $isLocal ? 'root' : 'mwbi6090_root';
+$pass = $isLocal ? '' : 'bxAU7dh2r5KzmSS';
 $charset = 'utf8mb4'; // Recommandé pour une compatibilité complète
 
 // Options de PDO pour une connexion robuste
