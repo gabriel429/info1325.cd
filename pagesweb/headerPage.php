@@ -89,9 +89,14 @@
 
         <link rel="stylesheet" href="<?= CSS_DIR ?>normalize.css">
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>style.css">
+		<link rel="stylesheet" href="<?= CSS_DIR ?>style.css">
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>responsive.css">
+		<link rel="stylesheet" href="<?= CSS_DIR ?>responsive.css">
+		<!-- Theme overrides: CareMed-inspired variables (applies site-wide) -->
+		<link rel="stylesheet" href="<?= CSS_DIR ?>caremed-variables.css">
+		<?php if (!empty($pageCss)) : ?>
+			<link rel="stylesheet" href="<?= $pageCss ?>">
+		<?php endif; ?>
 
 		<style>
 			/* Réduction des grands espaces entre sections pour la page d'accueil */
@@ -168,7 +173,7 @@
 
 			<li>lapiardidier561@gmail.com</li>
 
-			<li>secretariat1325@sn1325.cd</li>
+			<li>contact@sn1325.cd</li>
 
 			<li>Kinshasa-Gombe, en diagonale du Premier Shopping Mall, dans la concession du Secrétariat au Développement Rural.</li>
 
@@ -197,13 +202,9 @@
 						<div class="col-lg-6 col-md-5 col-12">
 
 							<!-- Contact -->
-
 							<ul class="top-link">
-
 								<li><a href="<?= URL_SECRETAIRIATNATIONAL ?>">A propos</a></li>
-
 								<li><a href="<?= URL_CONTACT ?>">Contact</a></li>
-
 							</ul>
 
 							<!-- End Contact -->
@@ -299,6 +300,7 @@
 												<ul class="dropdown">
 
 													<li><a href="<?= URL_CONTACT ?>">Contact</a></li>
+													<li><a href="<?= URL_GALERIE ?>">Galerie</a></li>
 
 												</ul>
 
@@ -337,3 +339,68 @@
 		</header>
 
 		<!-- End Header Area -->
+
+<?php
+// Affiche une zone "breadcrumbs overlay" par défaut pour toutes les pages
+// - Utilise $PAGE_TITLE si défini par la page
+// - Ne l'affiche pas pour certaines pages qui gèrent déjà leur propre breadcrumbs
+$skipBreadcrumbFor = [
+	'/pagesweb/actualites.php',
+	'/pagesweb/contact.php',
+	'/pagesweb/resolution.php',
+	'/index.php',
+	'/' // root URL (Accueil)
+];
+$script = $_SERVER['SCRIPT_NAME'] ?? '';
+// default: show breadcrumb unless a skip match is found
+$showBreadcrumb = true;
+foreach ($skipBreadcrumbFor as $skip) {
+	if (stripos($script, $skip) !== false) {
+		// page gère déjà son breadcrumb
+		$showBreadcrumb = false;
+		break;
+	}
+}
+
+// Decide and render either an overlay breadcrumb or a simple centered page title
+// titre priorité: $PAGE_TITLE sinon heuristique depuis l'URL
+if (!isset($PAGE_TITLE) || trim($PAGE_TITLE) === '') {
+	$path = $_SERVER['REQUEST_URI'] ?? $_SERVER['SCRIPT_NAME'];
+	$name = basename(parse_url($path, PHP_URL_PATH));
+	$name = preg_replace('/\.(php|html)$/i', '', $name);
+	$name = str_replace(['index','pagesweb',''], '', $name);
+	if ($name === '' || $name === '/') $name = 'Accueil';
+	// pretty name
+	$PAGE_TITLE = ucwords(str_replace(['-','_'], ' ', $name));
+}
+
+if (!empty($showBreadcrumb)) {
+	// existing overlay breadcrumb
+	?>
+	<div class="breadcrumbs overlay">
+		<div class="container">
+			<div class="bread-inner">
+				<div class="row">
+					<div class="col-12">
+						<h2><?= htmlspecialchars($PAGE_TITLE) ?></h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
+} else {
+	// render a simple, centered page title for inner pages (excluding index)
+	$script = $_SERVER['SCRIPT_NAME'] ?? '';
+	if (!preg_match('#(?:/index\.php$|/\s*$)#i', $script)) {
+		// Allow pages to suppress the page header by setting $SKIP_PAGE_TITLE = true
+		if (empty($SKIP_PAGE_TITLE)) {
+			?>
+			<div class="container page-header">
+				<h2><?= htmlspecialchars($PAGE_TITLE) ?></h2>
+			</div>
+			<?php
+		}
+	}
+}
+?>

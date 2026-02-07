@@ -54,12 +54,13 @@
 
     $compoSlideAreaPath = __DIR__ . '/pagesweb/compoSlideArea.php'; // chemin correct
     if (!file_exists($compoSlideAreaPath)) {die("Erreur : composante slide area introuvable : $compoSlideAreaPath");}
-
+    $URL_GALERIEPath = __DIR__ . "/pagesweb/gallery.php";
 
     $dateDbConnect = __DIR__ . '/pagesweb/connectDb.php'; // chemin correct
     if (!file_exists($dateDbConnect)) {die("Erreur : composante date db connect introuvable : $dateDbConnect");}
 
-
+    $dateDbUpdate = __DIR__ .  '/pagesweb/gallery.php'; // chemin correct
+    if (!file_exists($dateDbUpdate)) {die("Erreur : composante date db update introuvable : $dateDbUpdate");}   
 
     $authentification = __DIR__ . '/pagesweb/authentification.php'; // chemin correct
     if (!file_exists($authentification)) {die("Erreur : composante authentification introuvable : $authentification");}

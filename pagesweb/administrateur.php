@@ -80,6 +80,17 @@ function uploadFile($fileKey, $targetDir, $allowedTypes)
 
     if (move_uploaded_file($file['tmp_name'], $targetFile)) {
 
+        // After successful upload, try to generate an optimized image and a thumbnail
+        try {
+            // Resize main image to max 1600x520 (no upscaling)
+            resize_image_gd($targetFile, $targetFile, 1600, 520);
+            // Ensure thumbs dir exists
+            $thumbDir = rtrim($targetDir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'thumbs' . DIRECTORY_SEPARATOR;
+            if (!is_dir($thumbDir)) mkdir($thumbDir, 0777, true);
+            create_thumbnail_center($targetFile, $thumbDir . $fileName, 80);
+        } catch (Exception $e) {
+            // ignore processing errors
+        }
         return $fileName;
 
     } else {
@@ -258,12 +269,6 @@ if (isset($_GET['delete'])) {
 
 
 
-// 🔹 Récupération des actualités
-
-$stmt = $pdo->query("SELECT * FROM actualites ORDER BY date_pub DESC");
-
-$actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 
@@ -276,35 +281,99 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <meta charset="UTF-8">
 
-    <title>Gestion des actualités</title>
+    <title>Dashboard Administrateur – SN1325</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #8b5cf6, #ec4899);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .container-fluid, .card {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+
 </head>
 
-<body class="bg-light">
+<body>
 
-
+<div class="animated-background"></div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
 
   <div class="container-fluid">
 
-    <span class="navbar-brand fw-bold">📰 Admin – Actualités 1325</span>
+    <span class="navbar-brand fw-bold">📊 Dashboard Administrateur – SN1325</span>
 
     <div class="ms-auto">
 
         <a href="<?= URL_ADDSPACEADMIN; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
 
-        <a href="<?= URL_ADDACTUALITES; ?>" class="btn btn-outline-light me-2">📋 Formulaire d'Ajout actualité</a>
+        <a href="<?= URL_ADDACTUALITES; ?>" class="btn btn-outline-light me-2">📋 Gérer les Actualités</a>
         <a href="<?= URL_MANAGE_FUNFACTS; ?>" class="btn btn-outline-light me-2">⚙️ Gérer Fun Facts</a>
         <a href="<?= URL_MANAGE_AXES; ?>" class="btn btn-outline-light me-2">🧭 Gérer Axes</a>
         <?php if (in_array($_SESSION['role'] ?? '', ['admin','slider'])): ?>
             <a href="<?= URL_MANAGE_SLIDER; ?>" class="btn btn-outline-light me-2">🎞️ Gérer Slider</a>
         <?php endif; ?>
         <a href="<?= URL_MANAGE_PARTENAIRES; ?>" class="btn btn-outline-light me-2">🤝 Gérer Partenaires</a>
+        <a href="<?= URL_MANAGE_GALERIE; ?>" class="btn btn-outline-light me-2">🖼️ Gérer Galerie</a>
+        <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+            <a href="<?= URL_MANAGE_USERS; ?>" class="btn btn-outline-warning me-2">👥 Gérer Utilisateurs</a>
+            <a href="<?= URL_MANAGE_SETTINGS; ?>" class="btn btn-outline-info me-2">⚙️ Paramètres</a>
+        <?php endif; ?>
 
         <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
 
@@ -314,7 +383,10 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 </nav>
 
-
+<!-- Visitor Statistics Widget -->
+<div class="container-fluid py-4 bg-light">
+    <?php include __DIR__ . '/visitor_stats_widget.php'; ?>
+</div>
 
 <div class="container py-5">
 
@@ -464,96 +536,93 @@ $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     </div>
 
-
-
-    <!-- 🔹 Tableau des actualités -->
-
-    <div class="card shadow-sm border-0">
-
-        <div class="card-header bg-dark text-white fw-semibold">📋 Liste des actualités</div>
-
-        <div class="card-body p-0">
-
-            <?php if (empty($actualites)): ?>
-
-                <p class="text-center py-3 mb-0 text-muted">Aucune actualité disponible.</p>
-
-            <?php else: ?>
-
-                <table class="table table-hover align-middle mb-0">
-
-                    <thead class="table-secondary">
-
-                        <tr>
-
-                            <th>ID</th>
-
-                            <th>Titre</th>
-
-                            <th>Auteur</th>
-
-                            <th>Date</th>
-
-                            <th>Vues</th>
-
-                            <th>Actions</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <?php foreach ($actualites as $a): ?>
-
-                            <tr>
-
-                                <td><?= $a['id'] ?></td>
-
-                                <td><?= htmlspecialchars($a['titre']) ?></td>
-
-                                <td><?= htmlspecialchars($a['auteur'] ?? '—') ?></td>
-
-                                <td><?= htmlspecialchars($a['date_pub']) ?></td>
-
-                                <td><?= htmlspecialchars($a['nbrVues']) ?></td>
-
-                                <td>
-
-                                    <button class="btn btn-sm btn-primary editBtn" 
-
-                                        data-actu='<?= htmlspecialchars(json_encode($a), ENT_QUOTES, 'UTF-8') ?>'>
-
-                                        Modifier
-
-                                    </button>
-
-                                    <button class="btn btn-sm btn-danger" 
-
-                                        onclick="confirmDelete(<?= $a['id'] ?>)">Supprimer</button>
-
-                                </td>
-
-                            </tr>
-
-                        <?php endforeach; ?>
-
-                    </tbody>
-
-                </table>
-
-            <?php endif; ?>
-
-        </div>
-
-    </div>
-
 </div>
 
 
 
 <script>
 
+
+                                    // Resize image using GD while preserving aspect ratio (no upscaling)
+                                    function resize_image_gd($srcPath, $dstPath, $maxW, $maxH)
+                                    {
+                                        $info = @getimagesize($srcPath);
+                                        if (!$info) return false;
+                                        list($w, $h, $type) = $info;
+                                        $ratio = min($maxW / $w, $maxH / $h, 1);
+                                        $nw = (int) max(1, floor($w * $ratio));
+                                        $nh = (int) max(1, floor($h * $ratio));
+
+                                        switch ($type) {
+                                            case IMAGETYPE_JPEG: $img = imagecreatefromjpeg($srcPath); break;
+                                            case IMAGETYPE_PNG:  $img = imagecreatefrompng($srcPath); break;
+                                            case IMAGETYPE_WEBP: $img = imagecreatefromwebp($srcPath); break;
+                                            default: return false;
+                                        }
+
+                                        $dst = imagecreatetruecolor($nw, $nh);
+                                        if ($type === IMAGETYPE_PNG) {
+                                            imagealphablending($dst, false);
+                                            imagesavealpha($dst, true);
+                                        }
+                                        imagecopyresampled($dst, $img, 0,0,0,0, $nw,$nh, $w,$h);
+
+                                        $ok = false;
+                                        if ($type === IMAGETYPE_JPEG) $ok = imagejpeg($dst, $dstPath, 85);
+                                        elseif ($type === IMAGETYPE_PNG) $ok = imagepng($dst, $dstPath, 6);
+                                        elseif ($type === IMAGETYPE_WEBP) $ok = imagewebp($dst, $dstPath, 85);
+
+                                        imagedestroy($img);
+                                        imagedestroy($dst);
+                                        return $ok;
+                                    }
+
+                                    // Create square thumbnail by center-cropping after scaling to cover
+                                    function create_thumbnail_center($srcPath, $dstPath, $size)
+                                    {
+                                        $info = @getimagesize($srcPath);
+                                        if (!$info) return false;
+                                        list($w, $h, $type) = $info;
+
+                                        switch ($type) {
+                                            case IMAGETYPE_JPEG: $img = imagecreatefromjpeg($srcPath); break;
+                                            case IMAGETYPE_PNG:  $img = imagecreatefrompng($srcPath); break;
+                                            case IMAGETYPE_WEBP: $img = imagecreatefromwebp($srcPath); break;
+                                            default: return false;
+                                        }
+
+                                        // scale to cover
+                                        $scale = max($size / $w, $size / $h);
+                                        $sw = (int) ceil($w * $scale);
+                                        $sh = (int) ceil($h * $scale);
+
+                                        $tmp = imagecreatetruecolor($sw, $sh);
+                                        if ($type === IMAGETYPE_PNG) {
+                                            imagealphablending($tmp, false);
+                                            imagesavealpha($tmp, true);
+                                        }
+                                        imagecopyresampled($tmp, $img, 0,0,0,0, $sw,$sh, $w,$h);
+
+                                        // crop center
+                                        $cx = (int) floor(($sw - $size) / 2);
+                                        $cy = (int) floor(($sh - $size) / 2);
+                                        $thumb = imagecreatetruecolor($size, $size);
+                                        if ($type === IMAGETYPE_PNG) {
+                                            imagealphablending($thumb, false);
+                                            imagesavealpha($thumb, true);
+                                        }
+                                        imagecopy($thumb, $tmp, 0,0, $cx,$cy, $size,$size);
+
+                                        $ok = false;
+                                        if ($type === IMAGETYPE_JPEG) $ok = imagejpeg($thumb, $dstPath, 85);
+                                        elseif ($type === IMAGETYPE_PNG) $ok = imagepng($thumb, $dstPath, 6);
+                                        elseif ($type === IMAGETYPE_WEBP) $ok = imagewebp($thumb, $dstPath, 85);
+
+                                        imagedestroy($img);
+                                        imagedestroy($tmp);
+                                        imagedestroy($thumb);
+                                        return $ok;
+                                    }
 function confirmDelete(id) {
 
     Swal.fire({

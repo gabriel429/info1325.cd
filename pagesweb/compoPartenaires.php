@@ -26,8 +26,7 @@ if (!isset($pdo)) require_once __DIR__ . '/connectDb.php';
 								['name'=>'Min-Genre','url'=>'https://genre.gouv.cd/','image'=>'logoMingenre.png'],
 								['name'=>'UN Women','url'=>'https://africa.unwomen.org/fr','image'=>'client2.jpg'],
 								['name'=>'Norvege','url'=>'#','image'=>'norvege.png'],
-								['name'=>'Partenaire A','url'=>'#','image'=>'partenaire1325.png'],
-								['name'=>'Partenaire B','url'=>'#','image'=>'partenaire13252.png'],
+								
 						];
 				}
 				?>
@@ -37,7 +36,11 @@ if (!isset($pdo)) require_once __DIR__ . '/connectDb.php';
 							$url = htmlspecialchars($p['url'] ?? '#');
 							$alt = htmlspecialchars($p['name'] ?? 'partner');
 					?>
-						<div class="single-partner"><a href="<?= $url ?>" target="_blank" rel="noopener noreferrer"><img src="<?= IMG_DIR ?><?= $img ?>" alt="<?= $alt ?>"></a></div>
+						<?php
+							// If image value contains a path already, use it relative to IMG_DIR, otherwise use partenaires/ subfolder
+							$imgSrc = (strpos($img, '/') !== false) ? IMG_DIR . $img : IMG_DIR . 'partenaires/' . rawurlencode($img);
+						?>
+						<div class="single-partner"><a href="<?= $url ?>" target="_blank" rel="noopener noreferrer"><img src="<?= $imgSrc ?>" alt="<?= $alt ?>"></a></div>
 					<?php endforeach; ?>
 				</div>
 			</div>

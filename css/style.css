@@ -201,6 +201,8 @@ body{
 
 }
 
+/* .page-title removed — title styling handled inline or via CareMed variables */
+
 .pro-features {
 
 	position: fixed;
@@ -1323,34 +1325,100 @@ body > section.slider > div {
 	padding: 0 !important;
 }
 
-/* Force hero-slider to match section size: 1216x660 (desktop) */
+/* Force hero-slider to fill its parent section (full width & height) */
 body > section.slider {
 	height: 660px !important;
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
 }
 .hero-slider {
-	width: 1216px;
+	width: 100% !important;
 	max-width: 100%;
-	height: 660px;
+	height: 100% !important; /* match parent section height */
 	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
 }
 .hero-slider .single-slider {
-	height: 660px !important;
-	min-height: 660px !important;
-	max-height: 660px !important;
+	height: 100% !important;
+	min-height: 220px !important;
+	max-height: none !important;
 	background-size: cover !important;
 	background-position: center !important;
 }
-/* Scale the slider proportionally on small viewports */
+
+/* Décaler la colonne de contenu à droite pour ne pas être collée aux contrôles Owl (prev/next) */
+.hero-slider .single-slider .col-lg-7,
+.slider .single-slider .col-lg-7 {
+	padding-left: 90px; /* espace augmenté pour éviter collision avec .owl-prev */
+	transition: padding-left 0.2s ease;
+}
+@media (max-width: 1200px) {
+	.hero-slider .single-slider .col-lg-7,
+	.slider .single-slider .col-lg-7 { padding-left: 70px; }
+}
+@media (max-width: 992px) {
+	.hero-slider .single-slider .col-lg-7,
+	.slider .single-slider .col-lg-7 { padding-left: 40px; }
+}
+@media (max-width: 576px) {
+	.hero-slider .single-slider .col-lg-7,
+	.slider .single-slider .col-lg-7 { padding-left: 16px; }
+}
+/* Si besoin, augmenter z-index des flèches pour éviter collision visuelle */
+.hero-slider .owl-nav .owl-prev,
+.hero-slider .owl-nav .owl-next { z-index: 30; }
+.hero-slider .owl-stage-outer,
+.hero-slider .owl-stage,
+.hero-slider .owl-item,
+.hero-slider .owl-carousel {
+	width: 100% !important;
+	height: 100% !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.hero-slider .single-slider img,
+.hero-slider .single-slider picture,
+.hero-slider .single-slider video {
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover;
+	display: block;
+}
+
+/* Scale the slider on small viewports */
 @media (max-width:1216px){
 	body > section.slider{ height: auto !important; }
 	.hero-slider, .hero-slider .single-slider{
 		width: 100% !important;
-		height: calc(100vw * 660 / 1216) !important; /* preserve aspect ratio */
+		height: auto !important;
 		min-height: 220px !important;
 	}
 }
+
+/* Force hero slides to remain visible and remove white overlay that hides content */
+.hero-slider .single-slider:before { display: none !important; }
+.hero-slider .single-slider { display: block !important; opacity: 1 !important; visibility: visible !important; }
+.hero-slider .owl-item { display: block !important; }
+.hero-slider .owl-stage, .hero-slider .owl-stage-outer { width: 100% !important; height: 100% !important; display: block !important; }
+.hero-slider .owl-carousel { display: block !important; }
+.hero-slider { z-index: 0; }
+
+/* Responsive tweaks for hero slider */
+@media (max-width: 992px) {
+	.hero-slider { min-height: 300px !important; }
+	.hero-slider .single-slider { min-height: 300px !important; height: auto !important; }
+	.hero-slider .text { margin-top: 40px !important; }
+}
+@media (max-width: 576px) {
+	.hero-slider { min-height: 220px !important; }
+	.hero-slider .single-slider { min-height: 220px !important; height: auto !important; }
+	.hero-slider .text { margin-top: 24px !important; }
+}
+
+/* Ensure owl stage stretches slides vertically so background images remain visible */
+.hero-slider .owl-stage { display: flex !important; align-items: stretch !important; }
+.hero-slider .owl-item { display: block !important; flex: 1 0 100% !important; }
 
 .slider .single-slider .text{
 
@@ -2154,13 +2222,16 @@ body > section.slider {
 
 .why-choose .choose-left .list li:last-child{
 
-	margin-bottom:0px;
-
-}
-
-.why-choose .choose-left .list li i{
-
-	height:15px;
+    height:100%;
+    width:100%;
+    background-image: none !important;
+    background-color: #000; /* fallback background when no video */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position:relative;
+    display:flex;
+    align-items:stretch;
 
 	width:15px;
 
@@ -2198,21 +2269,16 @@ body > section.slider {
 }
 
 .why-choose .choose-right{
-
 	height:100%;
-
 	width:100%;
-
-	background-image:url('../img/video-bg.jpg');
-
-	background-size:cover;
-
-	background-position:center;
-
-	background-repeat:no-repeat;
-
+	background-image: none !important;
+	background-color: #000; /* fallback when video not loaded */
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 	position:relative;
-
+	display:flex;
+	align-items:stretch;
 }
 
 .why-choose .choose-right .video {
@@ -2284,10 +2350,8 @@ body > section.slider {
 }
 
 .why-choose .video-image .waves-block .wave-1 {
-
-    -webkit-animation-delay: 0s;
-
-    animation-delay: 0s;
+	-webkit-animation-delay: 0s;
+	animation-delay: 0s;
 
 }
 
@@ -2306,6 +2370,27 @@ body > section.slider {
     animation-delay: 2s;
 
 }
+
+/* Video embed responsive wrapper to make the iframe fill the card */
+.why-choose .choose-right{ display:flex; align-items:stretch; }
+.why-choose .video-image{ flex:1; display:flex; align-items:center; justify-content:center; padding:12px; box-sizing:border-box; }
+.video-embed-wrapper{ position: relative; width: 100%; height: 100%; overflow: hidden; border-radius:8px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
+.video-embed-wrapper iframe{ position: absolute; left:0; top:0; width:100%; height:100%; border:0; }
+.why-choose .promo-video{ display:none; }
+
+/* Strong override: remove any inline background-image or inline background set on the choose-right area
+   and hide legacy video-bg image elements if present. This catches inline styles or other CSS files. */
+.why-choose .choose-right[style],
+.why-choose .choose-right *[style] {
+	background-image: none !important;
+	background: none !important;
+}
+.why-choose .choose-right img[src*="video-bg"],
+.why-choose .choose-right img[src*="video-bg.jpg"],
+.why-choose .choose-right img[src*="video-bg.png"] {
+	display: none !important;
+}
+.why-choose .video-embed-wrapper { background: none !important; }
 
 /*=======================
 

@@ -1,0 +1,35 @@
+/* Contact page styles inspired by CareMed */
+:root{--primary:#0b66b2;--muted:#6b7c93}
+
+.caremed-hero{padding:48px 0;color:#fff}
+.caremed-hero .hero-content{max-width:820px;margin:0 auto;text-align:center}
+.caremed-hero h1{font-size:36px;margin:8px 0}
+.caremed-hero .lead{opacity:.95}
+
+.contact-area{padding:48px 0}
+.card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 8px 30px rgba(11,102,178,0.06)}
+
+.contact-form h3{margin:0 0 12px;font-size:20px;color:var(--primary)}
+.contact-form input[type=text],
+.contact-form input[type=email],
+.contact-form textarea{width:100%;padding:10px;border:1px solid #e6eef8;border-radius:6px;margin-bottom:10px}
+.contact-form textarea{min-height:140px}
+.form-actions{display:flex;justify-content:flex-start}
+.btn-primary{background:var(--primary);color:#fff;border:none;padding:10px 18px;border-radius:6px}
+
+.contact-map{display:flex;flex-direction:column;gap:12px}
+.contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
+.info-card{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:8px;background:#f8fbff}
+.info-card i{font-size:20px;color:var(--primary);margin-top:2px}
+.info-card h5{margin:0 0 4px 0;font-size:15px;color:var(--primary)}
+.info-card p{margin:0;color:var(--muted);font-size:13px}
+
+@media(max-width:991px){
+  .contact-cards{grid-template-columns:repeat(1,1fr)}
+  .caremed-hero h1{font-size:28px}
+}
+
+@media(max-width:576px){
+  .caremed-hero{padding:30px 0}
+  .contact-area{padding:24px 0}
+}

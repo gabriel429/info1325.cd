@@ -58,15 +58,18 @@
 								}
 							}
 						?>
+						<?php $axeUrl = BASE_URL . 'pagesweb/axes.php?axe=' . rawurlencode(strtolower(str_replace(' ','',preg_replace('/[^A-Za-z0-9 ]/','',$a['title'])))); ?>
+						<a href="<?= $axeUrl ?>" style="display:block;color:inherit;text-decoration:none;">
 						<div class="single-service" style="background-image:url('<?= $imgSrc ?>');background-size:cover;background-position:center;position:relative;min-height:220px;border-radius:6px;overflow:hidden;">
 							<div class="ss-overlay" style="position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,0.45),rgba(0,0,0,0.2));z-index:1;"></div>
 							<div class="ss-content" style="position:relative;z-index:2;padding:20px;color:#fff;">
-								<h4 style="margin-top:0;margin-bottom:8px;"><a href="service-details.html" style="color:#fff;text-decoration:none;text-shadow:0 2px 6px rgba(0,0,0,0.6);"><?= htmlspecialchars($a['title']) ?></a></h4>
+								<h4 style="margin-top:0;margin-bottom:8px;color:#ffffff;font-size:20px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,0.6);"><?= htmlspecialchars($a['title']) ?></h4>
 								<?php if (!empty($a['description'])): ?>
-								<p style="color:rgba(255,255,255,0.95);text-shadow:0 1px 3px rgba(0,0,0,0.6);margin-bottom:0;"><?= htmlspecialchars($a['description']) ?></p>
+								<p style="color:rgba(255,255,255,0.95);text-shadow:0 1px 3px rgba(0,0,0,0.6);margin-bottom:0;text-align:justify;font-size:14px;line-height:1.55;"><?= htmlspecialchars($a['description']) ?></p>
 								<?php endif; ?>
 							</div>
 						</div>
+						</a>
 						<!-- End Single Axe -->
 					</div>
 					<?php } ?>

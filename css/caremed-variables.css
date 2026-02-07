@@ -1,0 +1,170 @@
+/* CareMed-inspired design tokens and overrides */
+:root{
+  --primary:#0366d6;
+  --primary-light:#f1f8ff;
+  --accent-green:#28a745;
+  --danger:#d73a49;
+  --text-dark:#24292e;
+  --text-muted:#586069;
+  --border:#e1e4e8;
+  --radius:6px;
+  --shadow-md:0 6px 18px rgba(3,102,214,0.08);
+  --shadow-lg:0 10px 30px rgba(3,102,214,0.10);
+  --shadow-xl:0 18px 60px rgba(3,102,214,0.10);
+  --h1-desktop:48px;
+  --h1-mobile:40px;
+}
+
+/* Typography */
+body{font-family: 'Poppins', Arial, sans-serif; color:var(--text-dark)}
+.lead{font-size:20px; font-weight:300; color:#ffffff}
+
+/* Centrer le texte lead dans les heroes sans affecter tous les .lead */
+.caremed-hero .lead{ text-align:center; max-width:900px; margin:0 auto; }
+
+/* Page title (centered variant used by headerPage.php) */
+/* page-title removed: styling centralized or handled per-page */
+
+/* Page header title styling (replaces .page-title) */
+.page-header h2{
+  text-align:center;
+  color:var(--primary);
+  font-size:26px;
+  font-weight:700;
+  margin:1.25rem 0;
+}
+@media(min-width:768px){ .page-header h2{ font-size:var(--h1-desktop); } }
+
+/* Hero for news page */
+.caremed-hero{ position:relative; background-size:cover; background-position:center; padding:120px 0 72px; color:#fff }
+.caremed-hero .overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(4,36,77,0.45), rgba(3,102,214,0.18)); }
+.caremed-hero .hero-content{ position:relative; z-index:2; text-align:center }
+.caremed-hero .hero-breadcrumb{ color:rgba(255,255,255,0.9); margin-bottom:12px; letter-spacing:0.2px }
+.caremed-hero h1{ color:#fff; margin:0; font-weight:800; font-size:44px; text-transform:none }
+
+/* News listing cards */
+.news-card{ background:#fff; border-radius:12px; overflow:hidden; box-shadow:var(--shadow-md); border:1px solid rgba(0,0,0,0.04); display:flex; flex-direction:column; transition:transform .18s ease, box-shadow .18s ease }
+.news-card .news-image{ height:180px; background-size:cover; background-position:center }
+.news-card .news-body{ padding:16px; flex:1 }
+.news-card .news-meta{ font-size:13px; color:var(--text-muted); margin-bottom:8px }
+.news-card .news-excerpt{ color:#444; margin-bottom:12px }
+
+/* CareMed-like news layout tweaks */
+.news-single .news-card{ display:block }
+.news-single .news-card .news-image{ height:320px; background-size:cover; background-position:center }
+.news-single .news-title{ font-size:28px; margin-top:12px; color:var(--text-dark) }
+.news-single .news-meta{ font-size:14px; color:var(--text-muted); margin-bottom:14px }
+.news-single .image-gallery img{ width:100%; height:auto; border-radius:6px }
+/* Carousel item tweaks */
+.image-gallery-carousel .single-image img{ width:100%; height:auto; display:block; border-radius:8px }
+.image-gallery-carousel .owl-nav button{ background:rgba(0,0,0,0.5); color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center }
+.image-gallery-carousel .owl-dots{ margin-top:12px }
+
+/* Force one slide visible and prevent overflow */
+.image-gallery-carousel{ position:relative }
+.image-gallery-carousel .owl-stage-outer{ overflow:hidden }
+.image-gallery-carousel .owl-item{ width:100% !important }
+.image-gallery-carousel .item{ display:block }
+.image-gallery-carousel .single-image img{ object-fit:cover; max-height:520px }
+
+/* Prevent slider images from overflowing their containers */
+.pf-details-slider img, .image-slider img, .pf-details .inner-content img{
+  max-width:100%;
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Ensure slider container hides overflow on small screens */
+.image-slider, .pf-details-slider{ overflow:hidden }
+
+/* Fade animations used by Owl's animateIn/animateOut */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate3d(0,0,0); }
+  to   { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; transform: translate3d(0,0,0); }
+}
+.animated.fadeIn{ animation-name: fadeIn; animation-duration: 600ms; animation-fill-mode: both }
+.animated.fadeOut{ animation-name: fadeOut; animation-duration: 600ms; animation-fill-mode: both }
+
+/* Sidebar recent posts */
+.recent-post .single-post{ display:flex; gap:10px; padding:10px 6px; align-items:center; border-bottom:1px dashed rgba(0,0,0,0.04) }
+.recent-post .single-post .image img{ width:80px; height:60px; object-fit:cover; border-radius:6px }
+.recent-post .single-post .content h5{ margin:0; font-size:15px }
+.recent-post .single-post .content .comment{ margin:6px 0 0 0; font-size:13px; color:var(--text-muted) }
+.recent-post .title{ font-size:18px; margin-bottom:12px }
+
+/* CareMed hero adjustments */
+.caremed-hero{ padding:100px 0 70px }
+.caremed-hero h1{ font-size:36px }
+.caremed-hero .hero-breadcrumb{ font-size:14px }
+
+/* small helpers */
+.news-card .news-excerpt p{ margin:0 }
+@media(min-width:992px){ .news-single .row > .col-lg-8{ padding-right:40px } }
+
+/* Desktop: image left / text right for article detail */
+@media(min-width:992px){
+  .news-single .news-card{ display:flex; gap:28px; align-items:flex-start }
+  .news-single .news-card .news-image{ flex:0 0 46%; height:auto; min-height:360px; border-radius:8px; overflow:hidden; position:relative }
+  .news-single .news-card .news-image::before{ display:none }
+
+  /* Ensure img inside article left column fills the image block */
+  .news-single .news-card .news-image img{ width:100%; height:100%; object-fit:cover; display:block }
+  .news-single .news-card .news-body{ flex:1; padding:24px }
+  .news-single .news-card .image-gallery{ margin-top:18px }
+  .news-single .news-card .image-gallery .single-image{ padding:0 }
+}
+
+
+/* Buttons */
+.btn-primary, .btn.btn-primary{ background:var(--primary); border-color:var(--primary); color:#fff }
+.btn-primary:hover, .btn.btn-primary:hover{ background:#0357b8 }
+.btn-outline-primary{ background:transparent; border:1px solid var(--primary); color:var(--primary) }
+
+/* Cards and panels */
+.card, .single-service, .single-footer, .single-widget{ border-radius:var(--radius); box-shadow:var(--shadow-md); border:1px solid rgba(0,0,0,0.03); }
+.card .card-body{ padding:1.25rem }
+
+/* Accent helpers */
+.highlight{ background:linear-gradient(90deg, rgba(3,102,214,0.06), transparent); padding:6px 10px; border-radius:4px }
+
+/* Images and icons */
+.circle{ border-radius:50% }
+
+/* Utilities used by theme */
+.f00-light{ font-weight:300; font-size:40px }
+
+/* Footer slightly muted */
+footer.footer{ background:var(--primary); color:#fff }
+
+/* Minor spacing tweaks to better match CareMed rhythm */
+section, .section{ padding-top:32px; padding-bottom:32px }
+
+/* Ensure buttons and CTAs are prominent on small screens */
+@media(max-width:768px){ .btn-primary{ padding:10px 18px; font-size:16px } }
+
+/* End of caremed variables */
+
+/* Preview cards for long sections (transform long blocks into clickable aperçus) */
+.preview-card{ background:#fff; border:1px solid rgba(0,0,0,0.04); border-radius:10px; padding:18px; margin-bottom:20px; box-shadow:var(--shadow-md); cursor:pointer; transition:transform .18s ease, box-shadow .18s ease }
+.preview-card:hover{ box-shadow:var(--shadow-lg); transform:translateY(-6px) }
+.preview-card .preview-title{ margin:0 0 8px 0; font-size:18px; color:var(--text-dark); font-weight:700 }
+.preview-card .preview-excerpt{ color:var(--text-muted); margin:0 0 10px 0 }
+.preview-card .preview-cta{ text-align:right }
+.preview-card .preview-cta .btn{ font-size:14px }
+.doc-preview-card{ border-left:4px solid var(--primary) }
+.news-preview-card{ background:linear-gradient(180deg, #fff, #fbfdff) }
+.preview-collapse{ padding:8px 12px }
+
+/* Styling spécifique pour le bouton de téléchargement R1325 */
+.resolution-download{ padding-top:18px; padding-bottom:24px }
+.resolution-download .btn-r1325{ padding:12px 26px; font-size:17px; border-radius:10px; box-shadow:var(--shadow-md); display:inline-block }
+.resolution-download .btn-r1325:hover{ transform:translateY(-2px); box-shadow:var(--shadow-lg) }
+@media(max-width:576px){ .resolution-download .btn-r1325{ width:100%; padding:14px 20px; font-size:16px } }
+/* Icon in R1325 button */
+.resolution-download .btn-r1325 .fa{ margin-right:10px; color:#fff }
+.resolution-download .btn-r1325{ display:inline-flex; align-items:center; justify-content:center }

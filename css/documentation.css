@@ -1,0 +1,15 @@
+/* CareMed-inspired layout for Documentation page */
+.caremed-hero{ padding:60px 0; background-color:var(--primary); color:#fff }
+.caremed-hero .hero-content{ text-align:center }
+.caremed-hero h1{ margin:0; font-weight:700 }
+
+.documentation-grid .doc-card{ background:#fff; border-radius:8px; overflow:hidden; box-shadow:var(--shadow-md); border:1px solid var(--border); }
+.documentation-grid .doc-thumb{ height:180px; background-size:cover; background-position:center }
+.documentation-grid .doc-body{ padding:16px }
+.documentation-grid .doc-meta{ color:var(--text-muted); font-size:13px; margin-bottom:6px }
+.documentation-grid .doc-title{ font-size:18px; margin-bottom:8px }
+.doc-actions .btn{ font-size:13px; padding:6px 10px }
+.doc-thumb-link{ display:block }
+.doc-thumb{ min-height:140px }
+
+@media(max-width:768px){ .caremed-hero{ padding:40px 0 } .documentation-grid .doc-thumb{ height:140px } }

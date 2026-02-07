@@ -1,0 +1,152 @@
+/* Page-specific tweaks for Actualités */
+.caremed-hero{ padding:60px 0; }
+.caremed-hero .hero-content{ max-width:900px; margin:0 auto }
+
+.news-card .news-image{ height:220px }
+
+/* Ensure article (single) hero image is large on the article view */
+.news-single .news-card .news-image{ height:320px; background-size:cover; background-position:center }
+.news-card .news-body{ padding:20px }
+
+.news-single .news-title{ font-size:28px; margin-bottom:8px }
+.news-single .news-excerpt p{ margin-bottom:1rem; line-height:1.6 }
+
+/* Sidebar widgets spacing */
+.main-sidebar .single-widget{ margin-bottom:20px; padding:16px }
+
+@media(max-width:768px){
+  .caremed-hero{ padding:40px 0 }
+  .news-card .news-image{ height:160px }
+  /* On small screens keep the single article image reasonably large */
+  .news-single .news-card .news-image{ height:220px }
+}
+
+/* hidden items for progressive reveal */
+.extra-news { transition: all 240ms ease; }
+
+/* Image gallery inside article */
+.image-gallery .single-image img{ width:100%; height:auto; border-radius:6px; box-shadow:var(--shadow-md); }
+
+/* Ensure <img> inside .news-image fits the container and preserves aspect ratio */
+.news-card .news-image{ overflow:hidden; }
+.news-card .news-image img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Center hero title like CareMed */
+.caremed-hero .hero-content{ text-align:center }
+.caremed-hero .hero-breadcrumb{ opacity:0.9; margin-bottom:6px }
+.caremed-hero .hero-content h1{ font-size:34px; color:var(--light); margin:0 }
+
+/* Related news grid (cards) */
+.related-news .section-title{ font-size:22px; margin-bottom:18px; text-align:left }
+.news-grid .news-card-mini{ border:0; overflow:hidden }
+.news-card-mini .card-image{ position:relative; height:180px; overflow:hidden }
+.news-card-mini .card-image img{ width:100%; height:100%; object-fit:cover; display:block }
+.news-card-mini .date-badge{ position:absolute; left:12px; bottom:12px; background:rgba(0,0,0,0.7); color:#fff; padding:6px 8px; border-radius:4px; font-size:12px }
+.news-card-mini .card-body{ padding:12px }
+.news-card-mini .card-title{ font-size:16px; margin-bottom:8px }
+.news-card-mini .card-text{ font-size:13px; color:var(--muted); margin-bottom:10px }
+
+@media(max-width:768px){
+  .news-card-mini .card-image{ height:140px }
+  .caremed-hero .hero-content h1{ font-size:26px }
+}
+
+/* Force fixed-size thumbnails in recent-post widget to avoid collapsing */
+.recent-post .single-post .image{ flex:0 0 80px; width:80px; height:80px; overflow:hidden }
+.recent-post .single-post .image img{ width:80px !important; height:80px !important; object-fit:cover; display:block }
+.recent-post .single-post .content{ padding-left:12px }
+
+@media(max-width:576px){
+  .recent-post .single-post{ gap:8px }
+  .recent-post .single-post .image{ flex:0 0 60px; width:60px; height:60px }
+  .recent-post .single-post .image img{ width:60px !important; height:60px !important }
+  .recent-post .single-post .content{ padding-left:8px }
+}
+
+/* Image gallery tweaks for .image-gallery.mt-3 */
+.image-gallery.mt-3{ margin-top:1rem }
+.image-gallery{ width:100% }
+.image-gallery .single-image{ padding:6px 6px; box-sizing:border-box }
+.image-gallery .single-image a.gallery-link{ display:block }
+.image-gallery .single-image img{ width:100%; height:auto; max-height:520px; object-fit:cover; border-radius:8px; box-shadow:var(--shadow-md); display:block }
+
+/* Owl carousel specific adjustments inside image gallery */
+.image-gallery-carousel{ position:relative }
+.image-gallery-carousel .owl-stage-outer{ overflow:hidden }
+.image-gallery-carousel .owl-item{ width:100% !important }
+.image-gallery-carousel .owl-nav button{ background:rgba(0,0,0,0.45); color:#fff; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center }
+.image-gallery-carousel .owl-dots{ text-align:center; margin-top:12px }
+
+@media(max-width:768px){
+  .image-gallery .single-image{ padding:4px }
+  .image-gallery .single-image img{ max-height:360px }
+}
+
+/* Prevent generic .overlay pseudo-element from covering article/gallery content */
+.news-single .overlay::before{ display:none !important; }
+.news-single .news-card .overlay{ background:transparent; padding:0; margin:0 0 12px 0 }
+
+/* Ensure gallery images are visible above nearby overlays */
+.image-gallery, .image-gallery .single-image{ position:relative; z-index:3 }
+.image-gallery .single-image img{ visibility:visible !important; opacity:1 !important; z-index:4 }
+
+/* Ensure Owl Carousel stage never overflows its container */
+.owl-stage-outer{ max-width:100% !important; overflow:hidden !important; box-sizing:border-box }
+.owl-stage{ display:flex; max-width:100% !important; box-sizing:border-box }
+.owl-item{ box-sizing:border-box; max-width:100% !important }
+.owl-stage-outer img, .owl-stage-outer video, .owl-stage-outer iframe{ max-width:100% !important; height:auto !important; display:block }
+
+/* Specific: image gallery carousel should fit its parent container */
+.image-gallery-carousel .owl-stage-outer{ width:100%; max-width:100% }
+.image-gallery-carousel .owl-item{ width:100% !important }
+
+/* Strong defensive rules to prevent .owl-stage width overflow */
+.owl-carousel, .owl-carousel *{ box-sizing:border-box }
+.owl-carousel{ width:100%; max-width:100% }
+.owl-stage{ width:100% !important; max-width:100% !important; display:flex; flex-wrap:nowrap; align-items:stretch }
+.owl-item{ flex:0 0 auto; min-width:0; max-width:100% !important }
+.owl-stage .owl-item{ overflow:hidden }
+/* For single-item galleries ensure each item uses full width */
+.image-gallery-carousel .owl-item{ flex:0 0 100% !important; max-width:100% !important }
+.owl-stage-outer{ overflow:hidden; position:relative }
+
+
+/* Justify article and card texts for better reading */
+.news-single .news-card .news-body,
+.news-single .news-card .news-body p,
+.news-card .news-excerpt p,
+.news-card-mini .card-text,
+.recent-post .single-post .content,
+.recent-post .single-post .content h5,
+.main-sidebar .single-widget .content,
+.main-sidebar .single-widget .content p{
+  text-align:justify;
+  text-justify:inter-word;
+  line-height:1.6;
+  -webkit-hyphens:auto;
+  -ms-hyphens:auto;
+  hyphens:auto;
+}
+
+/* Normalize news-body children to avoid visual overlap */
+.news-single .news-card .news-body > * { position:relative; z-index:1; clear:both; }
+.news-single .news-card .news-meta{ display:block; margin-bottom:10px }
+.news-single .news-card .news-title{ margin-top:0; margin-bottom:12px }
+.news-single .news-card .news-excerpt p{ margin-bottom:1rem }
+.news-single .news-card blockquote{ margin:18px 0; position:relative; z-index:1 }
+
+/* Constrain and center article content on wide screens */
+.news-single .container{ max-width:1140px; margin:0 auto }
+.news-single .news-card .news-body{ box-sizing:border-box; max-width:100%; padding-left:24px; padding-right:24px }
+.news-single .news-card .news-body p{ word-wrap:break-word; }
+
+/* Prevent any child element from exceeding the container width */
+.news-single .container, .news-list .container{ box-sizing:border-box; width:100% }
+.news-single .container img, .news-single .container iframe, .news-single .container video{ max-width:100%; height:auto; display:block }
+.news-single .container [class*="col-"]{ box-sizing:border-box; padding-left:12px; padding-right:12px }
+.news-single .news-card, .news-single .news-card-mini .card, .news-single .image-gallery, .news-single .related-news, .news-single .news-grid{ max-width:100%; box-sizing:border-box }
+.news-single .row{ margin-left:0; margin-right:0 }
+.news-single .main-sidebar .single-post .content{ padding-left:12px !important }
+
+/* Defensive rule: force long words and inline elements to wrap */
+.news-single .container *{ overflow-wrap:break-word; word-break:break-word }

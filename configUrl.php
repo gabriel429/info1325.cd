@@ -2,11 +2,15 @@
 
 // Racine du projet (en local '/Akili/', en prod '/')
 
+// Détecte si nous sommes en local (localhost)
 $isLocal = in_array($_SERVER['SERVER_NAME'], ['localhost', '109.234.160.5']);
 
+// En local le site est servi depuis le dossier /info1325.cd/
+// En production, depuis la racine '/'
+$projectRoot = $isLocal ? '/info1325.cd/' : '/';
+
 if (!defined('PROJECT_ROOT_URL')) {
-    // Servir le site depuis la racine '/' (production et local)
-    define('PROJECT_ROOT_URL', '/');
+    define('PROJECT_ROOT_URL', $projectRoot);
 }
 
 // URL de base
@@ -16,6 +20,8 @@ define('BASE_URL', rtrim(PROJECT_ROOT_URL, '/') . '/');
 define('CSS_DIR', BASE_URL . 'css/');
 define('JS_DIR', BASE_URL . 'js/');
 define('IMG_DIR', BASE_URL . 'img/');
+define('IMG_ACTUALITES_DIR', IMG_DIR . 'actualites/');
+define('URL_IMG_ACTU', IMG_ACTUALITES_DIR); // Alias pour compatibilité
 define('FONTS_DIR', BASE_URL . 'fonts/');
 // Debug flags
 if (!defined('DEBUG_ASSETS')) {
@@ -46,16 +52,21 @@ define('URL_COMPOSLIDE', BASE_URL . 'pagesweb/compoSlideArea/');
 define('URL_FOOTERPAGE', BASE_URL . 'pagesweb/footerPage/');
 define('URL_HEADERPAGE', BASE_URL . 'pagesweb/headerPage/');
 define('URL_GALERI', BASE_URL . 'pagesweb/compoGaleri/');
+define('URL_MANAGE_GALERIE', BASE_URL . 'pagesweb/manage_gallery.php');
 define('URL_STATUT', BASE_URL . 'pagesweb/compoStatut/');
 define('URL_AUTHENTIFICATION', BASE_URL . 'pagesweb/authentification/');
 define('URL_ADDACTUALITES', BASE_URL . 'pagesweb/add-actualites/');
-define('URL_ADMINISTRATEUR', BASE_URL . 'pagesweb/admin_dashboard/');
+define('URL_GALERIE', BASE_URL . 'pagesweb/gallery.php');
+// Point to the actual admin management page for editing news
+define('URL_ADMINISTRATEUR', BASE_URL . 'pagesweb/administrateur.php');
 define('URL_ADDDOCUMENTATIONS', BASE_URL . 'pagesweb/add-documentation/');
 define('URL_ADDSPACEADMIN', BASE_URL . 'pagesweb/add-space/');
 define('URL_MANAGE_FUNFACTS', BASE_URL . 'pagesweb/manage_funfacts/');
 define('URL_MANAGE_AXES', BASE_URL . 'pagesweb/manage_axes/');
 define('URL_MANAGE_SLIDER', BASE_URL . 'pagesweb/manage_slider/');
 define('URL_MANAGE_PARTENAIRES', BASE_URL . 'pagesweb/manage_partenaires/');
+define('URL_MANAGE_USERS', BASE_URL . 'pagesweb/manage_users.php');
+define('URL_MANAGE_SETTINGS', BASE_URL . 'pagesweb/manage_settings.php');
 define('URL_ALLDOCUMENTATIONS', BASE_URL . 'pagesweb/all-documentations/');
 define('URL_SUCCESSADDDOCUMENTATION', BASE_URL . 'pagesweb/success-add-documentation/');
 

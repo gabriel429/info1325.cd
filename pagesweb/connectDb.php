@@ -7,8 +7,8 @@
 // Configuration de la base de données
 $host = 'localhost';
 $db   = 'mwbi6090_sn1325';
-$user = 'mwbi6090_root';
-$pass = 'bxAU7dh2r5KzmSS';
+$user = 'root';
+$pass = '';
 $charset = 'utf8mb4'; // Recommandé pour une compatibilité complète
 
 // Options de PDO pour une connexion robuste

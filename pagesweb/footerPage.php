@@ -20,7 +20,7 @@
 
                         <p>
 
-                            <img src="<?= IMG_DIR ?>logoMingenre03.png" alt="" width="100%" height="100" style="display:block;">
+                            <img src="<?= IMG_DIR ?>logoMingenre03.png" alt="Logo Ministère du Genre" style="max-width:140px; height:auto; display:block;">
 
                         </p>
 
@@ -30,13 +30,13 @@
 
                         <ul class="social">
 
-                            <li><a href="https://web.facebook.com/sn1325/" target="_blank"><i class="icofont-facebook"></i></a></li>
+                            <li><a href="https://web.facebook.com/sn1325/" target="_blank" rel="noopener noreferrer"><i class="icofont-facebook"></i></a></li>
 
-                            <li><a href="https://www.linkedin.com/company/r1325rdc/" target="_blank"><i class="icofont-linkedin"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/r1325rdc/" target="_blank" rel="noopener noreferrer"><i class="icofont-linkedin"></i></a></li>
 
-                            <li><a href="https://x.com/R1325RDC" target="_blank"><i class="icofont-twitter"></i></a></li>
+                            <li><a href="https://x.com/R1325RDC" target="_blank" rel="noopener noreferrer"><i class="icofont-twitter"></i></a></li>
 
-                            <li><a href="https://youtube.com/@resolution1325rdc?si=IWwQB3N7fc5RFUHD" target="_blank"><i class="icofont-youtube"></i></a></li>
+                            <li><a href="https://youtube.com/@resolution1325rdc?si=IWwQB3N7fc5RFUHD" target="_blank" rel="noopener noreferrer"><i class="icofont-youtube"></i></a></li>
 
                         </ul>
 
@@ -60,18 +60,13 @@
 
                                 <ul>
 
-                                    <li><a href="https://genre.gouv.cd/" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>MGFE</a></li>
+                                    <li><a href="https://genre.gouv.cd/" target="_blank" rel="noopener noreferrer"><i class="fa fa-caret-right" aria-hidden="true"></i>MGFE</a></li>
 
-                                    <li><a href="https://www.unwomen.org/fr" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>ONUFEMMES</a></li>
+                                    <li><a href="https://www.unwomen.org/fr" target="_blank" rel="noopener noreferrer"><i class="fa fa-caret-right" aria-hidden="true"></i>ONUFEMMES</a></li>
 
-                                    <li><a href="https://www.norway.no/fr/democratic-republic-of-congo/" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>AMBASSADE NORVEGE</a></li>
+                                    <li><a href="https://www.norway.no/fr/democratic-republic-of-congo/" target="_blank" rel="noopener noreferrer"><i class="fa fa-caret-right" aria-hidden="true"></i>AMBASSADE NORVEGE</a></li>
 
-                                    <li><a href="#" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>ONGs</a></li>
-
-                                    <li><a href="<?= URL_AUTHENTIFICATION; ?>"><i class="fa fa-caret-right" aria-hidden="true"></i>1325admin</a></li>
-
-                                    <li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Autres liens</a></li>
-
+    
                                 </ul>
 
                             </div>
@@ -134,11 +129,11 @@
 
                         <p>Abonnez-vous à notre newsletter pour recevoir toutes nos actualités dans votre boîte de réception.</p>
 
-                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+                        <form action="<?= BASE_URL ?>mail/mail.php" method="post" class="newsletter-inner" aria-label="Formulaire d'abonnement newsletter">
 
-                            <input name="email" placeholder="Adresse mail" class="common-input" onfocus="this.placeholder=''" onblur="this.placeholder='Votre adresse mail'" required type="email">
+                            <input name="email" placeholder="Votre adresse mail" class="common-input" onfocus="this.placeholder=''" onblur="this.placeholder='Votre adresse mail'" required type="email" aria-label="Adresse email">
 
-                            <button class="button"><i class="icofont icofont-paper-plane"></i></button>
+                            <button class="button" type="submit" aria-label="S'abonner"><i class="icofont icofont-paper-plane"></i></button>
 
                         </form>
 
@@ -170,11 +165,11 @@
 
                     <div class="copyright-content">
 
-                        <p>© Copyright 2025 | Tous droits réservés <a href="<?= URL_CONTACT ?>" target="_blank">Secrétariat National Permanent 1325</a></p>
+                        <p>© Copyright 2025 | Tous droits réservés <a href="<?= URL_CONTACT ?>" target="_blank" rel="noopener noreferrer">Secrétariat National Permanent 1325</a></p>
 
                         <div style="margin-top:6px;display:flex;flex-direction:column;align-items:center;gap:4px;">
                             <a href="<?= URL_AUTHENTIFICATION ?>" style="font-size:13px;color:rgba(255,255,255,0.85);opacity:0.9;text-decoration:none;padding:6px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.06);background:transparent;">Administration</a>
-                            <a href="https://www.akilig.com/" target="_blank" rel="noopener" style="font-size:12px;color:rgba(255,255,255,0.7);text-decoration:none;">Développé par Akili Groupe</a>
+                            <a href="https://www.akilig.com/" target="_blank" rel="noopener noreferrer" style="font-size:12px;color:rgba(255,255,255,0.7);text-decoration:none;">Développé par Akili Groupe</a>
                         </div>
 
                     </div>
@@ -274,9 +269,12 @@
 <!-- Main JS -->
 <!-- GMaps JS (doit être chargé avant les scripts qui utilisent `GMaps`) -->
 <!-- Google Maps API (remplacez YOUR_API_KEY par votre clé) -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
-<script src="<?= JS_DIR ?>gmaps.min.js"></script>
-<script src="<?= JS_DIR ?>map-active.js"></script>
+<?php if(!empty($INCLUDE_GOOGLE_MAPS)) : ?>
+    <!-- Load Google Maps API asynchronously; set a valid API key in a secure config -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+    <script src="<?= JS_DIR ?>gmaps.min.js"></script>
+    <script src="<?= JS_DIR ?>map-active.js"></script>
+<?php endif; ?>
 
 <script src="<?= JS_DIR ?>main.js"></script>
 

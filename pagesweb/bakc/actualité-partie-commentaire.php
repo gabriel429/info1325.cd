@@ -26,20 +26,6 @@
 <!-- Composant header  page cn debut -->
     <?php require_once $headerPath;  ?>
 <!-- Composant header page cn fin  -->		
-<!-- Breadcrumbs -->
-		<div class="breadcrumbs overlay">
-			<div class="container">
-				<div class="bread-inner">
-					<div class="row">
-						<div class="col-12">
-							<h2>Actualités 1325</h2>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Breadcrumbs -->
-		
 		<!-- Single News -->
 		<section class="news-single section">
 			<div class="container">

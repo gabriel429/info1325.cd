@@ -1,5 +1,9 @@
 <?php
 // Script d'installation : crée la table `partenaires` et insère des exemples.
+// SECURITY: Require admin authentication
+require_once __DIR__ . '/auth_check.php';
+require_role('admin');
+
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/connectDb.php';
 

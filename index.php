@@ -1,27 +1,15 @@
 <?php
-
-    require_once __DIR__ . '/configUrl.php'; // __DIR__ = dossier racine
-
-    require_once __DIR__ . '/defConstLiens.php'; // __DIR__ = dossier racine
-
-
-
-  //require_once $dataDbConnect; 
-
-  require_once $dateDbConnect; // Connexion à la base de données
-
- 
-
-<?php
 require_once __DIR__ . '/configUrl.php'; // __DIR__ = dossier racine
 require_once __DIR__ . '/defConstLiens.php'; // __DIR__ = dossier racine
 
 // require_once $dataDbConnect;
 require_once $dateDbConnect; // Connexion à la base de données
 
+// Track visitor
+require_once __DIR__ . '/pagesweb/track_visitor.php';
 ?>
 
- <?php // require_once $contactPath;  ?> 
+<?php require_once $headerPath;  ?> 
 
 <!-- Composant contact page cn fin  -->
 
