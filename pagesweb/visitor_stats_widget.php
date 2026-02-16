@@ -15,6 +15,7 @@ require_once __DIR__ . '/track_visitor.php';
 // Get statistics
 $visitor_stats = get_visitor_stats($pdo);
 $daily_chart_data = get_daily_stats_chart($pdo, 14); // Last 14 days
+$country_stats = get_country_stats($pdo, 1, 10); // Today, top 10
 ?>
 
 <div class="row mb-4">
@@ -134,6 +135,38 @@ $daily_chart_data = get_daily_stats_chart($pdo, 14); // Last 14 days
                         Suivi depuis le <?= date('d/m/Y', strtotime('-30 days')) ?>
                     </small>
                 </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-geo-alt"></i> Visiteurs par pays (aujourd'hui)</h5>
+            </div>
+            <div class="card-body p-0">
+                <?php if (!empty($country_stats)): ?>
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Pays</th>
+                                    <th scope="col" class="text-end">Visites</th>
+                                    <th scope="col" class="text-end">Uniques</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($country_stats as $row): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars(strtoupper($row['country'])) ?></td>
+                                        <td class="text-end"><?= number_format((int)$row['visits']) ?></td>
+                                        <td class="text-end"><?= number_format((int)$row['unique_visits']) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <div class="p-3 text-center text-muted">Aucune donnee pour aujourd'hui.</div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

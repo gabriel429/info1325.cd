@@ -286,6 +286,52 @@ function get_daily_stats_chart($pdo, $days = 30) {
     }
 }
 
+/**
+ * Get country stats (top countries)
+ */
+function get_country_stats($pdo, $days = 1, $limit = 10) {
+    $days = max(1, (int)$days);
+    $limit = max(1, (int)$limit);
+
+    try {
+        if ($days === 1) {
+            $sql = '
+                SELECT
+                    country,
+                    COUNT(*) as visits,
+                    SUM(is_unique) as unique_visits
+                FROM visits
+                WHERE visit_date = CURDATE()
+                  AND country IS NOT NULL
+                  AND country <> ""
+                GROUP BY country
+                ORDER BY visits DESC
+                LIMIT ' . $limit;
+            $stmt = $pdo->query($sql);
+        } else {
+            $sql = '
+                SELECT
+                    country,
+                    COUNT(*) as visits,
+                    SUM(is_unique) as unique_visits
+                FROM visits
+                WHERE visit_date >= DATE_SUB(CURDATE(), INTERVAL :days DAY)
+                  AND country IS NOT NULL
+                  AND country <> ""
+                GROUP BY country
+                ORDER BY visits DESC
+                LIMIT ' . $limit;
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([':days' => $days - 1]);
+        }
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Error fetching country stats: " . $e->getMessage());
+        return [];
+    }
+}
+
 // Auto-track if this file is included
 if (!defined('SKIP_AUTO_TRACK')) {
     track_visit();
