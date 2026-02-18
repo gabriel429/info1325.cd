@@ -82,6 +82,8 @@ require_once $headerPath; // inclut le head et ouvre <body>
 <?php
   // Préparer l'URL et la taille du fichier si présent sur le serveur
   $pdfUrl = IMG_DIR . 'documentations/R1325%20ONU.pdf';
+  $pdfViewTrackUrl = BASE_URL . 'pagesweb/documentation_event.php?action=view&file=' . rawurlencode('R1325 ONU.pdf') . '&title=' . rawurlencode('Résolution 1325 ONU');
+  $pdfTrackUrl = BASE_URL . 'pagesweb/documentation_event.php?action=download&file=' . rawurlencode('R1325 ONU.pdf') . '&title=' . rawurlencode('Résolution 1325 ONU');
   $pdfFsPath = __DIR__ . '/../img/documentations/R1325 ONU.pdf';
   $pdfSizeLabel = '';
   if (file_exists($pdfFsPath)){
@@ -93,7 +95,11 @@ require_once $headerPath; // inclut le head et ouvre <body>
 ?>
 <div class="container my-4 resolution-download">
   <div class="text-center">
-    <a href="<?= $pdfUrl ?>" class="btn btn-primary btn-r1325" download target="_blank">
+    <a href="<?= $pdfViewTrackUrl ?>" class="btn btn-outline-primary btn-r1325 me-2" target="_blank" rel="noopener">
+      <i class="fa fa-eye" aria-hidden="true"></i>
+      Voir le document R1325 ONU (PDF)
+    </a>
+    <a href="<?= $pdfTrackUrl ?>" class="btn btn-primary btn-r1325">
       <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
       Télécharger le document R1325 ONU (PDF)<?= $pdfSizeLabel ?>
     </a>

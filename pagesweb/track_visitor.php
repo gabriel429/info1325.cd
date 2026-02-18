@@ -33,6 +33,12 @@ function ensure_visits_table($pdo) {
 
         $pdo->exec($sql);
 
+        // Add country column for older installations where table already exists
+        $checkCountryColumn = $pdo->query("SHOW COLUMNS FROM visits LIKE 'country'");
+        if ($checkCountryColumn && $checkCountryColumn->rowCount() === 0) {
+            $pdo->exec("ALTER TABLE visits ADD COLUMN country VARCHAR(2) DEFAULT NULL AFTER is_unique");
+        }
+
         // Create statistics summary table for faster queries
         $sql2 = "CREATE TABLE IF NOT EXISTS visit_stats (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -52,6 +58,51 @@ function ensure_visits_table($pdo) {
 }
 
 ensure_visits_table($pdo);
+
+/**
+ * Create documentation events table if not exists
+ */
+function ensure_documentation_events_table($pdo) {
+    try {
+        $sql = "CREATE TABLE IF NOT EXISTS documentation_events (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            documentation_id INT DEFAULT NULL,
+            event_type ENUM('view', 'download') NOT NULL,
+            visitor_id VARCHAR(64) DEFAULT NULL,
+            ip_address VARCHAR(45) DEFAULT NULL,
+            event_date DATE NOT NULL,
+            event_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            doc_title VARCHAR(255) DEFAULT NULL,
+            file_name VARCHAR(255) DEFAULT NULL,
+            page_url VARCHAR(512) DEFAULT NULL,
+            INDEX idx_doc_id (documentation_id),
+            INDEX idx_event_type (event_type),
+            INDEX idx_event_date (event_date)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+
+        $pdo->exec($sql);
+
+        // Backward compatibility for existing installations
+        $checkDocTitle = $pdo->query("SHOW COLUMNS FROM documentation_events LIKE 'doc_title'");
+        if ($checkDocTitle && $checkDocTitle->rowCount() === 0) {
+            $pdo->exec("ALTER TABLE documentation_events ADD COLUMN doc_title VARCHAR(255) DEFAULT NULL AFTER event_time");
+        }
+
+        $checkFileName = $pdo->query("SHOW COLUMNS FROM documentation_events LIKE 'file_name'");
+        if ($checkFileName && $checkFileName->rowCount() === 0) {
+            $pdo->exec("ALTER TABLE documentation_events ADD COLUMN file_name VARCHAR(255) DEFAULT NULL AFTER doc_title");
+        }
+
+        $checkDocIdNull = $pdo->query("SHOW COLUMNS FROM documentation_events LIKE 'documentation_id'")->fetch(PDO::FETCH_ASSOC);
+        if ($checkDocIdNull && stripos((string)($checkDocIdNull['Null'] ?? ''), 'YES') === false) {
+            $pdo->exec("ALTER TABLE documentation_events MODIFY documentation_id INT DEFAULT NULL");
+        }
+    } catch (PDOException $e) {
+        error_log('Error creating documentation_events table: ' . $e->getMessage());
+    }
+}
+
+ensure_documentation_events_table($pdo);
 
 /**
  * Get or create visitor ID
@@ -92,6 +143,31 @@ function get_visitor_ip() {
 }
 
 /**
+ * Get visitor country code (ISO-3166-1 alpha-2) from trusted proxy/CDN headers
+ */
+function get_visitor_country() {
+    $headerCandidates = [
+        $_SERVER['HTTP_CF_IPCOUNTRY'] ?? null,
+        $_SERVER['HTTP_X_COUNTRY_CODE'] ?? null,
+        $_SERVER['HTTP_X_COUNTRY'] ?? null,
+        $_SERVER['HTTP_GEOIP_COUNTRY_CODE'] ?? null,
+    ];
+
+    foreach ($headerCandidates as $value) {
+        if (!$value) {
+            continue;
+        }
+
+        $country = strtoupper(trim($value));
+        if (preg_match('/^[A-Z]{2}$/', $country)) {
+            return $country;
+        }
+    }
+
+    return null;
+}
+
+/**
  * Check if this is a unique visit today
  */
 function is_unique_visit_today($pdo, $visitor_id) {
@@ -122,6 +198,7 @@ function track_visit() {
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
     $page_url = $_SERVER['REQUEST_URI'] ?? '/';
     $referrer = $_SERVER['HTTP_REFERER'] ?? '';
+    $country = get_visitor_country();
     $today = date('Y-m-d');
 
     // Check if unique visit today
@@ -130,8 +207,8 @@ function track_visit() {
     try {
         // Insert visit record
         $stmt = $pdo->prepare('
-            INSERT INTO visits (visitor_id, ip_address, user_agent, page_url, referrer, visit_date, is_unique)
-            VALUES (:vid, :ip, :ua, :url, :ref, :date, :unique)
+            INSERT INTO visits (visitor_id, ip_address, user_agent, page_url, referrer, visit_date, is_unique, country)
+            VALUES (:vid, :ip, :ua, :url, :ref, :date, :unique, :country)
         ');
 
         $stmt->execute([
@@ -141,7 +218,8 @@ function track_visit() {
             ':url' => substr($page_url, 0, 500),
             ':ref' => substr($referrer, 0, 500),
             ':date' => $today,
-            ':unique' => $is_unique
+            ':unique' => $is_unique,
+            ':country' => $country
         ]);
 
         // Update daily statistics
@@ -330,6 +408,100 @@ function get_country_stats($pdo, $days = 1, $limit = 10) {
         error_log("Error fetching country stats: " . $e->getMessage());
         return [];
     }
+}
+
+/**
+ * Track documentation interactions (view/download)
+ */
+function track_documentation_event($pdo, $documentationId, $eventType, $pageUrl = null, $docTitle = null, $fileName = null) {
+    $documentationId = ($documentationId === null || $documentationId === '') ? null : (int)$documentationId;
+    $eventType = strtolower((string)$eventType);
+
+    if (!in_array($eventType, ['view', 'download'], true)) {
+        return false;
+    }
+
+    if (($documentationId === null || $documentationId <= 0) && empty($fileName)) {
+        return false;
+    }
+
+    $safeDocTitle = $docTitle ? substr(trim((string)$docTitle), 0, 255) : null;
+    $safeFileName = $fileName ? substr(basename((string)$fileName), 0, 255) : null;
+
+    try {
+        $stmt = $pdo->prepare('
+            INSERT INTO documentation_events
+                (documentation_id, event_type, visitor_id, ip_address, event_date, doc_title, file_name, page_url)
+            VALUES
+                (:documentation_id, :event_type, :visitor_id, :ip_address, :event_date, :doc_title, :file_name, :page_url)
+        ');
+
+        $stmt->execute([
+            ':documentation_id' => ($documentationId !== null && $documentationId > 0) ? $documentationId : null,
+            ':event_type' => $eventType,
+            ':visitor_id' => get_visitor_id(),
+            ':ip_address' => get_visitor_ip(),
+            ':event_date' => date('Y-m-d'),
+            ':doc_title' => $safeDocTitle,
+            ':file_name' => $safeFileName,
+            ':page_url' => $pageUrl ? substr((string)$pageUrl, 0, 500) : null,
+        ]);
+
+        return true;
+    } catch (PDOException $e) {
+        error_log('Error tracking documentation event: ' . $e->getMessage());
+        return false;
+    }
+}
+
+/**
+ * Get documentation statistics for admin dashboard
+ */
+function get_documentation_stats($pdo, $days = 30, $limit = 5) {
+    $days = max(1, (int)$days);
+    $limit = max(1, (int)$limit);
+
+    $stats = [
+        'total_views' => 0,
+        'total_downloads' => 0,
+        'top_documents' => []
+    ];
+
+    try {
+        $periodCondition = $days === 1
+            ? 'event_date = CURDATE()'
+            : 'event_date >= DATE_SUB(CURDATE(), INTERVAL ' . ($days - 1) . ' DAY)';
+
+        $totalsSql = '
+            SELECT
+                SUM(CASE WHEN event_type = "view" THEN 1 ELSE 0 END) AS total_views,
+                SUM(CASE WHEN event_type = "download" THEN 1 ELSE 0 END) AS total_downloads
+            FROM documentation_events
+            WHERE ' . $periodCondition;
+
+        $totalsRow = $pdo->query($totalsSql)->fetch(PDO::FETCH_ASSOC);
+        $stats['total_views'] = (int)($totalsRow['total_views'] ?? 0);
+        $stats['total_downloads'] = (int)($totalsRow['total_downloads'] ?? 0);
+
+        $topSql = '
+            SELECT
+                COALESCE(d.id, 0) AS id,
+                COALESCE(NULLIF(d.titreDoc, ""), NULLIF(e.doc_title, ""), NULLIF(e.file_name, ""), "Document sans titre") AS titreDoc,
+                SUM(CASE WHEN e.event_type = "view" THEN 1 ELSE 0 END) AS views,
+                SUM(CASE WHEN e.event_type = "download" THEN 1 ELSE 0 END) AS downloads
+            FROM documentation_events e
+            LEFT JOIN documentations d ON d.id = e.documentation_id
+            WHERE ' . $periodCondition . '
+            GROUP BY COALESCE(d.id, 0), COALESCE(NULLIF(d.titreDoc, ""), NULLIF(e.doc_title, ""), NULLIF(e.file_name, ""), "Document sans titre")
+            ORDER BY (views + downloads) DESC
+            LIMIT ' . $limit;
+
+        $stats['top_documents'] = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log('Error fetching documentation stats: ' . $e->getMessage());
+    }
+
+    return $stats;
 }
 
 // Auto-track if this file is included

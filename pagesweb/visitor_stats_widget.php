@@ -15,7 +15,61 @@ require_once __DIR__ . '/track_visitor.php';
 // Get statistics
 $visitor_stats = get_visitor_stats($pdo);
 $daily_chart_data = get_daily_stats_chart($pdo, 14); // Last 14 days
-$country_stats = get_country_stats($pdo, 1, 10); // Today, top 10
+$allowedCountryRanges = [1, 7, 30];
+$sessionCountryRange = isset($_SESSION['visitor_country_days']) ? (int)$_SESSION['visitor_country_days'] : 1;
+
+if (isset($_GET['country_days'])) {
+    $selectedCountryRange = (int)$_GET['country_days'];
+} else {
+    $selectedCountryRange = $sessionCountryRange;
+}
+
+if (!in_array($selectedCountryRange, $allowedCountryRanges, true)) {
+    $selectedCountryRange = 1;
+}
+
+$_SESSION['visitor_country_days'] = $selectedCountryRange;
+
+$country_stats = get_country_stats($pdo, $selectedCountryRange, 10);
+$documentation_stats = get_documentation_stats($pdo, 30, 5);
+
+$countryRangeLabels = [
+    1 => "Aujourd'hui",
+    7 => '7 jours',
+    30 => '30 jours'
+];
+
+function format_country_label($countryCode) {
+    $code = strtoupper((string)$countryCode);
+    if ($code === '') {
+        return 'Inconnu';
+    }
+
+    $countryMap = [
+        'CD' => 'RDC',
+        'CG' => 'Congo-Brazzaville',
+        'FR' => 'France',
+        'BE' => 'Belgique',
+        'CA' => 'Canada',
+        'US' => 'États-Unis',
+        'GB' => 'Royaume-Uni',
+        'DE' => 'Allemagne',
+        'IT' => 'Italie',
+        'ES' => 'Espagne',
+        'ZA' => 'Afrique du Sud',
+        'CM' => 'Cameroun',
+        'SN' => 'Sénégal',
+        'CI' => 'Côte d’Ivoire',
+        'NG' => 'Nigeria',
+        'RW' => 'Rwanda',
+        'BI' => 'Burundi',
+        'UG' => 'Ouganda',
+        'KE' => 'Kenya',
+        'TZ' => 'Tanzanie'
+    ];
+
+    return $countryMap[$code] ?? $code;
+}
 ?>
 
 <div class="row mb-4">
@@ -140,7 +194,23 @@ $country_stats = get_country_stats($pdo, 1, 10); // Today, top 10
 
         <div class="card shadow-sm mt-3">
             <div class="card-header bg-white">
-                <h5 class="mb-0"><i class="bi bi-geo-alt"></i> Visiteurs par pays (aujourd'hui)</h5>
+                <div class="d-flex justify-content-between align-items-center gap-2 flex-wrap">
+                    <h5 class="mb-0"><i class="bi bi-geo-alt"></i> Visiteurs par pays (<?= htmlspecialchars($countryRangeLabels[$selectedCountryRange]) ?>)</h5>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Période pays">
+                        <?php foreach ($allowedCountryRanges as $range): ?>
+                            <?php
+                                $isActive = $selectedCountryRange === $range;
+                                $queryParams = $_GET;
+                                $queryParams['country_days'] = $range;
+                                $rangeUrl = '?' . http_build_query($queryParams);
+                            ?>
+                            <a href="<?= htmlspecialchars($rangeUrl) ?>"
+                               class="btn <?= $isActive ? 'btn-primary' : 'btn-outline-primary' ?>">
+                                <?= htmlspecialchars($countryRangeLabels[$range]) ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
             <div class="card-body p-0">
                 <?php if (!empty($country_stats)): ?>
@@ -156,7 +226,7 @@ $country_stats = get_country_stats($pdo, 1, 10); // Today, top 10
                             <tbody>
                                 <?php foreach ($country_stats as $row): ?>
                                     <tr>
-                                        <td><?= htmlspecialchars(strtoupper($row['country'])) ?></td>
+                                        <td><?= htmlspecialchars(format_country_label($row['country'])) ?></td>
                                         <td class="text-end"><?= number_format((int)$row['visits']) ?></td>
                                         <td class="text-end"><?= number_format((int)$row['unique_visits']) ?></td>
                                     </tr>
@@ -166,6 +236,50 @@ $country_stats = get_country_stats($pdo, 1, 10); // Today, top 10
                     </div>
                 <?php else: ?>
                     <div class="p-3 text-center text-muted">Aucune donnee pour aujourd'hui.</div>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mt-3">
+            <div class="card-header bg-white">
+                <h5 class="mb-0"><i class="bi bi-journal-text"></i> Documentation (30 derniers jours)</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center mb-3">
+                    <div class="col-6 border-end">
+                        <div class="text-muted small">Lectures (Voir)</div>
+                        <div class="h4 mb-0"><?= number_format((int)$documentation_stats['total_views']) ?></div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-muted small">Téléchargements</div>
+                        <div class="h4 mb-0"><?= number_format((int)$documentation_stats['total_downloads']) ?></div>
+                    </div>
+                </div>
+
+                <h6 class="mb-2">Top documents</h6>
+                <?php if (!empty($documentation_stats['top_documents'])): ?>
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Document</th>
+                                    <th class="text-end">Vues</th>
+                                    <th class="text-end">Téléch.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($documentation_stats['top_documents'] as $docRow): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($docRow['titreDoc']) ?></td>
+                                        <td class="text-end"><?= number_format((int)$docRow['views']) ?></td>
+                                        <td class="text-end"><?= number_format((int)$docRow['downloads']) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <div class="text-muted">Aucune interaction enregistrée sur la période.</div>
                 <?php endif; ?>
             </div>
         </div>

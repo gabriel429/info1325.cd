@@ -45,10 +45,14 @@ require_once $headerPath;
         <div class="row">
             <?php foreach ($docs as $doc):
                     $imgName = $doc['img'] ?? '';
+                    $docId = (int)($doc['id'] ?? 0);
                     $encodedImg = rawurlencode($imgName);
                     $imgPath = BASE_URL . 'img/documentations/' . $encodedImg;
                     $pdfFile = ROOT_DIR . 'img/documentations/' . ($doc['fichier_pdf'] ?? '');
                     $pdfPath = file_exists($pdfFile) ? BASE_URL . 'img/documentations/' . $doc['fichier_pdf'] : '#';
+                    $trackingBase = BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId;
+                    $viewUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=view') : '#';
+                    $downloadUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=download') : '#';
             ?>
             <div class="col-lg-4 col-md-6 col-12 mb-4">
                 <div class="doc-card">
@@ -57,11 +61,11 @@ require_once $headerPath;
                     </a>
                     <div class="doc-body">
                         <div class="doc-meta"><?= htmlspecialchars(date('d M, Y', strtotime($doc['datePub']))) ?></div>
-                        <div class="doc-title"><a href="<?= htmlspecialchars($pdfPath) ?>" target="_blank"><?= htmlspecialchars($doc['titreDoc']) ?></a></div>
+                                                <div class="doc-title"><a href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($doc['titreDoc']) ?></a></div>
                         <div class="doc-excerpt">Auteur: <?= htmlspecialchars($doc['auteur'] ?? 'Inconnu') ?> — Année: <?= htmlspecialchars($doc['anneePub'] ?? 'N/A') ?></div>
                         <div class="doc-actions mt-2">
-                              <a class="btn btn-outline-primary btn-sm me-2" href="<?= htmlspecialchars($pdfPath) ?>" target="_blank" rel="noopener">Voir</a>
-                            <a class="btn btn-primary btn-sm" href="<?= htmlspecialchars($pdfPath) ?>" target="_blank" rel="noopener" download>Télécharger</a>
+                                                            <a class="btn btn-outline-primary btn-sm me-2" href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener">Voir</a>
+                                                        <a class="btn btn-primary btn-sm" href="<?= htmlspecialchars($downloadUrl) ?>" rel="noopener">Télécharger</a>
                         </div>
                     </div>
                 </div>
