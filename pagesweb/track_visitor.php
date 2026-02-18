@@ -249,7 +249,7 @@ function update_daily_stats($pdo, $date) {
         // Insert or update statistics
         $stmt = $pdo->prepare('
             INSERT INTO visit_stats (stat_date, total_visits, unique_visits, page_views)
-            VALUES (:date, :total, :unique, :pageviews)
+            VALUES (:stat_date, :total, :unique, :pageviews)
             ON DUPLICATE KEY UPDATE
                 total_visits = :total,
                 unique_visits = :unique,
@@ -257,7 +257,7 @@ function update_daily_stats($pdo, $date) {
         ');
 
         $stmt->execute([
-            ':date' => $date,
+            ':stat_date' => $date,
             ':total' => $stats['total_visits'] ?? 0,
             ':unique' => $stats['unique_visits'] ?? 0,
             ':pageviews' => $stats['total_visits'] ?? 0

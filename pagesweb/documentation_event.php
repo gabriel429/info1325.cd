@@ -27,18 +27,34 @@ try {
         $stmt->execute([':id' => $docId]);
         $doc = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$doc || empty($doc['fichier_pdf'])) {
+        if (!$doc) {
+            error_log('documentation_event.php: Document not found for ID=' . $docId);
             http_response_code(404);
             exit('Document introuvable.');
+        }
+        
+        if (empty($doc['fichier_pdf'])) {
+            error_log('documentation_event.php: Document ID=' . $docId . ' has no fichier_pdf field');
+            http_response_code(404);
+            exit('Ce document n\'a pas de fichier PDF associé.');
         }
     }
 
     $pdfFileName = $doc ? basename((string)$doc['fichier_pdf']) : $fileParam;
+    
+    // Validate filename to prevent path traversal
+    if (strpos($pdfFileName, '..') !== false || strpos($pdfFileName, '/') !== false || strpos($pdfFileName, '\\') !== false) {
+        error_log('documentation_event.php: Invalid filename detected: ' . $pdfFileName);
+        http_response_code(400);
+        exit('Nom de fichier invalide.');
+    }
+    
     $pdfPath = __DIR__ . '/../img/documentations/' . $pdfFileName;
 
     if (!is_file($pdfPath)) {
+        error_log('documentation_event.php: File not found at path: ' . $pdfPath . ' (filename: ' . $pdfFileName . ')');
         http_response_code(404);
-        exit('Fichier PDF introuvable.');
+        exit('Fichier PDF introuvable: ' . htmlspecialchars($pdfFileName));
     }
 
     $docTitle = $doc['titreDoc'] ?? ($titleParam !== '' ? $titleParam : pathinfo($pdfFileName, PATHINFO_FILENAME));
