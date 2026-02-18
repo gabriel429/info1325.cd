@@ -464,7 +464,8 @@ function get_documentation_stats($pdo, $days = 30, $limit = 5) {
     $stats = [
         'total_views' => 0,
         'total_downloads' => 0,
-        'top_documents' => []
+        'top_documents' => [],
+        'recent_events' => []
     ];
 
     try {
@@ -497,6 +498,20 @@ function get_documentation_stats($pdo, $days = 30, $limit = 5) {
             LIMIT ' . $limit;
 
         $stats['top_documents'] = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
+
+        $recentSql = '
+            SELECT
+                e.event_type,
+                e.event_time,
+                e.page_url,
+                COALESCE(NULLIF(d.titreDoc, ""), NULLIF(e.doc_title, ""), NULLIF(e.file_name, ""), "Document sans titre") AS titreDoc
+            FROM documentation_events e
+            LEFT JOIN documentations d ON d.id = e.documentation_id
+            WHERE ' . $periodCondition . '
+            ORDER BY e.event_time DESC
+            LIMIT 10';
+
+        $stats['recent_events'] = $pdo->query($recentSql)->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         error_log('Error fetching documentation stats: ' . $e->getMessage());
     }

@@ -281,6 +281,43 @@ function format_country_label($countryCode) {
                 <?php else: ?>
                     <div class="text-muted">Aucune interaction enregistrée sur la période.</div>
                 <?php endif; ?>
+
+                <h6 class="mb-2 mt-3">Dernières interactions</h6>
+                <?php if (!empty($documentation_stats['recent_events'])): ?>
+                    <div class="table-responsive">
+                        <table class="table table-sm mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Document</th>
+                                    <th class="text-end">Date/Heure</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($documentation_stats['recent_events'] as $eventRow): ?>
+                                    <tr>
+                                        <td>
+                                            <?php if (($eventRow['event_type'] ?? '') === 'download'): ?>
+                                                <span class="badge bg-primary">Téléchargé</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-secondary">Vu</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <div><?= htmlspecialchars($eventRow['titreDoc'] ?? 'Document sans titre') ?></div>
+                                            <?php if (!empty($eventRow['page_url'])): ?>
+                                                <small class="text-muted">Source: <?= htmlspecialchars($eventRow['page_url']) ?></small>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td class="text-end"><?= htmlspecialchars(date('d/m/Y H:i', strtotime((string)($eventRow['event_time'] ?? 'now')))) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <div class="text-muted">Aucun événement récent.</div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
