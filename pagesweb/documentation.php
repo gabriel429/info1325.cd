@@ -49,10 +49,11 @@ require_once $headerPath;
                     $encodedImg = rawurlencode($imgName);
                     $imgPath = BASE_URL . 'img/documentations/' . $encodedImg;
                     $pdfFile = ROOT_DIR . 'img/documentations/' . ($doc['fichier_pdf'] ?? '');
-                    $pdfPath = file_exists($pdfFile) ? BASE_URL . 'img/documentations/' . $doc['fichier_pdf'] : '#';
+                    $pdfFileName = basename($doc['fichier_pdf'] ?? '');
+                    $pdfPath = file_exists($pdfFile) ? BASE_URL . 'img/documentations/' . $pdfFileName : '#';
                     $trackingBase = BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId;
-                    $viewUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=view') : '#';
-                    $downloadUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=download') : '#';
+                    $viewUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=view&file=' . rawurlencode($pdfFileName)) : '#';
+                    $downloadUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=download&file=' . rawurlencode($pdfFileName)) : '#';
             ?>
             <div class="col-lg-4 col-md-6 col-12 mb-4">
                 <div class="doc-card">

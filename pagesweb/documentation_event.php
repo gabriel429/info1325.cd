@@ -22,6 +22,11 @@ if ((($docId <= 0) && $fileParam === '') || !in_array($action, ['view', 'downloa
 
 try {
     $doc = null;
+    $docTitle = '';
+    
+    // Determine the PDF filename
+    $pdfFileName = '';
+    
     if ($docId > 0) {
         $stmt = $pdo->prepare('SELECT id, titreDoc, fichier_pdf FROM documentations WHERE id = :id LIMIT 1');
         $stmt->execute([':id' => $docId]);
@@ -33,14 +38,20 @@ try {
             exit('Document introuvable.');
         }
         
-        if (empty($doc['fichier_pdf'])) {
-            error_log('documentation_event.php: Document ID=' . $docId . ' has no fichier_pdf field');
-            http_response_code(404);
-            exit('Ce document n\'a pas de fichier PDF associé.');
-        }
+        $docTitle = $doc['titreDoc'] ?? '';
+        // Use file parameter if provided, otherwise use fichier_pdf from DB
+        $pdfFileName = ($fileParam !== '') ? $fileParam : basename((string)($doc['fichier_pdf'] ?? ''));
+    } else {
+        // No doc_id, must have file parameter
+        $pdfFileName = $fileParam;
+        $docTitle = $titleParam !== '' ? $titleParam : pathinfo($pdfFileName, PATHINFO_FILENAME);
     }
-
-    $pdfFileName = $doc ? basename((string)$doc['fichier_pdf']) : $fileParam;
+    
+    if (empty($pdfFileName)) {
+        error_log('documentation_event.php: No PDF filename provided (doc_id=' . $docId . ', file=' . $fileParam . ')');
+        http_response_code(400);
+        exit('Aucun fichier PDF spécifié.');
+    }
     
     // Validate filename to prevent path traversal
     if (strpos($pdfFileName, '..') !== false || strpos($pdfFileName, '/') !== false || strpos($pdfFileName, '\\') !== false) {
@@ -57,13 +68,12 @@ try {
         exit('Fichier PDF introuvable: ' . htmlspecialchars($pdfFileName));
     }
 
-    $docTitle = ($doc && isset($doc['titreDoc'])) ? $doc['titreDoc'] : ($titleParam !== '' ? $titleParam : pathinfo($pdfFileName, PATHINFO_FILENAME));
     track_documentation_event(
         $pdo,
         $docId > 0 ? $docId : null,
         $action,
         $_SERVER['HTTP_REFERER'] ?? null,
-        $docTitle,
+        $docTitle !== '' ? $docTitle : pathinfo($pdfFileName, PATHINFO_FILENAME),
         $pdfFileName
     );
 
@@ -75,10 +85,14 @@ try {
         $downloadName .= '.pdf';
 
         header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="' . $downloadName . '"; filename*=UTF-8\'\'' . rawurlencode($downloadName));
+        header('Content-Disposition: attachment; filename="' . addslashes($downloadName) . '"');
         header('Content-Length: ' . filesize($pdfPath));
-        header('Cache-Control: private, max-age=0, must-revalidate');
-        header('Pragma: public');
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+        
+        ob_clean();
+        flush();
         readfile($pdfPath);
         exit;
     }
