@@ -57,7 +57,7 @@ try {
         exit('Fichier PDF introuvable: ' . htmlspecialchars($pdfFileName));
     }
 
-    $docTitle = $doc['titreDoc'] ?? ($titleParam !== '' ? $titleParam : pathinfo($pdfFileName, PATHINFO_FILENAME));
+    $docTitle = ($doc && isset($doc['titreDoc'])) ? $doc['titreDoc'] : ($titleParam !== '' ? $titleParam : pathinfo($pdfFileName, PATHINFO_FILENAME));
     track_documentation_event(
         $pdo,
         $docId > 0 ? $docId : null,
