@@ -283,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="container-fluid">
     <span class="navbar-brand fw-bold">📰 Admin – Gestion des Actualités</span>
     <div class="ms-auto">
-        <a href="<?= URL_ADDSPACEADMIN; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
+        <a href="<?= URL_ADMIN_DASHBOARD; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
         <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
     </div>
   </div>
