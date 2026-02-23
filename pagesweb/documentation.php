@@ -51,7 +51,7 @@ require_once $headerPath;
                     $pdfFile = ROOT_DIR . 'img/documentations/' . ($doc['fichier_pdf'] ?? '');
                     $pdfFileName = basename($doc['fichier_pdf'] ?? '');
                     $pdfPath = file_exists($pdfFile) ? BASE_URL . 'img/documentations/' . $pdfFileName : '#';
-                    $trackingBase = BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId;
+                    $trackingBase = BASE_URL . 'pagesweb/documentation_event/?doc_id=' . $docId;
                     $viewUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=view&file=' . rawurlencode($pdfFileName)) : '#';
                     $downloadUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=download&file=' . rawurlencode($pdfFileName)) : '#';
             ?>
