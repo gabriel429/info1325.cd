@@ -5,6 +5,7 @@ session_start();
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // Fichier qui contient $pdo (connexion PDO)
+require_once __DIR__ . '/csrf_helper.php';
 
 // 🔒 Vérification de la session (protection)
 if (!isset($_SESSION['user'])) {
@@ -53,6 +54,7 @@ function uploadImage($fileKey, $targetDir)
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_verify();
     try {
         $action = $_POST['action'] ?? 'create';
 
@@ -297,6 +299,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="card-body p-4">
             <?= $message ?>
             <form method="POST" enctype="multipart/form-data" id="newsForm">
+                <?= csrf_field() ?>
 
                 <!-- Section 1: Informations de base -->
                 <div class="section-header">
@@ -603,6 +606,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <div class="modal-body">
                 <form method="POST" enctype="multipart/form-data" id="editForm">
+                    <?= csrf_field() ?>
                     <input type="hidden" name="action" value="update">
                     <input type="hidden" name="actu_id" id="edit_id">
 

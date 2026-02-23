@@ -5,6 +5,8 @@ session_start();
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // contient $pdo
+require_once __DIR__ . '/csrf_helper.php';
+require_once __DIR__ . '/upload_helper.php';
 
 // 🔒 Protection d'accès
 if (!isset($_SESSION['user'])) {
@@ -14,39 +16,9 @@ if (!isset($_SESSION['user'])) {
 
 $message = "";
 
-// 🔹 Fonction d'upload
-function uploadFile($fileKey, $targetDir, $allowedTypes)
-{
-    if (!isset($_FILES[$fileKey]) || empty($_FILES[$fileKey]['name'])) {
-        return null;
-    }
-
-    $file = $_FILES[$fileKey];
-    if ($file['error'] !== UPLOAD_ERR_OK) {
-        return null;
-    }
-
-    $fileType = mime_content_type($file['tmp_name']);
-    if (!in_array($fileType, $allowedTypes)) {
-        throw new Exception("Format de fichier non autorisé pour $fileKey !");
-    }
-
-    $fileName = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($file['name']));
-    $targetFile = $targetDir . $fileName;
-
-    if (!is_dir($targetDir)) {
-        mkdir($targetDir, 0777, true);
-    }
-
-    if (move_uploaded_file($file['tmp_name'], $targetFile)) {
-        return $fileName;
-    } else {
-        throw new Exception("Erreur lors du téléchargement du fichier $fileKey.");
-    }
-}
-
 // 🔹 Ajout ou mise à jour
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_verify();
     try {
         $action = $_POST['action'] ?? 'create';
         $titreDoc = trim($_POST['titreDoc']);
@@ -208,6 +180,7 @@ if (isset($_GET['delete'])) {
         <div class="card-body p-4">
             <?= $message ?>
             <form method="POST" enctype="multipart/form-data" id="docForm">
+                <?= csrf_field() ?>
 
                 <!-- Section 1: Informations de base -->
                 <div class="section-header">
@@ -433,6 +406,7 @@ if (isset($_GET['delete'])) {
             </div>
             <div class="modal-body">
                 <form method="POST" enctype="multipart/form-data" id="editDocForm">
+                    <?= csrf_field() ?>
                     <input type="hidden" name="action" value="update">
                     <input type="hidden" name="doc_id" id="edit_doc_id">
 

@@ -1,4 +1,58 @@
-# .htaccess minimal rules for friendly URLs
+# .htaccess — SN1325
+# ============================================================
+# 1. Interdire le listing de répertoires
+# ============================================================
+Options -Indexes
+
+# ============================================================
+# 2. Headers de sécurité HTTP
+# ============================================================
+<IfModule mod_headers.c>
+    # Empêche l'affichage dans une iframe (protection clickjacking)
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # Empêche le navigateur de deviner le type MIME
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Contrôle les informations de référence transmises
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Désactive la fonctionnalité XSS-Auditor (remplacé par CSP)
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Content Security Policy (adapter si des CDN externes sont utilisés)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net fonts.googleapis.com; style-src 'self' 'unsafe-inline' cdn.jsdelivr.net fonts.googleapis.com fonts.gstatic.com; font-src 'self' cdn.jsdelivr.net fonts.googleapis.com fonts.gstatic.com data:; img-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none';"
+
+    # Empêche l'envoi du header Server avec la version du serveur web
+    Header unset Server
+    Header always unset X-Powered-By
+</IfModule>
+
+# ============================================================
+# 3. Bloquer l'accès aux fichiers et dossiers sensibles
+# ============================================================
+
+# Interdire l'accès direct au dossier config/ (credentials)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^config/ - [F,L]
+</IfModule>
+
+# Interdire l'accès aux fichiers PHP helpers/internes non destinés au public
+<FilesMatch "^(csrf_helper|upload_helper|rate_limiter|track_visitor|connectDb)\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Interdire l'accès aux fichiers de configuration sensibles
+<FilesMatch "\.(env|sql|log|bak|backup|sh|bash)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ============================================================
+# 4. Réécriture d'URLs (mod_rewrite)
+# ============================================================
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
@@ -6,57 +60,23 @@
     # Redirect directory-style logout URL to the explicit PHP file
     RewriteRule ^pagesweb/logout/?$ /pagesweb/logout.php [L,R=301]
 
+    # Règle explicite pour documentation_event (préserve la query string)
+    RewriteRule ^pagesweb/documentation_event/?$ pagesweb/documentation_event.php [L,QSA]
+
+    # 1. Si on tape une URL sans extension (.php implicite)
+    #    Exemple: /pagesweb/formations/ => pagesweb/formations.php
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.+)/$ $1.php [L,QSA]
+
+    # 2. Enlever .php quand on tape avec extension
+    #    Exception: documentation_event.php (doit garder ses paramètres GET)
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
+    RewriteCond %{THE_REQUEST} !pagesweb/documentation_event\.php [NC]
+    RewriteRule ^ %1/ [R=301,L,QSA]
 </IfModule>
-# Interdire le listing de répertoires
 
-Options -Indexes
-
-
-
-# Activer mod_rewrite
-
-RewriteEngine On
-
-RewriteBase /
-
-# Règle explicite pour documentation_event (préserve la query string)
-RewriteRule ^pagesweb/documentation_event/?$ pagesweb/documentation_event.php [L,QSA]
-
-
-# 1. Si on tape une URL sans extension (.php implicite)
-
-#    Exemple: /pagesweb/formations/ => pagesweb/formations.php
-
-RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteCond %{REQUEST_FILENAME}\.php -f
-
-RewriteRule ^(.+)/$ $1.php [L,QSA]
-
-
-
-# 2. Optionnel : enlever .php quand on tape avec extension
-
-#    Exemple: /pagesweb/formations.php => /pagesweb/formations/
-#    Exception: documentation_event.php (doit garder ses paramètres GET)
-
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
-RewriteCond %{THE_REQUEST} !pagesweb/documentation_event\.php [NC]
-
-RewriteRule ^ %1/ [R=301,L,QSA]
-
-
-
-
-
-# 3. Page 404 personnalisée
-
-# -----------------------------------------------------
-
+# ============================================================
+# 5. Page 404 personnalisée
+# ============================================================
 ErrorDocument 404 /pagesweb/404.php
-
-
-
-
-
-# Bloquer l’accès direct aux dossiers sans index

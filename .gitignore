@@ -39,3 +39,6 @@ tmpclaude-*
 
 # Configuration locale (si utilisée)
 pagesweb/config.local.php
+
+# Fichier secrets (credentials — ne jamais versionner)
+config/secrets.php

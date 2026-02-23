@@ -2,8 +2,10 @@
 session_start();
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/connectDb.php';
+require_once __DIR__ . '/csrf_helper.php';
+require_once __DIR__ . '/upload_helper.php';
 
-if (!isset($_SESSION['user'])) {
+if (!isset($_SESSION['user']) || ($_SESSION['role'] ?? '') !== 'admin') {
     header('Location:' . URL_AUTHENTIFICATION);
     exit;
 }
@@ -16,16 +18,10 @@ if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
 
 // Ajout d'un partenaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add') {
+    csrf_verify();
     try {
-        if (!isset($_FILES['logo']) || empty($_FILES['logo']['name'])) throw new Exception('Aucun fichier fourni');
-        $file = $_FILES['logo'];
-        if ($file['error'] !== UPLOAD_ERR_OK) throw new Exception('Erreur upload');
-        $mime = mime_content_type($file['tmp_name']);
-        $allowed = ['image/png','image/jpeg','image/webp'];
-        if (!in_array($mime, $allowed)) throw new Exception('Format non autorisé');
-        $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9._-]/','_', basename($file['name']));
-        $dest = $targetDir . $filename;
-        if (!move_uploaded_file($file['tmp_name'], $dest)) throw new Exception('Impossible de déplacer le fichier');
+        $filename = uploadFile('logo', $targetDir, ['image/png', 'image/jpeg', 'image/webp']);
+        if ($filename === null) throw new Exception('Aucun fichier fourni');
 
         $name = trim($_POST['name'] ?? '');
         $url = trim($_POST['url'] ?? '#');
@@ -39,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 // Import CSV
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'import') {
+    csrf_verify();
     try {
         if (!isset($_FILES['csvfile']) || $_FILES['csvfile']['error'] !== UPLOAD_ERR_OK) throw new Exception('Aucun fichier CSV fourni');
         $tmp = $_FILES['csvfile']['tmp_name'];
@@ -86,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 // Import ZIP d'images (logos)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'import_zip') {
+    csrf_verify();
     try {
         if (!isset($_FILES['zipfile']) || $_FILES['zipfile']['error'] !== UPLOAD_ERR_OK) throw new Exception('Aucun fichier ZIP fourni');
         $tmp = $_FILES['zipfile']['tmp_name'];
@@ -188,6 +186,7 @@ try {
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="add">
+                <?= csrf_field() ?>
                 <div class="mb-3">
                     <label class="form-label">Nom</label>
                     <input type="text" name="name" class="form-control">
@@ -210,6 +209,7 @@ try {
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="import">
+                <?= csrf_field() ?>
                 <div class="mb-3">
                     <label class="form-label">Fichier CSV</label>
                     <input type="file" name="csvfile" accept=".csv" class="form-control" required>
@@ -225,6 +225,7 @@ try {
         <div class="card-body">
             <form method="post" enctype="multipart/form-data">
                 <input type="hidden" name="action" value="import_zip">
+                <?= csrf_field() ?>
                 <div class="mb-3">
                     <label class="form-label">Archive ZIP</label>
                     <input type="file" name="zipfile" accept=".zip" class="form-control" required>

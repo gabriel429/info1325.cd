@@ -1,9 +1,14 @@
-﻿<?php
+<?php
+// Chargement des credentials/config depuis le fichier sécurisé
+$_cfgSecretsFile = __DIR__ . '/config/secrets.php';
+if (file_exists($_cfgSecretsFile)) {
+    require_once $_cfgSecretsFile;
+}
 
-// Racine du projet (en local '/Akili/', en prod '/')
-
-// Détecte si nous sommes en local (localhost)
-$isLocal = in_array($_SERVER['SERVER_NAME'], ['localhost', '109.234.160.5']);
+// Racine du projet (en local '/info1325.cd/', en prod '/')
+// Détecte si nous sommes en local (localhost ou IP locale définie dans secrets)
+$_localNames = defined('SECRET_LOCAL_SERVER_NAMES') ? SECRET_LOCAL_SERVER_NAMES : ['localhost', '127.0.0.1'];
+$isLocal = in_array($_SERVER['SERVER_NAME'] ?? 'localhost', $_localNames);
 
 // En local le site est servi depuis le dossier /info1325.cd/
 // En production, depuis la racine '/'
@@ -37,7 +42,7 @@ function url(string $path): string {
     return BASE_URL . ltrim($path, '/');
 }
 
-// Exemple de page
+// URLs des pages
 define('URL_404', BASE_URL . 'pagesweb/404/');
 define('URL_ACCUEIL', BASE_URL);
 define('URL_ACTUALITES', BASE_URL . 'pagesweb/actualites/');
@@ -72,4 +77,3 @@ define('URL_SUCCESSADDDOCUMENTATION', BASE_URL . 'pagesweb/success-add-documenta
 
 define('URL_LOGOUT', BASE_URL . 'pagesweb/logout.php');
 define('URL_ADMIN_DASHBOARD', BASE_URL . 'pagesweb/admin_dashboard.php');
-
