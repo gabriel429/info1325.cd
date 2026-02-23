@@ -97,87 +97,35 @@ if (isset($_GET['delete'])) {
         $message = "<div class='alert alert-danger alert-dismissible fade show'><i class='bi bi-exclamation-triangle-fill me-2'></i>Erreur lors de la suppression.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
 }
+<?php
+$pageTitle  = 'Gestion des documentations';
+$breadcrumb = [['label' => 'Documentation']];
+$activePage = 'documentation';
+require_once __DIR__ . '/admin_layout_top.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Documentations - SN1325</title>
-    <link rel="stylesheet" href="<?= CSS_DIR ?>bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .preview-container {
-            position: relative;
-            margin-top: 10px;
-        }
-        .preview-image {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .remove-preview {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(220, 53, 69, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-        .remove-preview:hover {
-            background: #dc3545;
-        }
-        .form-label {
-            font-weight: 600;
-            color: #495057;
-        }
-        .form-label .required {
-            color: #dc3545;
-        }
-        .section-header {
-            background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .file-info {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-top: 5px;
-        }
-        .doc-card {
-            transition: transform 0.2s;
-        }
-        .doc-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1) !important;
-        }
-    </style>
-</head>
-<body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-  <div class="container-fluid">
-    <span class="navbar-brand fw-bold">📚 Admin – Gestion Documentations</span>
-    <div class="ms-auto">
-        <a href="<?= URL_ADMIN_DASHBOARD; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
-        <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
+<style>
+.preview-container { position: relative; margin-top: 10px; }
+.preview-image { max-width: 100%; max-height: 200px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,.1); }
+.remove-preview { position: absolute; top: 5px; right: 5px; background: rgba(220,53,69,.9); color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; }
+.remove-preview:hover { background: #dc3545; }
+.file-info { font-size: .85rem; color: #6c757d; margin-top: 5px; }
+.doc-card { transition: transform .2s; }
+.doc-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,.1) !important; }
+</style>
+
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-file-earmark-text me-2" style="color:var(--accent)"></i>Gestion des documentations</h1>
+        <p>Ajouter, modifier et supprimer les documents</p>
     </div>
-  </div>
-</nav>
+</div>
 
-<div class="container py-5">
-    <div class="card shadow-lg border-0">
-        <div class="card-header text-white" style="background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);">
-            <h4 class="mb-0"><i class="bi bi-file-earmark-plus"></i> Ajouter une documentation</h4>
-        </div>
-        <div class="card-body p-4">
+<div class="admin-card mb-4">
+    <div class="card-header">
+        <i class="bi bi-file-earmark-plus me-2" style="color:var(--accent)"></i>Ajouter une documentation
+    </div>
+    <div class="card-body p-4">
             <?= $message ?>
             <form method="POST" enctype="multipart/form-data" id="docForm">
                 <?= csrf_field() ?>
@@ -391,7 +339,6 @@ if (isset($_GET['delete'])) {
             }
             ?>
         </div>
-    </div>
 </div>
 
 <!-- Modal de modification -->
@@ -578,5 +525,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-</body>
-</html>
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

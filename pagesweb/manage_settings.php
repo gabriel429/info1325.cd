@@ -105,49 +105,40 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     }
     $settings[$group][] = $row;
 }
+$pageTitle  = 'Paramètres du site';
+$breadcrumb = [['label' => 'Paramètres']];
+$activePage = 'settings';
+require_once __DIR__ . '/admin_layout_top.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paramètres du Site - SN1325</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .settings-section {
-            margin-bottom: 2rem;
-        }
-        .setting-item {
-            padding: 1rem;
-            border-bottom: 1px solid #e9ecef;
-        }
-        .setting-item:last-child {
-            border-bottom: none;
-        }
-        .setting-label {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        .setting-description {
-            font-size: 0.875rem;
-            color: #6c757d;
-            margin-top: 0.25rem;
-        }
-    </style>
-</head>
-<body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
-    <div class="container-fluid">
-        <span class="navbar-brand">⚙️ Paramètres du Site</span>
-        <a href="<?= URL_ADMINISTRATEUR ?>" class="btn btn-outline-light btn-sm">
-            <i class="bi bi-arrow-left"></i> Retour au dashboard
-        </a>
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-gear me-2" style="color:var(--accent)"></i>Paramètres du site</h1>
+        <p>Configurer les paramètres généraux du site</p>
     </div>
-</nav>
+</div>
 
-<div class="container-fluid py-4">
+<style>
+    .settings-section {
+        margin-bottom: 2rem;
+    }
+    .setting-item {
+        padding: 1rem;
+        border-bottom: 1px solid #e9ecef;
+    }
+    .setting-item:last-child {
+        border-bottom: none;
+    }
+    .setting-label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .setting-description {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+    }
+</style>
 
     <?php if ($msg): ?>
         <div class="alert alert-<?= $msgType ?> alert-dismissible fade show">
@@ -196,7 +187,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     <!-- General Settings -->
                     <div class="tab-pane fade show active" id="general" role="tabpanel">
                         <div class="card shadow-sm">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header">
                                 <h5 class="mb-0"><i class="bi bi-gear-fill"></i> Paramètres Généraux</h5>
                             </div>
                             <div class="card-body">
@@ -231,7 +222,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     <!-- Contact Settings -->
                     <div class="tab-pane fade" id="contact" role="tabpanel">
                         <div class="card shadow-sm">
-                            <div class="card-header bg-info text-white">
+                            <div class="card-header">
                                 <h5 class="mb-0"><i class="bi bi-envelope-fill"></i> Informations de Contact</h5>
                             </div>
                             <div class="card-body">
@@ -258,7 +249,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     <!-- Social Media Settings -->
                     <div class="tab-pane fade" id="social" role="tabpanel">
                         <div class="card shadow-sm">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header">
                                 <h5 class="mb-0"><i class="bi bi-share-fill"></i> Réseaux Sociaux</h5>
                             </div>
                             <div class="card-body">
@@ -287,7 +278,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     <!-- SEO Settings -->
                     <div class="tab-pane fade" id="seo" role="tabpanel">
                         <div class="card shadow-sm">
-                            <div class="card-header bg-success text-white">
+                            <div class="card-header">
                                 <h5 class="mb-0"><i class="bi bi-search"></i> Référencement (SEO)</h5>
                             </div>
                             <div class="card-body">
@@ -322,7 +313,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     <!-- Features Settings -->
                     <div class="tab-pane fade" id="features" role="tabpanel">
                         <div class="card shadow-sm">
-                            <div class="card-header bg-warning">
+                            <div class="card-header">
                                 <h5 class="mb-0"><i class="bi bi-toggles"></i> Fonctionnalités</h5>
                             </div>
                             <div class="card-body">
@@ -369,8 +360,5 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             </form>
         </div>
     </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

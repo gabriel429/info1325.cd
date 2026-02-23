@@ -196,51 +196,22 @@ $stmt = $pdo->query("SELECT * FROM documentations ORDER BY datePub DESC");
 
 $docs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// ---- Layout variables ----
+$pageTitle  = 'Toutes les documentations';
+$breadcrumb = [['label' => 'Toutes les docs']];
+$activePage = 'all-documentations';
+require_once __DIR__ . '/admin_layout_top.php';
 ?>
 
-<!DOCTYPE html>
-
-<html lang="fr">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <title>Gestion des documentations</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-</head>
-
-<body class="bg-light">
-
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-
-  <div class="container-fluid">
-
-    <span class="navbar-brand fw-bold">📚 Admin – Documentation 1325</span>
-
-    <div class="ms-auto">
-
-        <a href="<?= URL_ADMIN_DASHBOARD; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
-
-        <a href="<?= URL_ADDDOCUMENTATIONS; ?>" class="btn btn-outline-light me-2">📋 Formulaire d'Ajout documentation</a>
-
-        <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
-
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-collection me-2" style="color:var(--accent)"></i>Toutes les documentations</h1>
+        <p>Consulter et gérer l'ensemble des documents</p>
     </div>
-
-  </div>
-
-</nav>
-
-
-
-<div class="container py-5">
+    <a href="<?= URL_ADDDOCUMENTATIONS ?>" class="btn btn-admin-primary">
+        <i class="bi bi-plus-lg me-1"></i> Ajouter une documentation
+    </a>
+</div>
 
     <?= $message ?>
 
@@ -250,7 +221,7 @@ $docs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div id="editForm" class="card shadow-sm border-0 mb-4 d-none">
 
-        <div class="card-header bg-primary text-white fw-semibold">✏️ Modifier une documentation</div>
+        <div class="card-header fw-semibold">Modifier une documentation</div>
 
         <div class="card-body">
 
@@ -462,8 +433,6 @@ $docs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     </div>
 
-</div>
-
 
 
 <script>
@@ -540,9 +509,5 @@ function toggleEditForm(show) {
 
 </script>
 
-
-
-</body>
-
-</html>
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>
 

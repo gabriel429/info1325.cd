@@ -129,21 +129,18 @@ for ($i=1;$i<=6;$i++) {
     if (!isset($axes[$i])) $axes[$i] = $defaults[$i];
 }
 
-?><!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<title>Gérer les axes</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-<nav class="navbar navbar-dark bg-dark px-3">
-  <span class="navbar-brand">Admin – Axes</span>
-  <div class="ms-auto">
-    <a href="<?= URL_ADMINISTRATEUR ?>" class="btn btn-outline-light">Retour</a>
-  </div>
-</nav>
-<div class="container py-4">
+$pageTitle  = 'Gestion des axes';
+$breadcrumb = [['label' => 'Axes']];
+$activePage = 'axes';
+require_once __DIR__ . '/admin_layout_top.php';
+?>
+
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-diagram-3 me-2" style="color:var(--accent)"></i>Gestion des axes</h1>
+        <p>Configurer les axes thématiques</p>
+    </div>
+</div>
     <?= $message ?>
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="save" value="1">
@@ -199,9 +196,6 @@ for ($i=1;$i<=6;$i++) {
         </div>
         <?php endfor; ?>
     </div>
-</div>
-</body>
-</html>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
     const titleInputs = document.querySelectorAll('.axis-title');
@@ -246,3 +240,5 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 });
 </script>
+
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

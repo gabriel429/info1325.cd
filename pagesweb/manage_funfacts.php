@@ -58,21 +58,18 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $facts = [];
 foreach ($rows as $r) $facts[(int)$r['position']] = $r;
 
-?><!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<title>Gérer Fun Facts</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-<nav class="navbar navbar-dark bg-dark px-3">
-  <span class="navbar-brand">Admin – Fun Facts</span>
-  <div class="ms-auto">
-    <a href="<?= URL_ADMINISTRATEUR ?>" class="btn btn-outline-light">Retour</a>
-  </div>
-</nav>
-<div class="container py-4">
+$pageTitle  = 'Gestion des Fun Facts';
+$breadcrumb = [['label' => 'Fun Facts']];
+$activePage = 'funfacts';
+require_once __DIR__ . '/admin_layout_top.php';
+?>
+
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-bar-chart-line me-2" style="color:var(--accent)"></i>Gestion des Fun Facts</h1>
+        <p>Modifier les statistiques affichées sur le site</p>
+    </div>
+</div>
     <?= $message ?>
     <form method="post">
         <input type="hidden" name="save" value="1">
@@ -100,6 +97,5 @@ foreach ($rows as $r) $facts[(int)$r['position']] = $r;
         </div>
         <button class="btn btn-primary">Enregistrer</button>
     </form>
-</div>
-</body>
-</html>
+
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

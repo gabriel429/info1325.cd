@@ -141,22 +141,18 @@ if (isset($_GET['edit'])) {
 }
 
 $users = $pdo->query('SELECT id,email,role,active,created_at FROM users ORDER BY id ASC')->fetchAll(PDO::FETCH_ASSOC);
+$pageTitle  = 'Gestion des utilisateurs';
+$breadcrumb = [['label' => 'Utilisateurs']];
+$activePage = 'users';
+require_once __DIR__ . '/admin_layout_top.php';
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Gérer les utilisateurs - SN1325</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-</head>
-<body class="bg-light">
-<div class="container-fluid py-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2><i class="bi bi-people-fill"></i> Gestion des utilisateurs</h2>
-    <a href="<?= URL_ADMINISTRATEUR ?>" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Retour au dashboard</a>
-  </div>
+
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-people me-2" style="color:var(--accent)"></i>Gestion des utilisateurs</h1>
+        <p>Créer, modifier et désactiver les comptes utilisateurs</p>
+    </div>
+</div>
 
   <?php if ($msg): ?>
     <div class="alert alert-<?= $msgType ?> alert-dismissible fade show">
@@ -169,7 +165,7 @@ $users = $pdo->query('SELECT id,email,role,active,created_at FROM users ORDER BY
     <!-- Add/Edit User Form -->
     <div class="col-md-4">
       <div class="card mb-3 shadow-sm">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header">
           <h5 class="mb-0">
             <i class="bi bi-<?= $editUser ? 'pencil-square' : 'person-plus' ?>"></i>
             <?= $editUser ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' ?>
@@ -231,7 +227,7 @@ $users = $pdo->query('SELECT id,email,role,active,created_at FROM users ORDER BY
     <!-- Users List -->
     <div class="col-md-8">
       <div class="card shadow-sm">
-        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+        <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="mb-0"><i class="bi bi-list-ul"></i> Liste des utilisateurs (<?= count($users) ?>)</h5>
         </div>
         <div class="card-body p-0">
@@ -359,8 +355,5 @@ $users = $pdo->query('SELECT id,email,role,active,created_at FROM users ORDER BY
       </div>
     </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

@@ -84,16 +84,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 // sanitize for output
 function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
-?><!doctype html>
-<html><head><meta charset="utf-8"><title>Manage Galerie</title>
-<link rel="stylesheet" href="<?= CSS_DIR ?>bootstrap.min.css">
-<style>.thumb{height:100px;object-fit:cover}</style>
-</head><body>
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>🖼️ Gestion Galerie</h2>
-        <a href="<?= URL_ADMINISTRATEUR ?>" class="btn btn-secondary">← Retour au dashboard</a>
+$pageTitle  = 'Gestion de la galerie';
+$breadcrumb = [['label' => 'Galerie']];
+$activePage = 'gallery';
+require_once __DIR__ . '/admin_layout_top.php';
+?>
+
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-grid-3x3-gap me-2" style="color:var(--accent)"></i>Gestion de la galerie</h1>
+        <p>Gérer les images de la galerie photo</p>
     </div>
+</div>
+
+<style>.thumb{height:100px;object-fit:cover}</style>
+
     <?php if($success): ?><div class="alert alert-success"><?php echo h($success);?></div><?php endif; ?>
     <?php if($errors): foreach($errors as $e): ?><div class="alert alert-danger"><?php echo h($e);?></div><?php endforeach; endif; ?>
 
@@ -133,8 +138,8 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); }
         <?php endforeach; ?>
         </tbody>
     </table>
-</div>
-    <script>
+
+<script>
 document.addEventListener('DOMContentLoaded', function(){
     var input = document.getElementById('images');
     var preview = document.getElementById('preview');
@@ -180,4 +185,5 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 });
 </script>
-</body></html>
+
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

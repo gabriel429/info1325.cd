@@ -199,101 +199,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "<div class='alert alert-danger alert-dismissible fade show'><i class='bi bi-exclamation-triangle-fill me-2'></i><strong>Erreur:</strong> " . htmlspecialchars($e->getMessage()) . "<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
 }
+$pageTitle  = 'Gestion des actualités';
+$breadcrumb = [['label' => 'Actualités']];
+$activePage = 'actualites';
+require_once __DIR__ . '/admin_layout_top.php';
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une actualité</title>
-    <link rel="stylesheet" href="<?= CSS_DIR ?>bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .preview-container {
-            position: relative;
-            margin-top: 10px;
-        }
-        .preview-image {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .remove-preview {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(220, 53, 69, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .remove-preview:hover {
-            background: #dc3545;
-        }
-        .char-counter {
-            font-size: 0.85rem;
-            color: #6c757d;
-            float: right;
-        }
-        .char-counter.warning {
-            color: #fd7e14;
-            font-weight: bold;
-        }
-        .char-counter.danger {
-            color: #dc3545;
-            font-weight: bold;
-        }
-        .form-label {
-            font-weight: 600;
-            color: #495057;
-        }
-        .form-label .required {
-            color: #dc3545;
-        }
-        .section-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .collapse-toggle {
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .collapse-toggle:hover {
-            background-color: #f8f9fa;
-        }
-        .paragraph-section {
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            background: #f8f9fa;
-        }
-    </style>
-</head>
-<body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-  <div class="container-fluid">
-    <span class="navbar-brand fw-bold">📰 Admin – Gestion des Actualités</span>
-    <div class="ms-auto">
-        <a href="<?= URL_ADMIN_DASHBOARD; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
-        <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
-    </div>
-  </div>
-</nav>
 
-<div class="container py-5">
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-newspaper me-2" style="color:var(--accent)"></i>Gestion des actualités</h1>
+        <p>Ajouter et gérer les actualités du site</p>
+    </div>
+</div>
     <div class="card shadow-lg border-0">
-        <div class="card-header bg-gradient text-white" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="card-header">
             <h4 class="mb-0"><i class="bi bi-plus-circle"></i> Ajouter une nouvelle actualité</h4>
         </div>
         <div class="card-body p-4">
@@ -592,7 +511,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         ?>
     </div>
-</div>
 
 <!-- Modal de modification -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -716,9 +634,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </div>
-
-<!-- Bootstrap Bundle JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Scripts personnalisés -->
 <script>
@@ -942,5 +857,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-</body>
-</html>
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

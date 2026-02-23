@@ -159,26 +159,18 @@ try {
     $partners = [];
     $message = "<div class='alert alert-danger'>Erreur BDD: " . htmlspecialchars($e->getMessage()) . "</div>";
 }
+$pageTitle  = 'Gestion des partenaires';
+$breadcrumb = [['label' => 'Partenaires']];
+$activePage = 'partenaires';
+require_once __DIR__ . '/admin_layout_top.php';
 ?>
 
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Gestion Partenaires</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
-    <span class="navbar-brand">🤝 Gestion des Partenaires</span>
-    <div class="d-flex">
-        <a href="<?= URL_ADMINISTRATEUR; ?>" class="btn btn-outline-light">Retour</a>
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-handshake me-2" style="color:var(--accent)"></i>Gestion des partenaires</h1>
+        <p>Gérer les logos et liens des partenaires</p>
     </div>
-  </div>
-</nav>
-
-<div class="container py-4">
+</div>
     <?= $message ?>
 
     <div class="card mb-4">
@@ -259,6 +251,5 @@ try {
             </table>
         </div>
     </div>
-</div>
-</body>
-</html>
+
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

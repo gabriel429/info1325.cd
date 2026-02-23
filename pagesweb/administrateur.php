@@ -269,459 +269,160 @@ if (isset($_GET['delete'])) {
 
 
 
+<?php
+// ---- Layout variables ----
+$pageTitle  = 'Gestion des actualités';
+$breadcrumb = [['label' => 'Actualités']];
+$activePage = 'actualites';
+
+require_once __DIR__ . '/admin_layout_top.php';
 ?>
 
-
-
-<!DOCTYPE html>
-
-<html lang="fr">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <title>Dashboard Administrateur – SN1325</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        .animated-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(-45deg, #1e3a8a, #3b82f6, #8b5cf6, #ec4899);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .animated-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .container-fluid, .card {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
-
-</head>
-
-<body>
-
-<div class="animated-background"></div>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-
-  <div class="container-fluid">
-
-    <span class="navbar-brand fw-bold">📊 Dashboard Administrateur – SN1325</span>
-
-    <div class="ms-auto">
-
-        <a href="<?= URL_ADMIN_DASHBOARD; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
-
-        <a href="<?= URL_ADDACTUALITES; ?>" class="btn btn-outline-light me-2">📋 Gérer les Actualités</a>
-        <a href="<?= URL_MANAGE_FUNFACTS; ?>" class="btn btn-outline-light me-2">⚙️ Gérer Fun Facts</a>
-        <a href="<?= URL_MANAGE_AXES; ?>" class="btn btn-outline-light me-2">🧭 Gérer Axes</a>
-        <?php if (in_array($_SESSION['role'] ?? '', ['admin','slider'])): ?>
-            <a href="<?= URL_MANAGE_SLIDER; ?>" class="btn btn-outline-light me-2">🎞️ Gérer Slider</a>
-        <?php endif; ?>
-        <a href="<?= URL_MANAGE_PARTENAIRES; ?>" class="btn btn-outline-light me-2">🤝 Gérer Partenaires</a>
-        <a href="<?= URL_MANAGE_GALERIE; ?>" class="btn btn-outline-light me-2">🖼️ Gérer Galerie</a>
-        <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
-            <a href="<?= URL_MANAGE_USERS; ?>" class="btn btn-outline-warning me-2">👥 Gérer Utilisateurs</a>
-            <a href="<?= URL_MANAGE_SETTINGS; ?>" class="btn btn-outline-info me-2">⚙️ Paramètres</a>
-        <?php endif; ?>
-
-        <a href="<?= URL_LOGOUT; ?>" class="btn btn-danger">Déconnexion</a>
-
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-newspaper me-2" style="color:var(--accent)"></i>Gestion des actualités</h1>
+        <p>Modifier ou supprimer les actualités existantes</p>
     </div>
-
-  </div>
-
-</nav>
-
-<!-- Visitor Statistics Widget -->
-<div class="container-fluid py-4 bg-light">
-    <?php include __DIR__ . '/visitor_stats_widget.php'; ?>
+    <a href="<?= URL_ADDACTUALITES ?>" class="btn btn-admin-primary">
+        <i class="bi bi-plus-lg me-1"></i> Ajouter une actualité
+    </a>
 </div>
 
-<div class="container py-5">
+<?= $message ?>
 
-    <?= $message ?>
+<!-- Edit form (hidden by default) -->
+<div id="editForm" class="admin-card mb-4 d-none">
+    <div class="card-header d-flex align-items-center justify-content-between">
+        <span><i class="bi bi-pencil-square me-2" style="color:var(--accent)"></i>Modifier une actualité</span>
+        <button type="button" class="btn-close" onclick="toggleEditForm(false)"></button>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" name="actu_id" id="edit_id">
 
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Titre <span class="text-danger">*</span></label>
+                    <input type="text" name="titre" id="edit_titre" class="form-control" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Auteur</label>
+                    <input type="text" name="auteur" id="edit_auteur" class="form-control">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Date de publication <span class="text-danger">*</span></label>
+                    <input type="date" name="date_pub" id="edit_date_pub" class="form-control" required>
+                </div>
+            </div>
 
+            <div class="mb-3">
+                <label class="form-label">Message fort</label>
+                <textarea name="messageFort" id="edit_messageFort" class="form-control" rows="2"></textarea>
+            </div>
 
-    <!-- 🔹 Formulaire de modification caché -->
+            <div class="mb-3">
+                <label class="form-label">Commentaire général</label>
+                <textarea name="commentaire" id="edit_commentaire" class="form-control" rows="3"></textarea>
+            </div>
 
-    <div id="editForm" class="card shadow-sm border-0 mb-4 d-none p-4">
+            <div class="row mb-3">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Image principale</label>
+                    <input type="file" name="imgMise" class="form-control" accept="image/*">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Image secondaire 1</label>
+                    <input type="file" name="imgPub1" class="form-control" accept="image/*">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Image secondaire 2</label>
+                    <input type="file" name="imgPub2" class="form-control" accept="image/*">
+                </div>
+            </div>
 
-        <div class="card-header bg-primary text-white fw-semibold">✏️ Modifier une actualité</div>
+            <div class="mb-3">
+                <label class="form-label">Nombre de vues</label>
+                <input type="number" name="nbrVues" id="edit_nbrVues" class="form-control" min="0">
+            </div>
 
-        <div class="card-body">
-
-            <form method="post" enctype="multipart/form-data">
-
-                <input type="hidden" name="action" value="update">
-
-                <input type="hidden" name="actu_id" id="edit_id">
-
-
-
-                <div class="row">
-
+            <div class="section-divider">Paragraphes du contenu</div>
+            <div class="row">
+                <?php for ($i = 1; $i <= 10; $i++): ?>
                     <div class="col-md-6 mb-3">
-
-                        <label class="form-label">Titre</label>
-
-                        <input type="text" name="titre" id="edit_titre" class="form-control" required>
-
+                        <label class="form-label">Paragraphe <?= $i ?></label>
+                        <textarea name="paraph<?= $i ?>" id="edit_paraph<?= $i ?>" class="form-control" rows="2"></textarea>
                     </div>
-
-                    <div class="col-md-3 mb-3">
-
-                        <label class="form-label">Auteur</label>
-
-                        <input type="text" name="auteur" id="edit_auteur" class="form-control">
-
-                    </div>
-
-                    <div class="col-md-3 mb-3">
-
-                        <label class="form-label">Date de publication</label>
-
-                        <input type="date" name="date_pub" id="edit_date_pub" class="form-control" required>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="mb-3">
-
-                    <label class="form-label">Message fort</label>
-
-                    <textarea name="messageFort" id="edit_messageFort" class="form-control" rows="2"></textarea>
-
-                </div>
-
-
-
-                <div class="mb-3">
-
-                    <label class="form-label">Commentaire général</label>
-
-                    <textarea name="commentaire" id="edit_commentaire" class="form-control" rows="3"></textarea>
-
-                </div>
-
-
-
-                <div class="row mb-4">
-
-                    <div class="col-md-4">
-
-                        <label class="form-label">Image principale</label>
-
-                        <input type="file" name="imgMise" class="form-control" accept="image/*">
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <label class="form-label">Image secondaire 1</label>
-
-                        <input type="file" name="imgPub1" class="form-control" accept="image/*">
-
-                    </div>
-
-                    <div class="col-md-4">
-
-                        <label class="form-label">Image secondaire 2</label>
-
-                        <input type="file" name="imgPub2" class="form-control" accept="image/*">
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="mb-3">
-
-                    <label class="form-label">Nombre de vues</label>
-
-                    <input type="number" name="nbrVues" id="edit_nbrVues" class="form-control" min="0">
-
-                </div>
-
-
-
-                <hr>
-
-                <h5 class="text-primary mt-4 mb-3">🧩 Paragraphes du contenu</h5>
-
-                <div class="row">
-
-                    <?php for ($i = 1; $i <= 10; $i++): ?>
-
-                        <div class="col-md-6 mb-3">
-
-                            <label class="form-label">Paragraphe <?= $i ?></label>
-
-                            <textarea name="paraph<?= $i ?>" id="edit_paraph<?= $i ?>" class="form-control" rows="2"></textarea>
-
-                        </div>
-
-                    <?php endfor; ?>
-
-                </div>
-
-
-
-                <div class="text-end">
-
-                    <button type="submit" class="btn btn-success">💾 Enregistrer les modifications</button>
-
-                    <button type="button" class="btn btn-secondary" onclick="toggleEditForm(false)">Annuler</button>
-
-                </div>
-
-            </form>
-
-        </div>
-
+                <?php endfor; ?>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-end mt-2">
+                <button type="button" class="btn btn-secondary" onclick="toggleEditForm(false)">
+                    <i class="bi bi-x-lg me-1"></i>Annuler
+                </button>
+                <button type="submit" class="btn btn-admin-primary">
+                    <i class="bi bi-floppy me-1"></i>Enregistrer
+                </button>
+            </div>
+        </form>
     </div>
-
 </div>
 
-
+<!-- Visitor stats -->
+<div class="admin-card">
+    <div class="card-header">
+        <i class="bi bi-graph-up me-2" style="color:var(--accent)"></i>Statistiques de visites
+    </div>
+    <div class="card-body">
+        <?php include __DIR__ . '/visitor_stats_widget.php'; ?>
+    </div>
+</div>
 
 <script>
-
-
-                                    // Resize image using GD while preserving aspect ratio (no upscaling)
-                                    function resize_image_gd($srcPath, $dstPath, $maxW, $maxH)
-                                    {
-                                        $info = @getimagesize($srcPath);
-                                        if (!$info) return false;
-                                        list($w, $h, $type) = $info;
-                                        $ratio = min($maxW / $w, $maxH / $h, 1);
-                                        $nw = (int) max(1, floor($w * $ratio));
-                                        $nh = (int) max(1, floor($h * $ratio));
-
-                                        switch ($type) {
-                                            case IMAGETYPE_JPEG: $img = imagecreatefromjpeg($srcPath); break;
-                                            case IMAGETYPE_PNG:  $img = imagecreatefrompng($srcPath); break;
-                                            case IMAGETYPE_WEBP: $img = imagecreatefromwebp($srcPath); break;
-                                            default: return false;
-                                        }
-
-                                        $dst = imagecreatetruecolor($nw, $nh);
-                                        if ($type === IMAGETYPE_PNG) {
-                                            imagealphablending($dst, false);
-                                            imagesavealpha($dst, true);
-                                        }
-                                        imagecopyresampled($dst, $img, 0,0,0,0, $nw,$nh, $w,$h);
-
-                                        $ok = false;
-                                        if ($type === IMAGETYPE_JPEG) $ok = imagejpeg($dst, $dstPath, 85);
-                                        elseif ($type === IMAGETYPE_PNG) $ok = imagepng($dst, $dstPath, 6);
-                                        elseif ($type === IMAGETYPE_WEBP) $ok = imagewebp($dst, $dstPath, 85);
-
-                                        imagedestroy($img);
-                                        imagedestroy($dst);
-                                        return $ok;
-                                    }
-
-                                    // Create square thumbnail by center-cropping after scaling to cover
-                                    function create_thumbnail_center($srcPath, $dstPath, $size)
-                                    {
-                                        $info = @getimagesize($srcPath);
-                                        if (!$info) return false;
-                                        list($w, $h, $type) = $info;
-
-                                        switch ($type) {
-                                            case IMAGETYPE_JPEG: $img = imagecreatefromjpeg($srcPath); break;
-                                            case IMAGETYPE_PNG:  $img = imagecreatefrompng($srcPath); break;
-                                            case IMAGETYPE_WEBP: $img = imagecreatefromwebp($srcPath); break;
-                                            default: return false;
-                                        }
-
-                                        // scale to cover
-                                        $scale = max($size / $w, $size / $h);
-                                        $sw = (int) ceil($w * $scale);
-                                        $sh = (int) ceil($h * $scale);
-
-                                        $tmp = imagecreatetruecolor($sw, $sh);
-                                        if ($type === IMAGETYPE_PNG) {
-                                            imagealphablending($tmp, false);
-                                            imagesavealpha($tmp, true);
-                                        }
-                                        imagecopyresampled($tmp, $img, 0,0,0,0, $sw,$sh, $w,$h);
-
-                                        // crop center
-                                        $cx = (int) floor(($sw - $size) / 2);
-                                        $cy = (int) floor(($sh - $size) / 2);
-                                        $thumb = imagecreatetruecolor($size, $size);
-                                        if ($type === IMAGETYPE_PNG) {
-                                            imagealphablending($thumb, false);
-                                            imagesavealpha($thumb, true);
-                                        }
-                                        imagecopy($thumb, $tmp, 0,0, $cx,$cy, $size,$size);
-
-                                        $ok = false;
-                                        if ($type === IMAGETYPE_JPEG) $ok = imagejpeg($thumb, $dstPath, 85);
-                                        elseif ($type === IMAGETYPE_PNG) $ok = imagepng($thumb, $dstPath, 6);
-                                        elseif ($type === IMAGETYPE_WEBP) $ok = imagewebp($thumb, $dstPath, 85);
-
-                                        imagedestroy($img);
-                                        imagedestroy($tmp);
-                                        imagedestroy($thumb);
-                                        return $ok;
-                                    }
 function confirmDelete(id) {
-
     Swal.fire({
-
         title: "Êtes-vous sûr ?",
-
-        text: "⚠️ Cette action est irréversible !",
-
+        text: "Cette action est irréversible !",
         icon: "warning",
-
         showCancelButton: true,
-
         confirmButtonColor: "#d33",
-
         cancelButtonColor: "#3085d6",
-
         confirmButtonText: "Oui, supprimer",
-
         cancelButtonText: "Non, annuler"
-
     }).then((result) => {
-
         if (result.isConfirmed) {
-
             window.location.href = "?delete=" + id;
-
         }
-
     });
-
 }
-
-
 
 function openEditForm(a) {
-
     document.getElementById('editForm').classList.remove('d-none');
-
     document.getElementById('edit_id').value = a.id;
-
     document.getElementById('edit_titre').value = a.titre;
-
     document.getElementById('edit_auteur').value = a.auteur ?? '';
-
     document.getElementById('edit_date_pub').value = a.date_pub;
-
     document.getElementById('edit_messageFort').value = a.messageFort ?? '';
-
     document.getElementById('edit_commentaire').value = a.commentaire ?? '';
-
     document.getElementById('edit_nbrVues').value = a.nbrVues ?? 0;
-
-
-
-    for (let i=1; i<=10; i++) {
-
-        document.getElementById('edit_paraph'+i).value = a['paraph'+i] ?? '';
-
+    for (let i = 1; i <= 10; i++) {
+        document.getElementById('edit_paraph' + i).value = a['paraph' + i] ?? '';
     }
-
-
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
+    document.getElementById('editForm').scrollIntoView({ behavior: 'smooth' });
 }
-
-
 
 function toggleEditForm(show) {
-
     const form = document.getElementById('editForm');
-
     if (show) form.classList.remove('d-none');
-
     else form.classList.add('d-none');
-
 }
 
-
-
-// 🔹 Assign event listener aux boutons Modifier
-
 document.querySelectorAll('.editBtn').forEach(btn => {
-
     btn.addEventListener('click', function() {
-
         const a = JSON.parse(this.getAttribute('data-actu'));
-
         openEditForm(a);
-
     });
-
 });
-
 </script>
 
-
-
-</body>
-
-</html>
-
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>

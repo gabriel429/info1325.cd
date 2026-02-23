@@ -93,21 +93,18 @@ for ($i=1;$i<=6;$i++) {
     if (!isset($slides[$i])) $slides[$i] = ['title'=>'','subtitle'=>'','btn_text'=>'','btn_url'=>'','image'=>null,'active'=>0];
 }
 
-?><!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Gérer le slider</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-<nav class="navbar navbar-dark bg-dark px-3">
-  <span class="navbar-brand">Admin – Slider</span>
-  <div class="ms-auto">
-    <a href="<?= URL_ADMINISTRATEUR ?>" class="btn btn-outline-light">Retour</a>
-  </div>
-</nav>
-<div class="container py-4">
+$pageTitle  = 'Gestion du slider';
+$breadcrumb = [['label' => 'Slider']];
+$activePage = 'slider';
+require_once __DIR__ . '/admin_layout_top.php';
+?>
+
+<div class="page-header">
+    <div>
+        <h1><i class="bi bi-images me-2" style="color:var(--accent)"></i>Gestion du slider</h1>
+        <p>Gérer les diapositives du slider principal</p>
+    </div>
+</div>
     <?= $message ?>
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="save" value="1">
@@ -170,9 +167,6 @@ for ($i=1;$i<=6;$i++) {
         </div>
         <?php endfor; ?>
     </div>
-</div>
-</body>
-</html>
 <script>
 document.addEventListener('DOMContentLoaded', function(){
     // preview bindings
@@ -192,3 +186,5 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 });
 </script>
+
+<?php require_once __DIR__ . '/admin_layout_bottom.php'; ?>
