@@ -19,6 +19,8 @@ RewriteEngine On
 
 RewriteBase /
 
+# Règle explicite pour documentation_event (préserve la query string)
+RewriteRule ^pagesweb/documentation_event/?$ pagesweb/documentation_event.php [L,QSA]
 
 
 # 1. Si on tape une URL sans extension (.php implicite)
@@ -29,17 +31,17 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteCond %{REQUEST_FILENAME}\.php -f
 
-RewriteRule ^(.+)/$ $1.php [L]
+RewriteRule ^(.+)/$ $1.php [L,QSA]
 
 
 
 # 2. Optionnel : enlever .php quand on tape avec extension
 
-#    Exemple: /pagesweb/formations.php => /pagesweb_cn/formations/
+#    Exemple: /pagesweb/formations.php => /pagesweb/formations/
 
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
 
-RewriteRule ^ %1/ [R=301,L]
+RewriteRule ^ %1/ [R=301,L,QSA]
 
 
 
