@@ -1,4 +1,5 @@
 <?php
+ob_start(); // Buffer output to prevent headers-already-sent issues
 /**
  * Track documentation events (view/download) and serve/redirect PDF
  */
