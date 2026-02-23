@@ -10,15 +10,42 @@
 /* Partners band styling */
 .partners-band{
 	background:#f8f9fb;
-	padding:12px 0;
+	padding:20px 0 !important; /* override global section padding */
 }
-.partners-band .partners-slider{ /* carousel track */
+/* Empêche le débordement latéral du carousel */
+.partners-band .owl-carousel{
+	overflow:hidden;
+}
+/* Aligner verticalement les items dans le stage */
+.partners-band .owl-carousel .owl-stage{
+	display:flex !important;
 	align-items:center;
 }
-.partners-band .single-partner{ text-align:center; padding:6px 12px; }
-.partners-band .single-partner img{ max-height:80px; max-width:180px; object-fit:contain; display:inline-block; }
+.partners-band .owl-carousel .owl-item{
+	display:flex !important;
+	align-items:center;
+	justify-content:center;
+}
+/* Hauteur fixe pour chaque logo — uniformise le carousel */
+.partners-band .single-partner{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	height:90px;
+	padding:5px 10px;
+	text-align:center;
+}
+.partners-band .single-partner img{
+	max-height:70px;
+	width:auto;
+	max-width:160px;
+	object-fit:contain;
+	display:block;
+	margin:0 auto;
+}
 @media (max-width:768px){
-	.partners-band .single-partner img{ max-height:56px; }
+	.partners-band .single-partner{ height:70px; }
+	.partners-band .single-partner img{ max-height:50px; max-width:120px; }
 }
 
 
