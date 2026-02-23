@@ -12,20 +12,6 @@
 	background:#f8f9fb;
 	padding:20px 0 !important; /* override global section padding */
 }
-/* Empêche le débordement latéral du carousel */
-.partners-band .owl-carousel{
-	overflow:hidden;
-}
-/* Aligner verticalement les items dans le stage */
-.partners-band .owl-carousel .owl-stage{
-	display:flex !important;
-	align-items:center;
-}
-.partners-band .owl-carousel .owl-item{
-	display:flex !important;
-	align-items:center;
-	justify-content:center;
-}
 /* Hauteur fixe pour chaque logo — uniformise le carousel */
 .partners-band .single-partner{
 	display:flex;
@@ -33,7 +19,6 @@
 	justify-content:center;
 	height:90px;
 	padding:5px 10px;
-	text-align:center;
 }
 .partners-band .single-partner img{
 	max-height:70px;
@@ -42,6 +27,7 @@
 	object-fit:contain;
 	display:block;
 	margin:0 auto;
+	filter:grayscale(0%); /* assure l'affichage couleur */
 }
 @media (max-width:768px){
 	.partners-band .single-partner{ height:70px; }
