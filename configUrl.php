@@ -71,4 +71,5 @@ define('URL_ALLDOCUMENTATIONS', BASE_URL . 'pagesweb/all-documentations/');
 define('URL_SUCCESSADDDOCUMENTATION', BASE_URL . 'pagesweb/success-add-documentation/');
 
 define('URL_LOGOUT', BASE_URL . 'pagesweb/logout.php');
+define('URL_ADMIN_DASHBOARD', BASE_URL . 'pagesweb/admin_dashboard.php');
 

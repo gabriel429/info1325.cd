@@ -26,7 +26,7 @@ if (!isset($_SESSION['user'])) {
 
 // Si l'utilisateur connecté a le rôle 'admin', rediriger vers le dashboard admin
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
-    header('Location:' . URL_ADMINISTRATEUR);
+    header('Location:' . URL_ADMIN_DASHBOARD);
     exit;
 }
 

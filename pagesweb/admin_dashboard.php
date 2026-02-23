@@ -25,7 +25,6 @@ $role = $_SESSION['role'] ?? 'user';
   <div class="container-fluid">
     <span class="navbar-brand">SN1325 — Tableau de bord</span>
     <div>
-        <a class="btn btn-outline-light me-2" href="<?= URL_ADDSPACEADMIN ?>">Menu Admin</a>
         <a class="btn btn-danger" href="<?= URL_LOGOUT ?>">Déconnexion</a>
     </div>
   </div>

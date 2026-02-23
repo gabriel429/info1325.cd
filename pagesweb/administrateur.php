@@ -360,7 +360,7 @@ if (isset($_GET['delete'])) {
 
     <div class="ms-auto">
 
-        <a href="<?= URL_ADDSPACEADMIN; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
+        <a href="<?= URL_ADMIN_DASHBOARD; ?>" class="btn btn-outline-light me-2">MENU ADMIN</a>
 
         <a href="<?= URL_ADDACTUALITES; ?>" class="btn btn-outline-light me-2">📋 Gérer les Actualités</a>
         <a href="<?= URL_MANAGE_FUNFACTS; ?>" class="btn btn-outline-light me-2">⚙️ Gérer Fun Facts</a>
