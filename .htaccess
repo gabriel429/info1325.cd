@@ -70,6 +70,7 @@ Options -Indexes
     #    Exception: documentation_event.php (doit garder ses paramètres GET)
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
     RewriteCond %{THE_REQUEST} !pagesweb/documentation_event\.php [NC]
+    RewriteCond %{THE_REQUEST} !mail/mail\.php [NC]
     RewriteRule ^ %1/ [R=301,L,QSA]
 </IfModule>
 

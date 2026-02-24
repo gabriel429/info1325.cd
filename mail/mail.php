@@ -67,7 +67,7 @@ if (file_exists($autoload) && file_exists($smtpCfg)) {
 $wa_text = rawurlencode("Message de: $name\nEmail: $email\nPhone: $phone\nSujet: $subject\n\n$message");
 $wa_url = "https://wa.me/243821550225?text=" . $wa_text;
 
-header('Location: ../mail/wa_redirect.php?wa=' . urlencode($wa_url) . '&sent=' . ($sent ? '1' : '0'));
+header('Location: /mail/wa_redirect.php?wa=' . urlencode($wa_url) . '&sent=' . ($sent ? '1' : '0'));
 exit;
 
 ?>
