@@ -21,7 +21,7 @@ $sent = isset($_GET['sent']) && $_GET['sent'] === '1';
     <p>Vous pouvez également envoyer ce message via WhatsApp en cliquant sur le bouton ci-dessous si vous utilisez un appareil avec WhatsApp :</p>
     <p><a class="btn" id="waBtn" href="#" target="_blank">Envoyer via WhatsApp</a></p>
     <p>Si la fenêtre WhatsApp ne s'est pas ouverte automatiquement, cliquez sur le bouton ci-dessus.</p>
-    <p><a href="../pagesweb/contact.php">Retour à la page Contact</a></p>
+    <p><a href="/pagesweb/contact/">Retour à la page Contact</a></p>
   </div>
 <script>
 (function(){
