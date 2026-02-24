@@ -267,9 +267,6 @@ if (isset($_GET['delete'])) {
 
 }
 
-
-
-<?php
 // ---- Layout variables ----
 $pageTitle  = 'Gestion des actualités';
 $breadcrumb = [['label' => 'Actualités']];

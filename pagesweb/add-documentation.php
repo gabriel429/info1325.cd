@@ -97,7 +97,7 @@ if (isset($_GET['delete'])) {
         $message = "<div class='alert alert-danger alert-dismissible fade show'><i class='bi bi-exclamation-triangle-fill me-2'></i>Erreur lors de la suppression.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
 }
-<?php
+// ---- Layout variables ----
 $pageTitle  = 'Gestion des documentations';
 $breadcrumb = [['label' => 'Documentation']];
 $activePage = 'documentation';
