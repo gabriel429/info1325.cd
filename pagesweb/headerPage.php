@@ -289,7 +289,7 @@
 
 											</li>
 
-											<li><a href="<?= URL_ACTUALITES ?>">NEWS</a></li>
+											<li><a href="<?= URL_ACTUALITES ?>">ACTUALITÉS</a></li>
 
 											<li><a href="<?= URL_DOCUMENTATION ?>">DOCUMENTATION</a></li>
 
