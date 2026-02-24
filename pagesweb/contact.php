@@ -42,7 +42,7 @@
 								<div class="alert alert-danger">Erreur lors de l'envoi du message. Le message a été enregistré pour diagnostic.</div>
 							<?php endif; ?>
 
-							<form method="post" action="/info1325.cd/mail/mail.php" novalidate>
+							<form method="post" action="/mail/mail.php" novalidate>
 								<div class="row">
 									<div class="col-md-6"><input type="text" name="name" placeholder="Nom" required></div>
 									<div class="col-md-6"><input type="email" name="email" placeholder="Email" required></div>
