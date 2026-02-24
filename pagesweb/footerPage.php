@@ -129,13 +129,45 @@
 
                         <p>Abonnez-vous à notre newsletter pour recevoir toutes nos actualités dans votre boîte de réception.</p>
 
-                        <form action="<?= BASE_URL ?>mail/mail.php" method="post" class="newsletter-inner" aria-label="Formulaire d'abonnement newsletter">
+                        <form id="newsletterForm" action="/mail/newsletter.php" method="post" class="newsletter-inner" aria-label="Formulaire d'abonnement newsletter">
 
                             <input name="email" placeholder="Votre adresse mail" class="common-input" onfocus="this.placeholder=''" onblur="this.placeholder='Votre adresse mail'" required type="email" aria-label="Adresse email">
 
                             <button class="button" type="submit" aria-label="S'abonner"><i class="icofont icofont-paper-plane"></i></button>
 
                         </form>
+
+                        <div id="newsletter-msg" style="display:none;margin-top:10px;padding:8px 12px;border-radius:4px;font-size:13px;"></div>
+
+                        <script>
+                        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            var form = this;
+                            var msg = document.getElementById('newsletter-msg');
+                            var btn = form.querySelector('button');
+                            btn.disabled = true;
+                            fetch('/mail/newsletter.php', {
+                                method: 'POST',
+                                body: new FormData(form)
+                            })
+                            .then(function(r){ return r.json(); })
+                            .then(function(data) {
+                                msg.style.display = 'block';
+                                msg.style.background = data.success ? '#1a7a3f' : '#8b1a1a';
+                                msg.style.color = '#fff';
+                                msg.textContent = data.message;
+                                if (data.success) form.reset();
+                                btn.disabled = false;
+                            })
+                            .catch(function() {
+                                msg.style.display = 'block';
+                                msg.style.background = '#8b1a1a';
+                                msg.style.color = '#fff';
+                                msg.textContent = 'Erreur réseau. Veuillez réessayer.';
+                                btn.disabled = false;
+                            });
+                        });
+                        </script>
 
                     </div>
 
