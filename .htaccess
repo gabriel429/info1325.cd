@@ -57,9 +57,6 @@ Options -Indexes
     RewriteEngine On
     RewriteBase /
 
-    # Redirect directory-style logout URL to the explicit PHP file
-    RewriteRule ^pagesweb/logout/?$ /pagesweb/logout.php [L,R=301]
-
     # Règle explicite pour documentation_event (préserve la query string)
     RewriteRule ^pagesweb/documentation_event/?$ pagesweb/documentation_event.php [L,QSA]
 
