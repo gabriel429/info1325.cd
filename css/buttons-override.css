@@ -283,10 +283,10 @@ footer.footer .single-footer a:hover {
   text-decoration: underline !important;
 }
 
-/* Social icons - style correct */
+/* Social icons - style épuré, sans carrés */
 footer.footer .social {
   display: flex !important;
-  gap: 10px !important;
+  gap: 20px !important;
   list-style: none !important;
   padding: 0 !important;
   margin: 25px 0 0 0 !important;
@@ -299,27 +299,29 @@ footer.footer .social li {
 }
 
 footer.footer .social li a {
-  height: 34px !important;
-  width: 34px !important;
-  line-height: 34px !important;
-  text-align: center !important;
-  border: 1px solid #ffffff !important;
-  border-radius: 50% !important;
-  display: block !important;
+  display: inline-block !important;
   color: #ffffff !important;
-  font-size: 16px !important;
+  font-size: 22px !important;
   transition: all 0.4s ease !important;
+  border: none !important;
+  border-radius: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  line-height: normal !important;
+  text-align: center !important;
   padding: 0 !important;
+  background: transparent !important;
 }
 
 footer.footer .social li a i {
-  font-size: 16px !important;
+  font-size: 22px !important;
+  display: inline-block !important;
 }
 
 footer.footer .social li a:hover {
-  color: #1A76D1 !important;
-  background: #ffffff !important;
-  border-color: transparent !important;
+  color: #ffc107 !important;
+  transform: translateY(-3px) !important;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Lien utiles */
