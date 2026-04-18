@@ -131,6 +131,40 @@ a.btn-sm.btn-outline-primary:not(:hover) {
   color: #ffffff !important;
 }
 
+/* ===== ÉTAPE 5.5 : ULTRA SPÉCIFIQUE - Combinaison exacte .btn.btn-outline-primary.btn-sm ===== */
+a.btn.btn-outline-primary.btn-sm,
+a.btn.btn-outline-primary.btn-sm.me-2,
+button.btn.btn-outline-primary.btn-sm,
+a.btn-outline-primary.btn-sm,
+.btn-outline-primary.btn-sm,
+.btn.btn-outline-primary.btn-sm,
+a.btn.btn-outline-primary.btn-sm:not(:hover),
+a.btn.btn-outline-primary.btn-sm.me-2:not(:hover) {
+  background: var(--primary) !important;
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  display: inline-block !important;
+}
+
+/* ===== ÉTAPE 5.6 : TOUS les liens .btn - force display ===== */
+a.btn,
+a.btn-primary,
+a.btn-outline-primary,
+a.btn-sm,
+a.btn-primary.btn-sm,
+a.btn-outline-primary.btn-sm,
+a[class*="btn-"] {
+  display: inline-block !important;
+  background: var(--primary) !important;
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  border-color: var(--primary) !important;
+  box-shadow: none !important;
+}
+
 /* ===== ÉTAPE 6 : Hover states ===== */
 .btn:hover,
 .btn:focus,
