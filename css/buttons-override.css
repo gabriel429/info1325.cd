@@ -2,12 +2,6 @@
 /* Charge EN DERNIER dans headerPage.php pour garantir spécificité maximale */
 /* SOLUTION : Désactive les ombres sombres qui rendent le texte illisible */
 
-:root {
-  --primary: #1152933;
-  --secondary: #00b4d8;
-  --tertiary: #0077b6;
-}
-
 /* ===== ÉTAPE 1 : Désactiver TOUTES les ombres qui rendent le texte illisible ===== */
 .btn,
 button,
