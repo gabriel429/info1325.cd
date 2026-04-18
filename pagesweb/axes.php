@@ -3,6 +3,9 @@ require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // connexion PDO si besoin
 
+// Page-specific CSS
+$pageCss = CSS_DIR . 'axes.css';
+
 // Header
 require_once $headerPath;
 ?>

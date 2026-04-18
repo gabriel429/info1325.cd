@@ -18,6 +18,7 @@ foreach($items as $it) if (!empty($it['activity'])) $activities[$it['activity']]
 <!doctype html>
 <html><head><meta charset="utf-8"><title>Galerie - <?= h($activity) ?></title>
 <link rel="stylesheet" href="<?= CSS_DIR ?>bootstrap.min.css">
+<link rel="stylesheet" href="<?= CSS_DIR ?>gallery.css">
 <link rel="stylesheet" href="<?= CSS_DIR ?>magnific-popup.css">
 <link rel="stylesheet" href="<?= CSS_DIR ?>style.css">
 <style>

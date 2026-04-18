@@ -1,53 +1,271 @@
-/* Styles spécifiques à la page Résolution */
+/* Resolution 1325 - Material Design 3 */
 :root {
-  --primary: #005f99;
-  --secondary: #f2f7fb;
-  --accent: #009fe3;
-  --text-color: #222;
+  --primary: #1152933;
+  --secondary: #00b4d8;
+  --tertiary: #0077b6;
+  --surface: #fefdfb;
+  --on-surface: #1c1b1f;
+  --on-surface-variant: #49454f;
+  --outline-variant: #cac4d0;
+  --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --elevation-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  --elevation-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+  --elevation-4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
   --max-width: 950px;
-  --font-main: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 body {
   font-family: var(--font-main);
-  background: var(--secondary);
-  color: var(--text-color);
+  background: linear-gradient(180deg, #fefdfb 0%, #f7f2e9 100%);
+  color: var(--on-surface);
   margin: 0;
   line-height: 1.8;
 }
-h3
-{
-  margin-bottom:0.6rem;
-}
 
+/* Main Container */
 main {
   max-width: var(--max-width);
-  margin: 2rem auto;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  padding: 2rem 2.5rem;
+  margin: 3rem auto;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--elevation-3);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 3rem 3rem;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
+
+/* Hero Section */
+.caremed-hero {
+  padding: 80px 0 60px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.caremed-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+.caremed-hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+  animation: slideDown 0.6s ease-out;
+}
+
+.caremed-hero .lead {
+  text-align: center;
+  max-width: 880px;
+  margin: 16px auto 0;
+  font-size: 18px;
+  opacity: 0.95;
+  animation: slideUp 0.6s ease-out 0.2s both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Headings */
 h2 {
   color: var(--primary);
   cursor: pointer;
   position: relative;
-  border-left: 4px solid var(--accent);
-  padding-left: 0.75rem;
-  transition: all 0.3s;
+  border-left: 4px solid var(--secondary);
+  padding-left: 16px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 24px 0 16px 0;
+}
+
+h2:hover {
+  border-left-color: var(--tertiary);
+  transform: translateX(4px);
+}
+
+h2::after {
+  content: '▼';
+  position: absolute;
+  right: 0;
+  font-size: 12px;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
 h2.active::after {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
+h3 {
+  margin-bottom: 0.6rem;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* Sections */
 section {
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 1rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--outline-variant);
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+section:last-child {
+  border-bottom: none;
 }
 
 section .content {
+  display: none;
+  padding-top: 1rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+section.open .content {
+  display: block;
+}
+
+/* Paragraphs */
+p {
+  margin: 1rem 0;
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--on-surface-variant);
+}
+
+/* Table of Contents */
+nav.toc {
+  background: linear-gradient(135deg, var(--secondary), var(--tertiary));
+  color: white;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 2rem auto;
+  max-width: var(--max-width);
+  box-shadow: var(--elevation-3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+nav.toc h2 {
+  color: white;
+  margin-top: 0;
+  cursor: default;
+  border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+nav.toc a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin: 8px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+nav.toc a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(4px);
+}
+
+/* Doc Sections */
+.doc-section, .content {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.doc-section h2 {
+  font-size: 28px;
+  margin: 24px 0 12px 0;
+  color: var(--primary);
+}
+
+.doc-section h3 {
+  font-size: 20px;
+  margin: 16px 0 8px 0;
+}
+
+.doc-section ol {
+  margin: 0 0 1rem 1.2rem;
+  padding-left: 0;
+}
+
+.doc-section li {
+  margin-bottom: 0.45rem;
+  line-height: 1.6;
+}
+
+/* Resolution Download Block */
+.resolution-download {
+  background: linear-gradient(135deg, var(--primary), var(--tertiary));
+  color: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: var(--elevation-3);
+  margin: 24px 0;
+}
+
+.resolution-download .btn-r1325 {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.resolution-download .btn-r1325 i {
+  margin-right: 8px;
+}
+
+.resolution-download .btn-r1325:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: var(--elevation-4);
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  .caremed-hero {
+    padding: 60px 0 40px;
+  }
+  .caremed-hero h1 {
+    font-size: 32px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}
   display: none;
   padding-top: 0.5rem;
 }

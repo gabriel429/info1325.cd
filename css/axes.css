@@ -1,0 +1,305 @@
+/* Axes Stratégiques - Material Design 3 */
+:root {
+  --primary: #1152933;
+  --secondary: #00b4d8;
+  --tertiary: #0077b6;
+  --surface: #fefdfb;
+  --on-surface: #1c1b1f;
+  --on-surface-variant: #49454f;
+  --outline-variant: #cac4d0;
+  --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --elevation-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  --elevation-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+  --elevation-4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Hero Section */
+.caremed-hero {
+  padding: 80px 0 60px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.caremed-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+.caremed-hero .hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.caremed-hero h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin: 12px 0;
+  letter-spacing: -0.5px;
+  animation: slideDown 0.6s ease-out;
+}
+
+.caremed-hero .lead {
+  opacity: 0.95;
+  font-size: 18px;
+  line-height: 1.6;
+  animation: slideUp 0.6s ease-out 0.2s both;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Axes Map */
+.axes-map-container {
+  margin: 40px auto;
+  max-width: 1000px;
+  padding: 0 20px;
+}
+
+.axes-map {
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--elevation-3);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.axes-map svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.axes-map .node {
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+  fill: rgba(17, 82, 147, 0.2);
+  stroke: var(--primary);
+  stroke-width: 2;
+}
+
+.axes-map .node:hover {
+  fill: rgba(17, 82, 147, 0.4);
+  filter: drop-shadow(0 4px 12px rgba(17, 82, 147, 0.3));
+}
+
+.axes-map .labelbox {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Axes Cards Grid */
+.axes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.axes-card {
+  background: linear-gradient(135deg, rgba(17, 82, 147, 0.03), rgba(0, 180, 216, 0.03));
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--elevation-2);
+  border: 2px solid var(--outline-variant);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.axes-card:hover {
+  box-shadow: var(--elevation-4);
+  transform: translateY(-8px);
+  border-color: var(--secondary);
+  background: linear-gradient(135deg, rgba(17, 82, 147, 0.08), rgba(0, 180, 216, 0.08));
+}
+
+.axes-card .card-icon {
+  width: 80px;
+  height: 80px;
+  margin: 24px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary), var(--tertiary));
+  border-radius: 50%;
+  color: #fff;
+  font-size: 36px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.axes-card:hover .card-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.axes-card .card-content {
+  padding: 24px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.axes-card .card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 16px 0 12px 0;
+}
+
+.axes-card .card-description {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.axes-card .card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.axes-card .btn {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.axes-card .btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.axes-card .btn-primary:hover {
+  background: var(--secondary);
+  box-shadow: var(--elevation-2);
+  transform: translateY(-2px);
+}
+
+/* Axes Detail Page */
+.axes-detail {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  background: var(--surface);
+  border-radius: 16px;
+  box-shadow: var(--elevation-2);
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.axes-detail h2 {
+  color: var(--primary);
+  font-size: 32px;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+}
+
+.axes-detail p {
+  color: var(--on-surface-variant);
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.axes-detail .objectives {
+  margin: 32px 0;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(17, 82, 147, 0.05), rgba(0, 180, 216, 0.05));
+  border-left: 4px solid var(--secondary);
+  border-radius: 8px;
+}
+
+.axes-detail .objectives h3 {
+  color: var(--primary);
+  margin: 0 0 16px 0;
+}
+
+.axes-detail .objectives ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.axes-detail .objectives li {
+  padding: 8px 0;
+  padding-left: 24px;
+  position: relative;
+  color: var(--on-surface-variant);
+}
+
+.axes-detail .objectives li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--secondary);
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .caremed-hero {
+    padding: 60px 0 40px;
+  }
+
+  .caremed-hero h1 {
+    font-size: 28px;
+  }
+
+  .axes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .axes-detail {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .axes-map {
+    padding: 20px 10px;
+  }
+
+  .axes-card .card-title {
+    font-size: 18px;
+  }
+
+  .axes-detail h2 {
+    font-size: 24px;
+  }
+}

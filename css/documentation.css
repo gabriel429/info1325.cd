@@ -1,15 +1,184 @@
-/* CareMed-inspired layout for Documentation page */
-.caremed-hero{ padding:60px 0; background-color:var(--primary); color:#fff }
-.caremed-hero .hero-content{ text-align:center }
-.caremed-hero h1{ margin:0; font-weight:700 }
+/* Documentation - Material Design 3 */
+:root {
+  --primary: #1152933;
+  --secondary: #00b4d8;
+  --tertiary: #0077b6;
+  --surface: #fefdfb;
+  --on-surface: #1c1b1f;
+  --on-surface-variant: #49454f;
+  --elevation-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  --elevation-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+  --elevation-4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+}
 
-.documentation-grid .doc-card{ background:#fff; border-radius:8px; overflow:hidden; box-shadow:var(--shadow-md); border:1px solid var(--border); }
-.documentation-grid .doc-thumb{ height:180px; background-size:cover; background-position:center }
-.documentation-grid .doc-body{ padding:16px }
-.documentation-grid .doc-meta{ color:var(--text-muted); font-size:13px; margin-bottom:6px }
-.documentation-grid .doc-title{ font-size:18px; margin-bottom:8px }
-.doc-actions .btn{ font-size:13px; padding:6px 10px }
-.doc-thumb-link{ display:block }
-.doc-thumb{ min-height:140px }
+/* Hero Section */
+.caremed-hero {
+  padding: 64px 0 48px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
 
-@media(max-width:768px){ .caremed-hero{ padding:40px 0 } .documentation-grid .doc-thumb{ height:140px } }
+.caremed-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+.caremed-hero .hero-content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.caremed-hero h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 42px;
+  animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Documentation Grid */
+.documentation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.documentation-grid .doc-card {
+  background: var(--surface);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--elevation-2);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.documentation-grid .doc-card:hover {
+  box-shadow: var(--elevation-4);
+  transform: translateY(-4px);
+}
+
+.documentation-grid .doc-thumb {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.documentation-grid .doc-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.documentation-grid .doc-card:hover .doc-thumb img {
+  transform: scale(1.05);
+}
+
+.documentation-grid .doc-body {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.documentation-grid .doc-meta {
+  color: var(--on-surface-variant);
+  font-size: 13px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.documentation-grid .doc-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--on-surface);
+  line-height: 1.3;
+}
+
+.documentation-grid .doc-description {
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin-bottom: 16px;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.doc-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.doc-actions .btn {
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+}
+
+.doc-actions .btn:hover {
+  background: var(--tertiary);
+  box-shadow: var(--elevation-2);
+  transform: translateY(-2px);
+}
+
+.doc-thumb-link {
+  display: block;
+}
+
+.doc-thumb {
+  min-height: 160px;
+}
+
+@media (max-width: 768px) {
+  .caremed-hero {
+    padding: 48px 0 36px;
+  }
+  .caremed-hero h1 {
+    font-size: 28px;
+  }
+  .documentation-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .documentation-grid {
+    grid-template-columns: 1fr;
+  }
+  .documentation-grid .doc-thumb {
+    height: 160px;
+  }
+}

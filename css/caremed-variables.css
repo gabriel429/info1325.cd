@@ -1,103 +1,382 @@
-/* CareMed-inspired design tokens and overrides */
-:root{
-  --primary:#0366d6;
-  --primary-light:#f1f8ff;
-  --accent-green:#28a745;
-  --danger:#d73a49;
-  --text-dark:#24292e;
-  --text-muted:#586069;
-  --border:#e1e4e8;
-  --radius:6px;
-  --shadow-md:0 6px 18px rgba(3,102,214,0.08);
-  --shadow-lg:0 10px 30px rgba(3,102,214,0.10);
-  --shadow-xl:0 18px 60px rgba(3,102,214,0.10);
-  --h1-desktop:48px;
-  --h1-mobile:40px;
+/* Material Design 3 - Unified Color Variables */
+:root {
+  /* Primary Brand Colors */
+  --primary: #1152933;
+  --on-primary: #ffffff;
+  --primary-light: #d4e4ff;
+  --primary-container: #cfe4ff;
+  
+  /* Secondary Colors */
+  --secondary: #00b4d8;
+  --tertiary: #0077b6;
+  --accent: #00b4d8;
+  
+  /* Surface and Text */
+  --surface: #fefdfb;
+  --text-dark: #1c1b1f;
+  --text-color: #1c1b1f;
+  --text-muted: #49454f;
+  --on-surface-variant: #49454f;
+  
+  /* Status Colors */
+  --accent-green: #28a745;
+  --danger: #dc3545;
+  
+  /* Borders and Shadows */
+  --border: #e5e0e8;
+  --outline-variant: #cac4d0;
+  
+  /* Radius */
+  --radius: 12px;
+  
+  /* Shadows */\n  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
+  --shadow-xl: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
+  
+  /* Typography */
+  --h1-desktop: 48px;
+  --h1-mobile: 32px;
+  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Typography */
-body{font-family: 'Poppins', Arial, sans-serif; color:var(--text-dark)}
-.lead{font-size:20px; font-weight:300; color:#ffffff}
-
-/* Centrer le texte lead dans les heroes sans affecter tous les .lead */
-.caremed-hero .lead{ text-align:center; max-width:900px; margin:0 auto; }
-
-/* Page title (centered variant used by headerPage.php) */
-/* page-title removed: styling centralized or handled per-page */
-
-/* Page header title styling (replaces .page-title) */
-.page-header h2{
-  text-align:center;
-  color:var(--primary);
-  font-size:26px;
-  font-weight:700;
-  margin:1.25rem 0;
-}
-@media(min-width:768px){ .page-header h2{ font-size:var(--h1-desktop); } }
-
-/* Hero for news page */
-.caremed-hero{ position:relative; background-size:cover; background-position:center; padding:120px 0 72px; color:#fff }
-.caremed-hero .overlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(4,36,77,0.45), rgba(3,102,214,0.18)); }
-.caremed-hero .hero-content{ position:relative; z-index:2; text-align:center }
-.caremed-hero .hero-breadcrumb{ color:rgba(255,255,255,0.9); margin-bottom:12px; letter-spacing:0.2px }
-.caremed-hero h1{ color:#fff; margin:0; font-weight:800; font-size:44px; text-transform:none }
-
-/* News listing cards */
-.news-card{ background:#fff; border-radius:12px; overflow:hidden; box-shadow:var(--shadow-md); border:1px solid rgba(0,0,0,0.04); display:flex; flex-direction:column; transition:transform .18s ease, box-shadow .18s ease }
-.news-card .news-image{ height:180px; background-size:cover; background-position:center }
-.news-card .news-body{ padding:16px; flex:1 }
-.news-card .news-meta{ font-size:13px; color:var(--text-muted); margin-bottom:8px }
-.news-card .news-excerpt{ color:#444; margin-bottom:12px }
-
-/* CareMed-like news layout tweaks */
-.news-single .news-card{ display:block }
-.news-single .news-card .news-image{ height:320px; background-size:cover; background-position:center }
-.news-single .news-title{ font-size:28px; margin-top:12px; color:var(--text-dark) }
-.news-single .news-meta{ font-size:14px; color:var(--text-muted); margin-bottom:14px }
-.news-single .image-gallery img{ width:100%; height:auto; border-radius:6px }
-/* Carousel item tweaks */
-.image-gallery-carousel .single-image img{ width:100%; height:auto; display:block; border-radius:8px }
-.image-gallery-carousel .owl-nav button{ background:rgba(0,0,0,0.5); color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center }
-.image-gallery-carousel .owl-dots{ margin-top:12px }
-
-/* Force one slide visible and prevent overflow */
-.image-gallery-carousel{ position:relative }
-.image-gallery-carousel .owl-stage-outer{ overflow:hidden }
-.image-gallery-carousel .owl-item{ width:100% !important }
-.image-gallery-carousel .item{ display:block }
-.image-gallery-carousel .single-image img{ object-fit:cover; max-height:520px }
-
-/* Prevent slider images from overflowing their containers */
-.pf-details-slider img, .image-slider img, .pf-details .inner-content img{
-  max-width:100%;
-  width:100%;
-  height:auto;
-  display:block;
+body {
+  font-family: 'Poppins', var(--font-main), Arial, sans-serif;
+  color: var(--text-dark);
+  background: var(--surface);
 }
 
-/* Ensure slider container hides overflow on small screens */
-.image-slider, .pf-details-slider{ overflow:hidden }
+.lead {
+  font-size: 20px;
+  font-weight: 300;
+  color: #ffffff;
+}
 
-/* Fade animations used by Owl's animateIn/animateOut */
+/* Hero Styles */
+.caremed-hero {
+  position: relative;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);
+  background-size: cover;
+  background-position: center;
+  padding: 120px 0 72px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.caremed-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(20px); }
+}
+
+.caremed-hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17, 82, 147, 0.45), rgba(0, 119, 182, 0.18));
+}
+
+.caremed-hero .hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.caremed-hero .hero-breadcrumb {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 12px;
+  letter-spacing: 0.2px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.caremed-hero h1 {
+  color: #fff;
+  margin: 0;
+  font-weight: 800;
+  font-size: 44px;
+  text-transform: none;
+  animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.caremed-hero .lead {
+  text-align: center;
+  max-width: 900px;
+  margin: 16px auto 0;
+  animation: slideUp 0.6s ease-out 0.2s both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Page Header */
+.page-header h2 {
+  text-align: center;
+  color: var(--primary);
+  font-size: 26px;
+  font-weight: 700;
+  margin: 1.25rem 0;
+}
+
+@media (min-width: 768px) {
+  .page-header h2 {
+    font-size: var(--h1-desktop);
+  }
+}
+
+/* News Cards */
+.news-card {
+  background: var(--surface);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.news-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.news-card .news-image {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.news-card .news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.news-card:hover .news-image img {
+  transform: scale(1.05);
+}
+
+.news-card .news-body {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card .news-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.news-card .news-excerpt {
+  color: var(--on-surface-variant);
+  margin-bottom: 12px;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.news-card .news-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+/* Single News */
+.news-single .news-card {
+  display: block;
+}
+
+.news-single .news-card .news-image {
+  height: 380px;
+  background-size: cover;
+  background-position: center;
+}
+
+.news-single .news-title {
+  font-size: 32px;
+  margin-top: 12px;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.news-single .news-meta {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.news-single .image-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.news-single .image-gallery img:hover {
+  transform: scale(1.02);
+}
+
+/* Image Gallery Carousel */
+.image-gallery-carousel .single-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.image-gallery-carousel .owl-nav button {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+  box-shadow: var(--shadow-md);
+}
+
+.image-gallery-carousel .owl-nav button:hover {
+  background: var(--secondary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.image-gallery-carousel .owl-dots {
+  margin-top: 16px;
+}
+
+.image-gallery-carousel {
+  position: relative;
+}
+
+.image-gallery-carousel .owl-stage-outer {
+  overflow: hidden;
+}
+
+.image-gallery-carousel .owl-item {
+  width: 100% !important;
+}
+
+.image-gallery-carousel .item {
+  display: block;
+}
+
+.image-gallery-carousel .single-image img {
+  object-fit: cover;
+  max-height: 520px;
+}
+
+/* Image Sliders */
+.pf-details-slider img,
+.image-slider img,
+.pf-details .inner-content img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-slider,
+.pf-details-slider {
+  overflow: hidden;
+}
+
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translate3d(0,0,0); }
-  to   { opacity: 1; }
+  from { opacity: 0; transform: translate3d(0, 0, 0); }
+  to { opacity: 1; }
 }
+
 @keyframes fadeOut {
   from { opacity: 1; }
-  to   { opacity: 0; transform: translate3d(0,0,0); }
+  to { opacity: 0; transform: translate3d(0, 0, 0); }
 }
-.animated.fadeIn{ animation-name: fadeIn; animation-duration: 600ms; animation-fill-mode: both }
-.animated.fadeOut{ animation-name: fadeOut; animation-duration: 600ms; animation-fill-mode: both }
 
-/* Sidebar recent posts */
-.recent-post .single-post{ display:flex; gap:10px; padding:10px 6px; align-items:center; border-bottom:1px dashed rgba(0,0,0,0.04) }
-.recent-post .single-post .image img{ width:80px; height:60px; object-fit:cover; border-radius:6px }
-.recent-post .single-post .content h5{ margin:0; font-size:15px }
-.recent-post .single-post .content .comment{ margin:6px 0 0 0; font-size:13px; color:var(--text-muted) }
-.recent-post .title{ font-size:18px; margin-bottom:12px }
+.animated.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 600ms;
+  animation-fill-mode: both;
+}
 
-/* CareMed hero adjustments */
+.animated.fadeOut {
+  animation-name: fadeOut;
+  animation-duration: 600ms;
+  animation-fill-mode: both;
+}
+
+/* Sidebar Recent Posts */
+.recent-post .single-post {
+  display: flex;
+  gap: 10px;
+  padding: 12px 6px;
+  align-items: center;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+.recent-post .single-post:hover {
+  background: rgba(17, 82, 147, 0.05);
+  transform: translateX(4px);
+}
+
+.recent-post .single-post .image img {
+  width: 80px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.recent-post .single-post .content h5 {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.recent-post .single-post .content .comment {
+  margin: 6px 0 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.recent-post .title {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
 .caremed-hero{ padding:100px 0 70px }
 .caremed-hero h1{ font-size:36px }
 .caremed-hero .hero-breadcrumb{ font-size:14px }
