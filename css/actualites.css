@@ -1,17 +1,5 @@
 /* Actualités - Material Design 3 */
-:root {
-  --primary: #1152933;
-  --secondary: #00b4d8;
-  --tertiary: #0077b6;
-  --surface: #fefdfb;
-  --on-surface: #1c1b1f;
-  --on-surface-variant: #49454f;
-  --error: #dc3545;
-  --success: #28a745;
-  --elevation-2: 0 3px 6px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.12);
-  --elevation-3: 0 10px 20px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.10);
-  --elevation-4: 0 15px 25px rgba(0, 0, 0, 0.15), 0 5px 10px rgba(0, 0, 0, 0.05);
-}
+/* Variables globales définies dans caremed-variables.css - ne pas redéfinir :root ici */
 
 /* Hero Section */
 .caremed-hero {

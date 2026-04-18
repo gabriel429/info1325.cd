@@ -1,23 +1,7 @@
 /* Contact page - Material Design 3 (Material You) */
-:root {
-  /* Material Design 3 Colors */
-  --primary: #1152933;
-  --on-primary: #fff;
-  --primary-container: #d4e4ff;
-  --on-primary-container: #001345;
-  
-  --secondary: #00b4d8;
-  --tertiary: #0077b6;
-  
-  --surface: #fefdfb;
-  --on-surface: #1c1b1f;
-  --on-surface-variant: #49454f;
-  
-  --error: #dc3545;
-  --success: #28a745;
-  
-  --outline: #79747e;
-  --outline-variant: #cac4d0;
+/* Variables globales définies dans caremed-variables.css - ne pas redéfinir :root ici */
+
+/* Hero Section */
   
   /* Elevation shadows (Material Design 3) */
   --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
