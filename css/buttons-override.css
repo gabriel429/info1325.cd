@@ -1,5 +1,5 @@
-/* Override global pour tous les boutons - Applies AFTER Bootstrap */
-/* Cette feuille doit être chargée en dernier pour surcharger Bootstrap */
+/* Override GLOBAL pour TOUS les boutons - ULTRA AGRESSIF */
+/* Charge EN DERNIER dans headerPage.php pour garantir spécificité maximale */
 
 :root {
   --primary: #1152933;
@@ -7,165 +7,150 @@
   --tertiary: #0077b6;
 }
 
-/* TOUS les boutons doivent avoir du texte blanc */
+/* ===== RÈGLE UNIVERSELLE 1 : Tous les boutons = blanc ===== */
+button, 
+a.btn, 
+input.btn, 
+[type="button"],
+[type="submit"],
+[type="reset"],
+.btn,
+.btn-primary,
+.btn-outline-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning,
+.btn-info,
+a[class*="btn"],
+button[class*="btn"],
+[class*="btn"] {
+  color: #ffffff !important;
+}
+
+/* ===== RÈGLE 2 : Tous les boutons .btn ===== */
 .btn,
 button.btn,
 a.btn,
 input.btn,
-[class*="btn"],
-.btn-primary,
-button.btn-primary,
-a.btn-primary,
-input.btn-primary,
-.btn-outline-primary,
-button.btn-outline-primary,
-a.btn-outline-primary,
-input.btn-outline-primary,
-.btn-sm,
-.btn-md,
-.btn-lg {
+a[class*="btn-"],
+button[class*="btn-"] {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
   color: #ffffff !important;
   font-weight: 700 !important;
 }
 
-/* Boutons primaires */
-.btn-primary {
+/* ===== RÈGLE 3 : Boutons primaires spécifiques ===== */
+.btn-primary,
+a.btn-primary,
+button.btn-primary,
+input.btn-primary,
+.btn-primary:not(:disabled):not(.disabled),
+a.btn-primary:not(:disabled):not(.disabled),
+button.btn-primary:not(:disabled):not(.disabled),
+.btn.btn-primary {
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
   color: #ffffff !important;
 }
 
+/* ===== RÈGLE 4 : Boutons outline-primary - LA CLÉ ===== */
+.btn-outline-primary,
+a.btn-outline-primary,
+button.btn-outline-primary,
+input.btn-outline-primary,
+.btn-outline-primary:not(:disabled):not(.disabled),
+a.btn-outline-primary:not(:disabled):not(.disabled),
+button.btn-outline-primary:not(:disabled):not(.disabled),
+.btn.btn-outline-primary,
+a.btn.btn-outline-primary,
+a.btn-outline-primary.btn-sm,
+.btn-outline-primary.btn-sm {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #ffffff !important;
+  border-width: 2px !important;
+  border-style: solid !important;
+  background-clip: padding-box !important;
+}
+
+/* ===== RÈGLE 5 : Petits boutons ===== */
+.btn-sm,
+button.btn-sm,
+a.btn-sm,
+input.btn-sm,
+.btn-sm.btn-primary,
+.btn-sm.btn-outline-primary,
+a.btn-sm.btn-outline-primary {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+/* ===== RÈGLE 6 : Hover states ===== */
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+a.btn:hover,
+button.btn:hover,
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active,
-.btn-primary:not(:disabled):not(.disabled):hover,
-.btn-primary:not(:disabled):not(.disabled):focus,
-.btn-primary:not(:disabled):not(.disabled):active,
-.btn-primary:not(:disabled):not(.disabled).active {
-  background-color: var(--secondary) !important;
-  border-color: var(--secondary) !important;
-  color: #ffffff !important;
-}
-
-/* Variantes de boutons primaires */
-a.btn-primary,
-button.btn-primary,
-input.btn-primary {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
-  color: #ffffff !important;
-}
-
 a.btn-primary:hover,
-a.btn-primary:focus,
-a.btn-primary:active,
 button.btn-primary:hover,
-button.btn-primary:focus,
-button.btn-primary:active,
-input.btn-primary:hover,
-input.btn-primary:focus,
-input.btn-primary:active {
-  background-color: var(--secondary) !important;
-  border-color: var(--secondary) !important;
-  color: #ffffff !important;
-  text-decoration: none !important;
-}
-
-/* Boutons outline-primary */
-.btn-outline-primary {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
-  color: #ffffff !important;
-  border: 2px solid var(--primary) !important;
-}
-
 .btn-outline-primary:hover,
 .btn-outline-primary:focus,
 .btn-outline-primary:active,
 .btn-outline-primary.active,
-.btn-outline-primary:not(:disabled):not(.disabled):hover,
-.btn-outline-primary:not(:disabled):not(.disabled):focus,
-.btn-outline-primary:not(:disabled):not(.disabled):active,
-.btn-outline-primary:not(:disabled):not(.disabled).active {
-  background-color: var(--tertiary) !important;
-  border-color: var(--tertiary) !important;
-  color: #ffffff !important;
-}
-
-/* Variantes outline-primary */
-a.btn-outline-primary,
-button.btn-outline-primary,
-input.btn-outline-primary {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
-  color: #ffffff !important;
-}
-
 a.btn-outline-primary:hover,
-a.btn-outline-primary:focus,
-a.btn-outline-primary:active,
 button.btn-outline-primary:hover,
-button.btn-outline-primary:focus,
-button.btn-outline-primary:active,
-input.btn-outline-primary:hover,
-input.btn-outline-primary:focus,
-input.btn-outline-primary:active {
-  background-color: var(--tertiary) !important;
-  border-color: var(--tertiary) !important;
-  color: #ffffff !important;
-  text-decoration: none !important;
-}
-
-/* Petits boutons */
-.btn-sm,
-.btn-sm.btn-primary,
-.btn-sm.btn-outline-primary {
-  color: #ffffff !important;
-  font-weight: 700 !important;
-}
-
-.btn-sm.btn-primary {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
-}
-
+a.btn-outline-primary:hover,
+.btn-sm:hover,
+.btn-sm:focus,
+.btn-sm:active,
 .btn-sm.btn-primary:hover,
 .btn-sm.btn-primary:focus,
-.btn-sm.btn-primary:active {
+.btn-sm.btn-outline-primary:hover,
+.btn-sm.btn-outline-primary:focus {
   background-color: var(--secondary) !important;
   border-color: var(--secondary) !important;
   color: #ffffff !important;
+  text-decoration: none !important;
 }
 
+/* ===== RÈGLE 7 : Désactiver tout background transparent ===== */
+.btn,
+a.btn,
+button.btn,
+.btn-primary,
+.btn-outline-primary,
+a.btn-outline-primary,
+button.btn-outline-primary,
+.btn-sm,
 .btn-sm.btn-outline-primary {
+  background-image: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* ===== RÈGLE 8 : Force sur TOUS les liens avec classe btn ===== */
+a[class*="btn"] {
+  color: #ffffff !important;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
-}
-
-.btn-sm.btn-outline-primary:hover,
-.btn-sm.btn-outline-primary:focus,
-.btn-sm.btn-outline-primary:active {
-  background-color: var(--tertiary) !important;
-  border-color: var(--tertiary) !important;
-  color: #ffffff !important;
-}
-
-/* Override Bootstrap defaults complètement */
-.btn[class*="btn-"],
-button[class*="btn-"],
-a[class*="btn-"],
-input[class*="btn-"] {
-  color: #ffffff !important;
-}
-
-/* Tous les liens bouton */
-a[class*="btn"] {
   text-decoration: none !important;
-  color: #ffffff !important;
+  font-weight: 700 !important;
 }
 
-a[class*="btn"]:hover {
-  text-decoration: none !important;
+a[class*="btn"]:hover,
+a[class*="btn"]:focus,
+a[class*="btn"]:active {
   color: #ffffff !important;
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  text-decoration: none !important;
 }
