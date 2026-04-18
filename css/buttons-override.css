@@ -261,28 +261,41 @@ footer.footer .single-footer a:hover {
 
 footer.footer .social {
   display: flex !important;
-  gap: 12px !important;
+  gap: 16px !important;
   list-style: none !important;
   padding: 0 !important;
   margin: 15px 0 0 0 !important;
+}
+
+footer.footer .social li {
+  list-style: none !important;
+  margin: 0 !important;
 }
 
 footer.footer .social li a {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 40px !important;
-  height: 40px !important;
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important;
+  width: 44px !important;
+  height: 44px !important;
+  background: transparent !important;
+  color: #00b4d8 !important;
   border-radius: 50% !important;
-  transition: all 0.3s ease !important;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9) !important;
+  border: 2px solid #00b4d8 !important;
+  font-size: 18px !important;
+}
+
+footer.footer .social li a i {
+  font-size: 18px !important;
 }
 
 footer.footer .social li a:hover {
   background: #00b4d8 !important;
   color: #1152933 !important;
-  transform: translateY(-3px) !important;
+  border-color: #00b4d8 !important;
+  transform: translateY(-4px) scale(1.1) !important;
+  box-shadow: 0 8px 16px rgba(0, 180, 216, 0.3) !important;
 }
 
 footer.footer .copyright {
