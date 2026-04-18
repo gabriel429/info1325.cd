@@ -224,34 +224,58 @@ button.btn {
 /* ===== ÉTAPE 10 : FIX FOOTER - Restaurer cohérence sur TOUTES les pages ===== */
 /* Le footer doit être identique sur la page d'accueil et les autres pages */
 footer.footer {
-  background: #1152933 !important;
+  background: #1A76D1 !important;
   color: #ffffff !important;
-  padding-top: 50px !important;
-  padding-bottom: 30px !important;
+  padding-top: 100px !important;
+  padding-bottom: 0 !important;
+  position: relative !important;
+}
+
+footer.footer::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  opacity: 0.1;
+  pointer-events: none;
 }
 
 footer.footer .footer-top {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  padding-bottom: 40px !important;
-  margin-bottom: 30px !important;
+  padding: 100px 0 !important;
+  position: relative !important;
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+}
+
+footer.footer .single-footer {
+  position: relative;
+  z-index: 1;
 }
 
 footer.footer .single-footer h2 {
   color: #ffffff !important;
-  font-weight: 700 !important;
-  margin-bottom: 20px !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  margin-bottom: 40px !important;
+  padding-bottom: 20px !important;
+  position: relative !important;
+  border-bottom: 3px solid #ffffff !important;
 }
 
 footer.footer .single-footer p {
   color: rgba(255, 255, 255, 0.85) !important;
   font-size: 14px !important;
   line-height: 1.6 !important;
+  margin-bottom: 15px !important;
 }
 
 footer.footer .single-footer a {
-  color: #00b4d8 !important;
+  color: #ffffff !important;
   text-decoration: none !important;
-  transition: color 0.3s ease !important;
+  transition: all 0.4s ease !important;
 }
 
 footer.footer .single-footer a:hover {
@@ -259,54 +283,82 @@ footer.footer .single-footer a:hover {
   text-decoration: underline !important;
 }
 
+/* Social icons - style correct */
 footer.footer .social {
   display: flex !important;
-  gap: 16px !important;
+  gap: 10px !important;
   list-style: none !important;
   padding: 0 !important;
-  margin: 15px 0 0 0 !important;
+  margin: 25px 0 0 0 !important;
 }
 
 footer.footer .social li {
+  display: inline-block !important;
   list-style: none !important;
   margin: 0 !important;
 }
 
 footer.footer .social li a {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 44px !important;
-  height: 44px !important;
-  background: transparent !important;
-  color: #00b4d8 !important;
+  height: 34px !important;
+  width: 34px !important;
+  line-height: 34px !important;
+  text-align: center !important;
+  border: 1px solid #ffffff !important;
   border-radius: 50% !important;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9) !important;
-  border: 2px solid #00b4d8 !important;
-  font-size: 18px !important;
+  display: block !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  transition: all 0.4s ease !important;
+  padding: 0 !important;
 }
 
 footer.footer .social li a i {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 footer.footer .social li a:hover {
-  background: #00b4d8 !important;
-  color: #1152933 !important;
-  border-color: #00b4d8 !important;
-  transform: translateY(-4px) scale(1.1) !important;
-  box-shadow: 0 8px 16px rgba(0, 180, 216, 0.3) !important;
+  color: #1A76D1 !important;
+  background: #ffffff !important;
+  border-color: transparent !important;
 }
 
+/* Lien utiles */
+footer.footer .single-footer.f-link li {
+  display: block !important;
+  margin-bottom: 12px !important;
+}
+
+footer.footer .single-footer.f-link li:last-child {
+  margin: 0 !important;
+}
+
+footer.footer .single-footer.f-link li a {
+  display: block !important;
+  color: #ffffff !important;
+  text-transform: capitalize !important;
+  font-weight: 400 !important;
+  padding-left: 0 !important;
+  transition: all 0.4s ease !important;
+}
+
+footer.footer .single-footer.f-link li a i {
+  margin-right: 10px !important;
+}
+
+footer.footer .single-footer.f-link li a:hover {
+  padding-left: 8px !important;
+}
+
+/* Copyright */
 footer.footer .copyright {
-  background: rgba(0, 0, 0, 0.2) !important;
-  padding: 20px 0 !important;
-  margin-top: 30px !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(0, 0, 0, 0.15) !important;
+  padding: 30px 0 !important;
+  margin-top: 0 !important;
+  border-top: none !important;
 }
 
 footer.footer .copyright-content {
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
   font-size: 13px !important;
   text-align: center !important;
 }
@@ -316,7 +368,7 @@ footer.footer .copyright-content p {
 }
 
 footer.footer .copyright-content a {
-  color: #00b4d8 !important;
+  color: #ffffff !important;
   text-decoration: none !important;
 }
 
