@@ -46,8 +46,8 @@
 								<div class="row">
 									<div class="col-md-6"><input type="text" name="name" placeholder="Nom" required></div>
 									<div class="col-md-6"><input type="email" name="email" placeholder="Email" required></div>
-									<div class="col-md-6"><input type="text" name="phone" placeholder="Téléphone"></div>
-									<div class="col-md-6"><input type="text" name="subject" placeholder="Objet"></div>
+									<div class="col-md-6"><input type="text" name="phone" placeholder="Téléphone" required></div>
+									<div class="col-md-6"><input type="text" name="subject" placeholder="Objet" required></div>
 									<div class="col-12"><textarea name="message" placeholder="Votre message" required></textarea></div>
 									<div class="col-12 form-actions"><button class="btn-primary" type="submit">Envoyer</button></div>
 								</div>
