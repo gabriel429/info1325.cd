@@ -1,5 +1,6 @@
 /* Override GLOBAL pour TOUS les boutons - ULTRA AGRESSIF */
 /* Charge EN DERNIER dans headerPage.php pour garantir spécificité maximale */
+/* SOLUTION : Désactive les ombres sombres qui rendent le texte illisible */
 
 :root {
   --primary: #1152933;
@@ -7,14 +8,31 @@
   --tertiary: #0077b6;
 }
 
-/* ===== RÈGLE UNIVERSELLE 1 : Tous les boutons = blanc ===== */
-button, 
-a.btn, 
-input.btn, 
+/* ===== ÉTAPE 1 : Désactiver TOUTES les ombres qui rendent le texte illisible ===== */
+.btn,
+button,
+a.btn,
+input.btn,
 [type="button"],
 [type="submit"],
 [type="reset"],
+.btn-primary,
+.btn-outline-primary,
+a[class*="btn"] {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  background-image: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
+
+/* ===== ÉTAPE 2 : Fond blanc pour TOUS les boutons ===== */
 .btn,
+button.btn,
+a.btn,
+input.btn,
+a[class*="btn"],
+button[class*="btn"],
 .btn-primary,
 .btn-outline-primary,
 .btn-secondary,
@@ -22,60 +40,45 @@ input.btn,
 .btn-danger,
 .btn-warning,
 .btn-info,
-a[class*="btn"],
-button[class*="btn"],
-[class*="btn"] {
-  color: #ffffff !important;
-}
-
-/* ===== RÈGLE 2 : Tous les boutons .btn ===== */
-.btn,
-button.btn,
-a.btn,
-input.btn,
-a[class*="btn-"],
-button[class*="btn-"] {
+.btn-sm,
+.btn-md,
+.btn-lg {
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
   color: #ffffff !important;
   font-weight: 700 !important;
 }
 
-/* ===== RÈGLE 3 : Boutons primaires spécifiques ===== */
-.btn-primary,
-a.btn-primary,
-button.btn-primary,
-input.btn-primary,
-.btn-primary:not(:disabled):not(.disabled),
-a.btn-primary:not(:disabled):not(.disabled),
-button.btn-primary:not(:disabled):not(.disabled),
-.btn.btn-primary {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
+/* ===== ÉTAPE 3 : Texte blanc ultra-lisible ===== */
+.btn,
+button,
+a.btn,
+input.btn,
+a[class*="btn"],
+button[class*="btn"] {
   color: #ffffff !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
 }
 
-/* ===== RÈGLE 4 : Boutons outline-primary - LA CLÉ ===== */
+/* ===== ÉTAPE 4 : Boutons .btn-outline-primary (le cas problématique) ===== */
 .btn-outline-primary,
 a.btn-outline-primary,
 button.btn-outline-primary,
 input.btn-outline-primary,
-.btn-outline-primary:not(:disabled):not(.disabled),
-a.btn-outline-primary:not(:disabled):not(.disabled),
-button.btn-outline-primary:not(:disabled):not(.disabled),
-.btn.btn-outline-primary,
-a.btn.btn-outline-primary,
+.btn-outline-primary.btn-sm,
 a.btn-outline-primary.btn-sm,
-.btn-outline-primary.btn-sm {
+.btn.btn-outline-primary,
+a.btn.btn-outline-primary {
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
   color: #ffffff !important;
   border-width: 2px !important;
   border-style: solid !important;
-  background-clip: padding-box !important;
+  box-shadow: none !important;
 }
 
-/* ===== RÈGLE 5 : Petits boutons ===== */
+/* ===== ÉTAPE 5 : Petits boutons .btn-sm ===== */
 .btn-sm,
 button.btn-sm,
 a.btn-sm,
@@ -83,74 +86,65 @@ input.btn-sm,
 .btn-sm.btn-primary,
 .btn-sm.btn-outline-primary,
 a.btn-sm.btn-outline-primary {
-  color: #ffffff !important;
-  font-weight: 700 !important;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
 }
 
-/* ===== RÈGLE 6 : Hover states ===== */
+/* ===== ÉTAPE 6 : Hover states ===== */
 .btn:hover,
 .btn:focus,
 .btn:active,
 .btn.active,
 a.btn:hover,
+a.btn:focus,
 button.btn:hover,
+button.btn:focus,
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
-.btn-primary.active,
-a.btn-primary:hover,
-button.btn-primary:hover,
 .btn-outline-primary:hover,
 .btn-outline-primary:focus,
 .btn-outline-primary:active,
-.btn-outline-primary.active,
 a.btn-outline-primary:hover,
 button.btn-outline-primary:hover,
-a.btn-outline-primary:hover,
+a[class*="btn"]:hover,
 .btn-sm:hover,
 .btn-sm:focus,
-.btn-sm:active,
-.btn-sm.btn-primary:hover,
-.btn-sm.btn-primary:focus,
-.btn-sm.btn-outline-primary:hover,
-.btn-sm.btn-outline-primary:focus {
+.btn-sm.btn-outline-primary:hover {
   background-color: var(--secondary) !important;
   border-color: var(--secondary) !important;
   color: #ffffff !important;
   text-decoration: none !important;
-}
-
-/* ===== RÈGLE 7 : Désactiver tout background transparent ===== */
-.btn,
-a.btn,
-button.btn,
-.btn-primary,
-.btn-outline-primary,
-a.btn-outline-primary,
-button.btn-outline-primary,
-.btn-sm,
-.btn-sm.btn-outline-primary {
-  background-image: none !important;
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 
-/* ===== RÈGLE 8 : Force sur TOUS les liens avec classe btn ===== */
-a[class*="btn"] {
+/* ===== ÉTAPE 7 : Force sur toutes les variantes ===== */
+.btn[class*="btn-"],
+button[class*="btn-"],
+a[class*="btn-"],
+input[class*="btn-"] {
   color: #ffffff !important;
   background-color: var(--primary) !important;
   border-color: var(--primary) !important;
-  text-decoration: none !important;
-  font-weight: 700 !important;
+  box-shadow: none !important;
 }
 
-a[class*="btn"]:hover,
-a[class*="btn"]:focus,
-a[class*="btn"]:active {
+/* ===== ÉTAPE 8 : Override Bootstrap classes defaults ===== */
+a.btn,
+button.btn {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
   color: #ffffff !important;
-  background-color: var(--secondary) !important;
-  border-color: var(--secondary) !important;
   text-decoration: none !important;
+}
+
+/* ===== ÉTAPE 9 : Enlever les ombres des conteneurs ===== */
+.doc-card,
+.doc-actions,
+.news-card,
+.axes-card {
+  box-shadow: none !important;
 }
