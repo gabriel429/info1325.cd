@@ -99,6 +99,8 @@
 		<?php if (!empty($pageCss)) : ?>
 			<link rel="stylesheet" href="<?= $pageCss ?>">
 		<?php endif; ?>
+		<!-- Override global pour tous les boutons - charge en dernier -->
+		<link rel="stylesheet" href="<?= CSS_DIR ?>buttons-override.css">
 
 		<style>
 			/* Réduction des grands espaces entre sections pour la page d'accueil */
