@@ -42,14 +42,42 @@
 								<div class="alert alert-danger">Erreur lors de l'envoi du message. Le message a été enregistré pour diagnostic.</div>
 							<?php endif; ?>
 
-							<form method="post" action="/mail/mail.php" novalidate>
+							<form id="contactForm" method="post" action="/mail/mail.php" novalidate>
 								<div class="row">
-									<div class="col-md-6"><input type="text" name="name" placeholder="Nom" required></div>
-									<div class="col-md-6"><input type="email" name="email" placeholder="Email" required></div>
-									<div class="col-md-6"><input type="text" name="phone" placeholder="Téléphone" required></div>
-									<div class="col-md-6"><input type="text" name="subject" placeholder="Objet" required></div>
-									<div class="col-12"><textarea name="message" placeholder="Votre message" required></textarea></div>
-									<div class="col-12 form-actions"><button class="btn-primary" type="submit">Envoyer</button></div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="text" name="name" id="name" placeholder="Nom *" required>
+											<small class="text-danger" id="nameError"></small>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="email" name="email" id="email" placeholder="Email *" required>
+											<small class="text-danger" id="emailError"></small>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="text" name="phone" id="phone" placeholder="Téléphone *" required>
+											<small class="text-danger" id="phoneError"></small>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<input type="text" name="subject" id="subject" placeholder="Objet *" required>
+											<small class="text-danger" id="subjectError"></small>
+										</div>
+									</div>
+									<div class="col-12">
+										<div class="form-group">
+											<textarea name="message" id="message" placeholder="Votre message *" required></textarea>
+											<small class="text-danger" id="messageError"></small>
+										</div>
+									</div>
+									<div class="col-12 form-actions">
+										<button class="btn-primary" type="submit" id="submitBtn">Envoyer</button>
+										<small class="text-muted d-block mt-2">* Tous les champs sont obligatoires</small>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -89,4 +117,182 @@
 		</section>
 	<!-- Composant footer  page cn debut -->
     <?php require_once $footerPath;  ?>
-<!-- Composant footer page cn fin  -->			
+<!-- Composant footer page cn fin  -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const form = document.getElementById('contactForm');
+	const nameInput = document.getElementById('name');
+	const emailInput = document.getElementById('email');
+	const phoneInput = document.getElementById('phone');
+	const subjectInput = document.getElementById('subject');
+	const messageInput = document.getElementById('message');
+	
+	const nameError = document.getElementById('nameError');
+	const emailError = document.getElementById('emailError');
+	const phoneError = document.getElementById('phoneError');
+	const subjectError = document.getElementById('subjectError');
+	const messageError = document.getElementById('messageError');
+
+	// Validation en temps réel
+	nameInput.addEventListener('blur', validateName);
+	emailInput.addEventListener('blur', validateEmail);
+	phoneInput.addEventListener('blur', validatePhone);
+	subjectInput.addEventListener('blur', validateSubject);
+	messageInput.addEventListener('blur', validateMessage);
+
+	function validateName() {
+		nameError.textContent = '';
+		if (nameInput.value.trim() === '') {
+			nameError.textContent = 'Le nom est obligatoire';
+			nameInput.classList.add('is-invalid');
+			return false;
+		}
+		if (nameInput.value.trim().length < 2) {
+			nameError.textContent = 'Le nom doit contenir au moins 2 caractères';
+			nameInput.classList.add('is-invalid');
+			return false;
+		}
+		nameInput.classList.remove('is-invalid');
+		nameInput.classList.add('is-valid');
+		return true;
+	}
+
+	function validateEmail() {
+		emailError.textContent = '';
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (emailInput.value.trim() === '') {
+			emailError.textContent = 'L\'email est obligatoire';
+			emailInput.classList.add('is-invalid');
+			return false;
+		}
+		if (!emailRegex.test(emailInput.value)) {
+			emailError.textContent = 'Veuillez entrer un email valide';
+			emailInput.classList.add('is-invalid');
+			return false;
+		}
+		emailInput.classList.remove('is-invalid');
+		emailInput.classList.add('is-valid');
+		return true;
+	}
+
+	function validatePhone() {
+		phoneError.textContent = '';
+		if (phoneInput.value.trim() === '') {
+			phoneError.textContent = 'Le téléphone est obligatoire';
+			phoneInput.classList.add('is-invalid');
+			return false;
+		}
+		if (phoneInput.value.trim().length < 7) {
+			phoneError.textContent = 'Le téléphone doit contenir au moins 7 chiffres';
+			phoneInput.classList.add('is-invalid');
+			return false;
+		}
+		phoneInput.classList.remove('is-invalid');
+		phoneInput.classList.add('is-valid');
+		return true;
+	}
+
+	function validateSubject() {
+		subjectError.textContent = '';
+		if (subjectInput.value.trim() === '') {
+			subjectError.textContent = 'L\'objet est obligatoire';
+			subjectInput.classList.add('is-invalid');
+			return false;
+		}
+		if (subjectInput.value.trim().length < 3) {
+			subjectError.textContent = 'L\'objet doit contenir au moins 3 caractères';
+			subjectInput.classList.add('is-invalid');
+			return false;
+		}
+		subjectInput.classList.remove('is-invalid');
+		subjectInput.classList.add('is-valid');
+		return true;
+	}
+
+	function validateMessage() {
+		messageError.textContent = '';
+		if (messageInput.value.trim() === '') {
+			messageError.textContent = 'Le message est obligatoire';
+			messageInput.classList.add('is-invalid');
+			return false;
+		}
+		if (messageInput.value.trim().length < 10) {
+			messageError.textContent = 'Le message doit contenir au moins 10 caractères';
+			messageInput.classList.add('is-invalid');
+			return false;
+		}
+		messageInput.classList.remove('is-invalid');
+		messageInput.classList.add('is-valid');
+		return true;
+	}
+
+	// Validation à la soumission
+	form.addEventListener('submit', function(e) {
+		const isNameValid = validateName();
+		const isEmailValid = validateEmail();
+		const isPhoneValid = validatePhone();
+		const isSubjectValid = validateSubject();
+		const isMessageValid = validateMessage();
+
+		if (!isNameValid || !isEmailValid || !isPhoneValid || !isSubjectValid || !isMessageValid) {
+			e.preventDefault();
+			alert('Veuillez remplir correctement tous les champs obligatoires');
+		}
+	});
+});
+</script>
+
+<style>
+.form-group {
+	margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+	width: 100%;
+	padding: 0.75rem;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 1rem;
+	transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+	outline: none;
+	border-color: #1152933;
+	box-shadow: 0 0 0 3px rgba(17, 82, 147, 0.1);
+}
+
+.form-group input.is-invalid,
+.form-group textarea.is-invalid {
+	border-color: #dc3545;
+	background-color: #fff5f5;
+}
+
+.form-group input.is-valid,
+.form-group textarea.is-valid {
+	border-color: #28a745;
+	background-color: #f5fff5;
+}
+
+.text-danger {
+	color: #dc3545;
+	display: block;
+	font-size: 0.875rem;
+	margin-top: 0.25rem;
+}
+
+.text-muted {
+	color: #6c757d;
+}
+
+.d-block {
+	display: block;
+}
+
+.mt-2 {
+	margin-top: 0.5rem;
+}
+</style>			
