@@ -178,39 +178,43 @@
 
 .doc-actions .btn {
   flex: 1;
-  padding: 10px 12px;
+  padding: 12px 16px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 13px;
   transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
   text-decoration: none;
   text-align: center;
   display: inline-block;
+  letter-spacing: 0.5px;
 }
 
 .doc-actions .btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--tertiary));
+  background: var(--primary);
   color: #fff;
+  box-shadow: var(--elevation-1);
 }
 
 .doc-actions .btn-primary:hover {
-  box-shadow: var(--elevation-2);
+  background: var(--secondary);
+  box-shadow: var(--elevation-3);
   transform: translateY(-2px);
-  background: linear-gradient(135deg, var(--tertiary), var(--primary));
 }
 
 .doc-actions .btn-outline-primary {
   border: 2px solid var(--primary);
-  color: var(--primary);
-  background: transparent;
+  color: #fff;
+  background: var(--primary);
+  box-shadow: var(--elevation-1);
 }
 
 .doc-actions .btn-outline-primary:hover {
-  background: rgba(17, 82, 147, 0.05);
-  border-color: var(--secondary);
-  color: var(--secondary);
+  background: var(--tertiary);
+  border-color: var(--tertiary);
+  box-shadow: var(--elevation-3);
+  transform: translateY(-2px);
 }
 
 /* Responsive */

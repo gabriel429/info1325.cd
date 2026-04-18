@@ -223,13 +223,13 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), var(--tertiary));
-  color: var(--on-primary);
+  background: var(--primary);
+  color: #ffffff;
   border: none;
   padding: 14px 32px;
   border-radius: 12px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
   box-shadow: var(--elevation-2);
