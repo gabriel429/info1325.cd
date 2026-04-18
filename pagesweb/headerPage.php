@@ -94,6 +94,8 @@
 		<link rel="stylesheet" href="<?= CSS_DIR ?>responsive.css">
 		<!-- Theme overrides: CareMed-inspired variables (applies site-wide) -->
 		<link rel="stylesheet" href="<?= CSS_DIR ?>caremed-variables.css">
+		<!-- Material Design 3 Global Styles -->
+		<link rel="stylesheet" href="<?= CSS_DIR ?>material-design-global.css">
 		<?php if (!empty($pageCss)) : ?>
 			<link rel="stylesheet" href="<?= $pageCss ?>">
 		<?php endif; ?>
