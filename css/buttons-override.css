@@ -378,3 +378,56 @@ footer.footer .copyright-content a:hover {
   color: #ffffff !important;
   text-decoration: underline !important;
 }
+
+/* ===== ÉTAPE 11 : FORCE TOTALE DU FOOTER - Identique PARTOUT ===== */
+/* Cette section écrase TOUT ce qui pourrait interférer avec le footer */
+
+html footer.footer,
+body footer.footer,
+.container footer.footer,
+main footer.footer,
+footer {
+  background: #1A76D1 !important;
+  color: #ffffff !important;
+}
+
+footer.footer,
+footer#footer {
+  background: #1A76D1 !important;
+  color: #ffffff !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+footer.footer * {
+  box-sizing: border-box !important;
+}
+
+footer.footer .container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 15px !important;
+}
+
+footer.footer .row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  margin: 0 !important;
+}
+
+footer.footer .col-lg-3,
+footer.footer .col-md-6,
+footer.footer .col-12 {
+  padding: 0 15px !important;
+  margin-bottom: 20px !important;
+}
+
+footer.footer .single-footer {
+  margin: 0 !important;
+}
+
+footer.footer .single-footer h2::before {
+  display: none !important;
+}
