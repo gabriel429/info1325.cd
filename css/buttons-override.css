@@ -220,3 +220,94 @@ button.btn {
 .axes-card {
   box-shadow: none !important;
 }
+
+/* ===== ÉTAPE 10 : FIX FOOTER - Restaurer cohérence sur TOUTES les pages ===== */
+/* Le footer doit être identique sur la page d'accueil et les autres pages */
+footer.footer {
+  background: #1152933 !important;
+  color: #ffffff !important;
+  padding-top: 50px !important;
+  padding-bottom: 30px !important;
+}
+
+footer.footer .footer-top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding-bottom: 40px !important;
+  margin-bottom: 30px !important;
+}
+
+footer.footer .single-footer h2 {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  margin-bottom: 20px !important;
+}
+
+footer.footer .single-footer p {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+footer.footer .single-footer a {
+  color: #00b4d8 !important;
+  text-decoration: none !important;
+  transition: color 0.3s ease !important;
+}
+
+footer.footer .single-footer a:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
+
+footer.footer .social {
+  display: flex !important;
+  gap: 12px !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 15px 0 0 0 !important;
+}
+
+footer.footer .social li a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+}
+
+footer.footer .social li a:hover {
+  background: #00b4d8 !important;
+  color: #1152933 !important;
+  transform: translateY(-3px) !important;
+}
+
+footer.footer .copyright {
+  background: rgba(0, 0, 0, 0.2) !important;
+  padding: 20px 0 !important;
+  margin-top: 30px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+footer.footer .copyright-content {
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-size: 13px !important;
+  text-align: center !important;
+}
+
+footer.footer .copyright-content p {
+  margin: 0 !important;
+}
+
+footer.footer .copyright-content a {
+  color: #00b4d8 !important;
+  text-decoration: none !important;
+}
+
+footer.footer .copyright-content a:hover {
+  color: #ffffff !important;
+  text-decoration: underline !important;
+}
