@@ -176,52 +176,86 @@
   margin-top: auto;
 }
 
+/* Force les styles sur les boutons - surcharge Bootstrap */
+.doc-actions a.btn,
 .doc-actions .btn,
-.doc-actions .btn.btn-sm {
+.doc-card .doc-actions a.btn,
+.doc-card .doc-actions .btn {
   flex: 1;
   padding: 12px 16px !important;
-  border-radius: 8px;
-  border: none;
+  border-radius: 8px !important;
+  border: none !important;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 700 !important;
   font-size: 13px !important;
   transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);
-  text-decoration: none;
+  text-decoration: none !important;
   text-align: center;
   display: inline-block !important;
   letter-spacing: 0.5px;
-  line-height: 1.2;
+  line-height: 1.2 !important;
 }
 
+/* Boutons primaires */
 .doc-actions .btn-primary,
-.doc-actions .btn.btn-primary.btn-sm {
-  background: var(--primary) !important;
+.doc-actions a.btn-primary,
+.doc-card .doc-actions a.btn-primary,
+.doc-card .doc-actions .btn-primary {
+  background-color: var(--primary) !important;
   color: #ffffff !important;
   box-shadow: var(--elevation-1);
   border: none !important;
 }
 
 .doc-actions .btn-primary:hover,
-.doc-actions .btn.btn-primary.btn-sm:hover {
-  background: var(--secondary) !important;
+.doc-actions a.btn-primary:hover,
+.doc-card .doc-actions a.btn-primary:hover,
+.doc-card .doc-actions .btn-primary:hover {
+  background-color: var(--secondary) !important;
   box-shadow: var(--elevation-3);
   transform: translateY(-2px);
   color: #ffffff !important;
+  text-decoration: none !important;
 }
 
+.doc-actions .btn-primary:focus,
+.doc-actions .btn-primary:active,
+.doc-actions a.btn-primary:focus,
+.doc-actions a.btn-primary:active {
+  background-color: var(--tertiary) !important;
+  color: #ffffff !important;
+}
+
+/* Boutons outline-primary */
 .doc-actions .btn-outline-primary,
-.doc-actions .btn.btn-outline-primary.btn-sm {
+.doc-actions a.btn-outline-primary,
+.doc-card .doc-actions a.btn-outline-primary,
+.doc-card .doc-actions .btn-outline-primary {
   border: 2px solid var(--primary) !important;
   color: #ffffff !important;
-  background: var(--primary) !important;
+  background-color: var(--primary) !important;
   box-shadow: var(--elevation-1);
 }
 
-.doc-actions .btn-outline-primary:hover {
-  background: var(--tertiary);
-  border-color: var(--tertiary);
+.doc-actions .btn-outline-primary:hover,
+.doc-actions a.btn-outline-primary:hover,
+.doc-card .doc-actions a.btn-outline-primary:hover,
+.doc-card .doc-actions .btn-outline-primary:hover {
+  background-color: var(--tertiary) !important;
+  border-color: var(--tertiary) !important;
   box-shadow: var(--elevation-3);
   transform: translateY(-2px);
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.doc-actions .btn-outline-primary:focus,
+.doc-actions .btn-outline-primary:active,
+.doc-actions a.btn-outline-primary:focus,
+.doc-actions a.btn-outline-primary:active {
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  color: #ffffff !important;
 }
 
 /* Responsive */

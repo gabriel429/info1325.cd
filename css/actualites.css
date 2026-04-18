@@ -371,3 +371,67 @@
 
 /* Defensive rule: force long words and inline elements to wrap */
 .news-single .container *{ overflow-wrap:break-word; word-break:break-word }
+
+/* Force les styles sur les boutons - surcharge Bootstrap */
+.btn,
+a.btn,
+button.btn {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.btn-primary,
+a.btn-primary,
+button.btn-primary {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-color: transparent !important;
+}
+
+.btn-primary:hover,
+a.btn-primary:hover,
+button.btn-primary:hover {
+  background-color: var(--secondary) !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.btn-primary:focus,
+.btn-primary:active,
+a.btn-primary:focus,
+a.btn-primary:active,
+button.btn-primary:focus,
+button.btn-primary:active {
+  background-color: var(--tertiary) !important;
+  color: #ffffff !important;
+}
+
+.btn-outline-primary,
+a.btn-outline-primary,
+button.btn-outline-primary {
+  background-color: var(--primary) !important;
+  color: #ffffff !important;
+  border: 2px solid var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.btn-outline-primary:hover,
+a.btn-outline-primary:hover,
+button.btn-outline-primary:hover {
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.btn-outline-primary:focus,
+.btn-outline-primary:active,
+a.btn-outline-primary:focus,
+a.btn-outline-primary:active,
+button.btn-outline-primary:focus,
+button.btn-outline-primary:active {
+  background-color: var(--tertiary) !important;
+  border-color: var(--tertiary) !important;
+  color: #ffffff !important;
+}
