@@ -777,24 +777,29 @@ body{
 
 @media (min-width: 992px) {
 	.header .header-inner .row {
-		display: flex;
-		flex-wrap: nowrap;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
 		align-items: center;
+		margin-left: 0;
+		margin-right: 0;
 	}
 
 	.header .header-inner .row > .col-lg-3:first-child {
-		flex: 0 0 auto;
+		width: auto;
+		flex: none;
 		max-width: none;
 	}
 
 	.header .header-inner .row > .col-lg-6 {
-		flex: 1 1 auto;
+		width: auto;
+		flex: none;
 		max-width: none;
 		min-width: 0;
 	}
 
 	.header .header-inner .row > .col-lg-3:last-child {
-		flex: 0 0 auto;
+		width: auto;
+		flex: none;
 		max-width: none;
 	}
 
@@ -803,12 +808,20 @@ body{
 		width: 100%;
 	}
 
+	.header .main-menu {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.header .nav {
+		justify-content: flex-end;
+	}
+
 	.header .get-quote {
 		display: flex;
 		align-items: center;
 		align-self: center;
-		flex: 0 0 auto;
-		flex-shrink: 0;
+		justify-content: flex-end;
 		margin-left: 16px;
 		white-space: nowrap;
 		visibility: visible;
