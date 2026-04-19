@@ -408,6 +408,20 @@ body > h2:first-of-type {
 }
 
 @media (max-width: 767px) {
+  .topbar,
+  .pro-features,
+  .header .get-quote {
+    display: none !important;
+  }
+
+  .header .header-inner .inner {
+    padding: 12px 0;
+  }
+
+  .header .logo {
+    max-width: 220px;
+  }
+
   .slider .single-slider,
   .slider .hero-slider {
     border-radius: 0 0 24px 24px;
@@ -423,6 +437,12 @@ body > h2:first-of-type {
 
   .slider .single-slider p {
     font-size: 16px;
+  }
+
+  .slider .single-slider .btn,
+  .slider .single-slider .btn.primary {
+    width: 100%;
+    justify-content: center;
   }
 
   .homepage-intro .container {
@@ -443,6 +463,15 @@ body > h2:first-of-type {
   .blog .single-news .news-head img,
   .portfolio .single-pf {
     height: 210px !important;
+  }
+
+  .fun-facts .single-fun .content,
+  body > h2:first-of-type,
+  .schedule .single-schedule,
+  .blog .section-title,
+  .axes .section-title,
+  .portfolio .section-title {
+    text-align: left;
   }
 }
 
@@ -473,6 +502,18 @@ body > h2:first-of-type {
   .blog .single-news .news-head img,
   .portfolio .single-pf {
     height: 190px !important;
+  }
+
+  .slider .single-slider .text {
+    padding: 12px 0 34px;
+  }
+
+  .highlight-card h2 {
+    font-size: 1.7rem;
+  }
+
+  .stat-card strong {
+    font-size: 1.25rem;
   }
 
   .schedule .single-schedule .inner,

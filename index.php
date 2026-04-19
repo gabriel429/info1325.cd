@@ -6,6 +6,7 @@ require_once __DIR__ . '/defConstLiens.php'; // __DIR__ = dossier racine
 require_once $dateDbConnect; // Connexion à la base de données
 
 $pageCss = CSS_DIR . 'home.css';
+$isHomePage = true;
 
 // Track visitor
 require_once __DIR__ . '/pagesweb/track_visitor.php';

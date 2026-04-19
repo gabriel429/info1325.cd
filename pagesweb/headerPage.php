@@ -28,7 +28,7 @@
 
 		<!-- Favicon -->
 
-        <link rel="icon" href="img/favicon.png">
+		<link rel="icon" href="<?= asset_url(IMG_DIR . 'favicon.png') ?>">
 
 		
 

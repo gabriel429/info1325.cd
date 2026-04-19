@@ -6,6 +6,24 @@ require_once $dateDbConnect;
 
 $pageCss = CSS_DIR . 'documentation.css';
 
+$heroFsPath = __DIR__ . '/../img/documentations/hero-docs.jpg';
+$hero = file_exists($heroFsPath)
+    ? BASE_URL . 'img/documentations/hero-docs.jpg'
+    : BASE_URL . 'img/bread-bg21.jpg';
+
+$resolveDocImage = static function (?string $imgName): string {
+    $imgName = trim((string) $imgName);
+
+    if ($imgName !== '') {
+        $imgFsPath = __DIR__ . '/../img/documentations/' . $imgName;
+        if (file_exists($imgFsPath)) {
+            return BASE_URL . 'img/documentations/' . rawurlencode($imgName);
+        }
+    }
+
+    return BASE_URL . 'img/section-img.png';
+};
+
 try {
     $stmt = $pdo->query("SELECT * FROM documentations ORDER BY datePub DESC");
     $docs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -22,7 +40,6 @@ $SKIP_PAGE_TITLE = true;
 require_once $headerPath;
 ?>
 
-<?php $hero = BASE_URL . 'img/documentations/hero-docs.jpg'; ?>
 <section class="caremed-hero documentation-hero" style="background-image: url('<?= $hero ?>');">
     <div class="overlay"></div>
     <div class="container">
@@ -75,7 +92,7 @@ require_once $headerPath;
                 <?php foreach ($featuredDocs as $doc):
                     $docId = (int) ($doc['id'] ?? 0);
                     $imgName = $doc['img'] ?? '';
-                    $imgPath = BASE_URL . 'img/documentations/' . rawurlencode($imgName);
+                    $imgPath = $resolveDocImage($imgName);
                     $pdfFileName = basename($doc['fichier_pdf'] ?? '');
                     $viewUrl = ($docId > 0 && $pdfFileName !== '')
                         ? BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId . '&action=view&file=' . rawurlencode($pdfFileName)
@@ -114,8 +131,7 @@ require_once $headerPath;
             <?php foreach ($docs as $doc):
                 $imgName = $doc['img'] ?? '';
                 $docId = (int) ($doc['id'] ?? 0);
-                $encodedImg = rawurlencode($imgName);
-                $imgPath = BASE_URL . 'img/documentations/' . $encodedImg;
+                $imgPath = $resolveDocImage($imgName);
                 $pdfFileName = basename($doc['fichier_pdf'] ?? '');
                 $viewUrl = ($docId > 0 && $pdfFileName !== '')
                     ? BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId . '&action=view&file=' . rawurlencode($pdfFileName)

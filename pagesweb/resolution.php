@@ -4,13 +4,40 @@ require_once __DIR__ . '/../defConstLiens.php';
 
 // Page-specific CSS (headerPage.php lira cette variable si définie)
 $pageCss = CSS_DIR . 'resolution.css';
+$resolutionHero = BASE_URL . 'img/' . rawurlencode('Resolution 1325.png');
+
+$resolutionPillars = [
+  [
+    'title' => 'Participation',
+    'copy' => 'Garantir une présence effective des femmes dans la prévention des conflits, les négociations, les institutions et les mécanismes de décision.',
+  ],
+  [
+    'title' => 'Prévention',
+    'copy' => 'Intégrer le genre dans l’alerte précoce, l’analyse des risques, la diplomatie et les politiques publiques de stabilisation.',
+  ],
+  [
+    'title' => 'Protection',
+    'copy' => 'Lutter contre les violences, protéger les droits fondamentaux et renforcer les réponses institutionnelles face aux crises.',
+  ],
+  [
+    'title' => 'Relèvement',
+    'copy' => 'Faire du relèvement post-conflit un espace d’autonomisation, de justice et de reconstruction inclusive pour les femmes et les filles.',
+  ],
+];
+
+$resolutionSections = [
+  ['id' => 'i-introduction-g-n-rale', 'label' => 'Échelle nationale'],
+  ['id' => 'i-i', 'label' => 'Introduction générale'],
+  ['id' => 'ii-i', 'label' => 'Concepts et objectifs'],
+  ['id' => 'iii-l', 'label' => 'Conflits et analyse'],
+];
 
 $SKIP_PAGE_TITLE = true; // hide header h2; this page has its own hero
 require_once $headerPath; // inclut le head et ouvre <body>
 ?>
 
 <!-- Hero -->
-<section class="caremed-hero resolution-hero" style="background-color:var(--primary);">
+<section class="caremed-hero resolution-hero" style="background-image:url('<?= htmlspecialchars($resolutionHero) ?>'); background-color:var(--primary);">
   <div class="overlay"></div>
   <div class="container">
     <div class="hero-content">
@@ -59,7 +86,48 @@ require_once $headerPath; // inclut le head et ouvre <body>
   </div>
 </section>
 
-<main class="resolution-main">
+<section class="resolution-framework section">
+  <div class="container">
+    <div class="framework-header">
+      <span class="section-kicker">Les quatre piliers</span>
+      <h2>Une lecture stratégique de la Résolution 1325</h2>
+      <p>Au-delà du texte, la Résolution 1325 structure une doctrine d’action: participation, prévention, protection et relèvement. Ces piliers servent ici de grille de lecture rapide avant d’entrer dans le contenu intégral.</p>
+    </div>
+
+    <div class="resolution-pillars">
+      <?php foreach ($resolutionPillars as $pillar): ?>
+        <article class="pillar-card">
+          <span class="pillar-index"><?= htmlspecialchars($pillar['title']) ?></span>
+          <p><?= htmlspecialchars($pillar['copy']) ?></p>
+        </article>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<section class="resolution-reading section">
+  <div class="container">
+    <div class="resolution-reading-layout">
+      <aside class="resolution-sidebar">
+        <div class="sidebar-panel nav-panel">
+          <span class="aside-label">Navigation</span>
+          <h3>Parcours de lecture</h3>
+          <ul class="section-nav-list">
+            <?php foreach ($resolutionSections as $section): ?>
+              <li><a href="#<?= htmlspecialchars($section['id']) ?>"><?= htmlspecialchars($section['label']) ?></a></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+
+        <div class="sidebar-panel emphasis-panel">
+          <span class="aside-label">À retenir</span>
+          <h3>Une résolution à traduire en dispositifs concrets</h3>
+          <p>La valeur de la Résolution 1325 ne se mesure pas seulement à sa portée normative, mais à sa capacité à transformer les politiques publiques, les pratiques sécuritaires et les mécanismes de paix.</p>
+          <a href="#resolution-download-section" class="sidebar-link">Accéder au document officiel</a>
+        </div>
+      </aside>
+
+      <main class="resolution-main">
 
 <!-- Contenu principal — sections documentaires -->
 
@@ -115,7 +183,10 @@ require_once $headerPath; // inclut le head et ouvre <body>
 
 </section>
 
-</main>
+      </main>
+    </div>
+  </div>
+</section>
 
 <!-- Bouton de téléchargement du document R1325 ONU placé en bas de page -->
 <?php
@@ -132,7 +203,7 @@ require_once $headerPath; // inclut le head et ouvre <body>
     else $pdfSizeLabel = ' (' . $s . ' octets)';
   }
 ?>
-<div class="container my-4 resolution-download">
+<div class="container my-4 resolution-download" id="resolution-download-section">
   <div class="text-center">
     <a href="<?= $pdfViewTrackUrl ?>" class="btn btn-outline-primary btn-r1325 me-2" target="_blank" rel="noopener">
       <i class="fa fa-eye" aria-hidden="true"></i>
