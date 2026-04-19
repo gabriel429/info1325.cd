@@ -255,8 +255,17 @@ footer.footer .single-footer h2 {
   font-weight: 600 !important;
   margin-bottom: 40px !important;
   padding-bottom: 20px !important;
+  padding-left: 0 !important;
   position: relative !important;
+  cursor: default !important;
+  border-left: none !important;
   border-bottom: 3px solid #ffffff !important;
+  transform: none !important;
+}
+
+footer.footer .single-footer h2:hover {
+  border-left: none !important;
+  transform: none !important;
 }
 
 footer.footer .single-footer p {
@@ -424,4 +433,9 @@ footer.footer .single-footer {
 
 footer.footer .single-footer h2::before {
   display: none !important;
+}
+
+footer.footer .single-footer h2::after {
+  display: none !important;
+  content: none !important;
 }
