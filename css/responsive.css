@@ -462,78 +462,117 @@ body {
 	padding: 0;
 	margin: 0;
 	line-height: 1;
+	position: relative;
 }
 /* Bouton hamburger */
 .slicknav_btn {
-	background: linear-gradient(135deg, #123a63 0%, #1A76D1 100%);
-	border: 1px solid rgba(255, 255, 255, 0.14);
-	box-shadow: 0 12px 28px rgba(12, 34, 58, 0.2);
-	padding: 10px 12px;
+	background: linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
+	border: 1px solid rgba(18, 58, 99, 0.12);
+	box-shadow: 0 10px 26px rgba(12, 34, 58, 0.12);
+	padding: 0;
 	margin: 0;
-	min-width: 44px;
-	min-height: 44px;
+	width: 48px;
+	height: 48px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	border-radius: 12px;
+	border-radius: 16px;
+	overflow: hidden;
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.slicknav_btn:before {
+	content: "";
+	position: absolute;
+	inset: 1px;
+	border-radius: 15px;
+	background: linear-gradient(135deg, rgba(26, 118, 209, 0.14) 0%, rgba(18, 58, 99, 0.04) 100%);
+	pointer-events: none;
+}
+.slicknav_btn .slicknav_icon {
+	position: relative;
+	z-index: 1;
+	float: none;
+	width: 22px;
+	height: 18px;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 /* Barres du hamburger */
 .slicknav_menu .slicknav_icon-bar {
 	display: block;
-	background-color: #ffffff;
-	width: 28px;
-	height: 3px;
-	border-radius: 2px;
+	background: linear-gradient(90deg, #123a63 0%, #1A76D1 100%);
+	width: 22px;
+	height: 2.5px;
+	border-radius: 999px;
 	box-shadow: none;
 	text-shadow: none;
-	margin-bottom: 5px !important;
+	margin: 0 !important;
+	transition: transform 0.25s ease, opacity 0.2s ease, background 0.25s ease;
 }
 .slicknav_btn:hover,
 .slicknav_btn:focus {
-	background: linear-gradient(135deg, #0f3257 0%, #1666b6 100%);
-	border-color: rgba(255, 255, 255, 0.22);
-	box-shadow: 0 14px 32px rgba(12, 34, 58, 0.28);
+	background: linear-gradient(180deg, #ffffff 0%, #edf5fc 100%);
+	border-color: rgba(26, 118, 209, 0.22);
+	box-shadow: 0 14px 32px rgba(12, 34, 58, 0.18);
+	transform: translateY(-1px);
 }
 .slicknav_menu .slicknav_icon-bar:last-child {
 	margin-bottom: 0 !important;
 }
+.slicknav_btn.slicknav_open .slicknav_icon-bar:nth-child(1) {
+	transform: translateY(7.5px) rotate(45deg);
+}
+.slicknav_btn.slicknav_open .slicknav_icon-bar:nth-child(2) {
+	opacity: 0;
+}
+.slicknav_btn.slicknav_open .slicknav_icon-bar:nth-child(3) {
+	transform: translateY(-7.5px) rotate(-45deg);
+}
 /* Menu déroulant: positionné absolument sous le header */
 .slicknav_nav {
 	position: absolute;
-	left: 0;
+	left: auto;
 	right: 0;
 	top: 100%;
 	z-index: 9999;
 	background: linear-gradient(180deg, #ffffff 0%, #f6faff 100%);
 	border: 1px solid rgba(20, 68, 114, 0.1);
-	border-radius: 20px;
-	box-shadow: 0 22px 48px rgba(12, 34, 58, 0.18);
+	border-radius: 22px;
+	box-shadow: 0 24px 60px rgba(12, 34, 58, 0.16);
 	margin: 0;
-	padding: 10px 0;
+	padding: 12px;
 	font-size: .875em;
 	color: #2C2D3F;
 	clear: both;
 	overflow: hidden;
+	width: min(340px, calc(100vw - 24px));
 }
 .header .slicknav_nav {
-	margin-top: 10px;
+	margin-top: 12px;
 }
 .slicknav_nav .mobile-menu-database a {
 	color: #123a63;
-	font-weight: 600;
-	background: linear-gradient(90deg, rgba(26, 118, 209, 0.12) 0%, rgba(26, 118, 209, 0.03) 100%);
+	font-weight: 700;
+	background: linear-gradient(135deg, rgba(26, 118, 209, 0.14) 0%, rgba(18, 58, 99, 0.06) 100%);
+	border: 1px solid rgba(26, 118, 209, 0.12);
+	border-radius: 16px;
 }
 .slicknav_nav li a {
 	color: #243447;
 	transition: all 0.4s ease;
 	background: none;
-	padding: 12px 20px;
+	padding: 14px 16px;
 	display: block;
 	letter-spacing: 0.02em;
+	border-radius: 14px;
 }
 .slicknav_nav .slicknav_item a, .slicknav_nav .slicknav_parent-link a {
-	padding: 0 10px;
+	padding: 0;
 	background: transparent;
 }
 .slicknav_nav li a i {
@@ -541,10 +580,17 @@ body {
 	margin: 0;
 }
 .slicknav_nav li {
-	border-bottom: 1px solid rgba(18, 58, 99, 0.08);
+	border-bottom: 1px solid rgba(18, 58, 99, 0.07);
+	padding: 2px 0;
 }
 .slicknav_nav li:last-child {
 	border-bottom: none;
+}
+.slicknav_nav li.active > a,
+.slicknav_nav li.active > .slicknav_row {
+	background: linear-gradient(90deg, rgba(26, 118, 209, 0.16) 0%, rgba(26, 118, 209, 0.05) 100%);
+	color: #123a63;
+	font-weight: 700;
 }
 .slicknav_nav li:hover a {
 	color: #123a63;
@@ -552,7 +598,9 @@ body {
 }
 .slicknav_nav li .dropdown li a {
 	color: #445468;
-	background: transparent;
+	background: rgba(18, 58, 99, 0.03);
+	margin-left: 12px;
+	padding-left: 14px;
 }
 .slicknav_nav li .dropdown li a:hover {
 	color: #123a63;
@@ -561,12 +609,28 @@ body {
 	background: transparent;
 }
 .slicknav_nav .slicknav_row, .slicknav_nav a {
-	padding: 12px 20px;
+	padding: 14px 16px;
 	margin: 0;
-	font-weight: 500;
+	font-weight: 600;
+}
+.slicknav_nav .slicknav_row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	border-radius: 14px;
 }
 .slicknav_nav .slicknav_arrow {
 	color: #123a63;
+	font-size: 12px;
+	width: 24px;
+	height: 24px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 999px;
+	background: rgba(18, 58, 99, 0.08);
+	flex-shrink: 0;
 }
 .slicknav_nav li:hover .slicknav_arrow {
 	color: #123a63;
