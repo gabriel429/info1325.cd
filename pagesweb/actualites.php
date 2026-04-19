@@ -130,12 +130,6 @@ require_once $headerPath;
         <div class="news-layout">
             <div class="news-main-column">
                 <article class="news-card featured-news-card">
-                    <?php if (!empty($actu['imgMise'])): ?>
-                        <div class="news-image">
-                            <img src="<?= IMG_DIR . 'actualites/' . htmlspecialchars($actu['imgMise']) ?>" alt="<?= htmlspecialchars($actu['titre']) ?>">
-                        </div>
-                    <?php endif; ?>
-
                     <div class="news-body">
                         <div class="news-meta">
                             <span><?= htmlspecialchars($publishedAt) ?></span>
