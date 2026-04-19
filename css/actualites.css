@@ -298,13 +298,15 @@
   margin: 28px 0 0;
   padding: 24px 26px;
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(8, 56, 109, 0.98), rgba(15, 99, 173, 0.92));
-  color: #fff;
+  background: #ffffff;
+  border: 1px solid rgba(18, 48, 79, 0.12);
+  box-shadow: 0 14px 34px rgba(18, 44, 79, 0.06);
+  color: #12304f;
 }
 
 .news-quote p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.92);
+  color: #33475b;
   font-size: 17px;
   line-height: 1.8;
 }
