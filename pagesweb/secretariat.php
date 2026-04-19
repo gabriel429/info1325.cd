@@ -35,135 +35,231 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="inner-content">
-                            <div class="image-slider">
-                                <div class="pf-details-slider">
-                                    <?php
-                                    // Use helper to render slider and avoid duplicating the hero image
-                                    require_once __DIR__ . '/slider_helper.php';
-                                    // Prefer a page-specific image folder (img/secretariat/) if present
-                                    $pageImgDirFs = __DIR__ . '/../img/secretariat/';
-                                    if (is_dir($pageImgDirFs)){
-                                        // pattern: common image extensions
-                                        $heroFsPath = __DIR__ . '/../img/' . $heroImgName;
-                                        render_image_slider_from_dir($pageImgDirFs, '/\.(jpe?g|png|gif)$/i', $heroImgName, IMG_DIR . 'secretariat/', $heroFsPath);
-                                    } else {
-                                        // fallback: explicit list
-                                        $sliderImages = ['didier.jpg', 'snational1325.png', 'snational132503.png'];
-                                        $imgFsDir = __DIR__ . '/../img/';
-                                        render_image_slider($sliderImages, $heroImgName, IMG_DIR, $imgFsDir);
-                                    }
-                                    ?>
+                                <div class="secretariat-overview">
+                                    <article class="overview-card">
+                                        <span class="overview-label">Création officielle</span>
+                                        <strong>2015</strong>
+                                        <p>Mise en place et installation par arrêtés ministériels.</p>
+                                    </article>
+                                    <article class="overview-card">
+                                        <span class="overview-label">Équipe nationale</span>
+                                        <strong>16 experts</strong>
+                                        <p>4 permanents et 12 non permanents mobilisés autour du plan d’action.</p>
+                                    </article>
+                                    <article class="overview-card">
+                                        <span class="overview-label">Portée</span>
+                                        <strong>Nationale</strong>
+                                        <p>Coordination, suivi et supervision de la mise en œuvre sur l’ensemble du pays.</p>
+                                    </article>
+                                    <article class="overview-card">
+                                        <span class="overview-label">Pilotage</span>
+                                        <strong>Multi-acteurs</strong>
+                                        <p>Ministères, société civile, partenaires techniques et financiers.</p>
+                                    </article>
                                 </div>
-                            </div>
 
-                            <div class="body-text">
-                              
-                                <section id="contexte" class="info-section">
-                                    <div class="info-card">
-                                        <h4 class="section-badge">SECRETARIAT National 1325</h4>
-                                        <p>Le Secrétariat National de la Résolution 1325 en RDC est la structure chargée du suivi et de la gestion quotidienne de la mise en œuvre de la Résolution sur l’ensemble du pays.</p>
-                                        <p>Il a été créé et mis en place par deux arrêtés ministériels du 04 août 2015 : l’un portant création, organisation et fonctionnement et l’autre portant nomination des membres du secrétariat national, installé officiellement le 08 septembre 2015.</p>
-							
-                                        <h5>De la composition</h5>
-                                        <ul>
-                                            <li>Il est composé de quatre Experts Nationaux permanents et de douze Experts Nationaux non permanents.</li>
-                                        </ul>
-                                        <p><strong>Les quatre Experts Nationaux permanents sont :</strong></p>
-                                        <ul>
-                                            <li><strong>Madame Annie KENDA</strong> — Directeur chef de service Juridique et Secrétaire Permanente du Conseil national de la Femme : <strong>Coordonnatrice Nationale du SN1325</strong></li>
-                                            <li><strong>Madame Esther KAMUANYA</strong> — Directeur chef de service chargée des questions socioéconomiques : <strong>Chargée des Finances</strong></li>
-                                            <li><strong>Monsieur Didier LAPIAR</strong> — Expert à la cellule d’étude et de planification au Ministère du Genre, de la Famille et de l’Enfant : <strong>Chargé de l’administration et des questions techniques</strong></li>
-                                            <li><strong>Délégué du Cabinet de Madame la Ministre du Genre, Enfant et Famille</strong> — <strong>Chargé de la logistique</strong></li>
-                                        </ul>
-							
-                                        <h5>Les douze Experts Nationaux non permanents sont :</h5>
-                                        <ul>
-                                            <li>Un(e) Expert(e) du Ministère de la Justice</li>
-                                            <li>Un(e) Expert(e) du Ministère des Affaires Étrangères</li>
-                                            <li>Un(e) Expert(e) du Ministère du Budget</li>
-                                            <li>Un(e) Expert(e) du Ministère du Plan</li>
-                                            <li>Un(e) Expert(e) du Ministère de la Défense et des Anciens Combattants</li>
-                                            <li>Un(e) Expert(e) du Ministère de l’Intérieur et de la Sécurité</li>
-                                            <li>Trois représentants(es) de la société civile (ex. CAFCO, CJR1325, WILF/RDC)</li>
-                                            <li>Un(e) Expert(e) du secrétariat général du Ministère du Genre, de la Famille et de l’Enfant</li>
-                                            <li>Un(e) Expert(e) de la Cellule d’Études et de Planification de la promotion de la Femme, de la Famille et de la protection de l’Enfant</li>
-                                            <li>Un(e) Expert(e) du Cabinet du Ministre du Genre</li>
-                                        </ul>
-							
-                                        <h5>Mission assignée au SN1325</h5>
-                                        <ul>
-                                            <li>Participer à l’ensemble des activités du programme, effectuer des missions de suivi et de supervision et produire des rapports périodiques sur l’état de mise en œuvre du plan d’action national auprès du comité de pilotage.</li>
-                                            <li>Préparer les réunions du comité de pilotage et assurer son secrétariat ; créer et maintenir une base de données pour faciliter le travail du Secrétariat.</li>
-                                            <li>Assurer une concertation permanente autour des questions d’inégalités de genre entre les différents acteurs impliqués.</li>
-                                            <li>Initier des enquêtes périodiques sur la prise en compte du genre et la lutte contre les violences sexuelles, et publier des résultats.</li>
-                                            <li>Créer et réviser annuellement les critères d’évaluation technique.</li>
-                                            <li>Examiner les propositions initiales déposées et établir une liste de propositions ou projets à présenter au Comité de Pilotage.</li>
-                                            <li>Apporter des contributions techniques et assister les bénéficiaires de subventions lors de la mise en œuvre, du suivi et du plaidoyer.</li>
-                                            <li>Participer aux renforcements des capacités des bénéficiaires et d’autres ONG nationales sélectionnées.</li>
-                                            <li>Toutes les propositions sélectionnées par le Secrétariat National seront présentées au Comité de Pilotage en collaboration avec ONU Femmes en tant qu’administrateur du Fonds pour décision finale et recommandations.</li>
-                                        </ul>
+                                <div class="secretariat-layout">
+                                    <div class="secretariat-main">
+                                        <section class="story-panel">
+                                            <div class="story-media">
+                                                <div class="pf-details-slider story-slider">
+                                                    <?php
+                                                    // Use helper to render slider and avoid duplicating the hero image
+                                                    require_once __DIR__ . '/slider_helper.php';
+                                                    // Prefer a page-specific image folder (img/secretariat/) if present
+                                                    $pageImgDirFs = __DIR__ . '/../img/secretariat/';
+                                                    if (is_dir($pageImgDirFs)){
+                                                        // pattern: common image extensions
+                                                        $heroFsPath = __DIR__ . '/../img/' . $heroImgName;
+                                                        render_image_slider_from_dir($pageImgDirFs, '/\.(jpe?g|png|gif)$/i', $heroImgName, IMG_DIR . 'secretariat/', $heroFsPath);
+                                                    } else {
+                                                        // fallback: explicit list
+                                                        $sliderImages = ['didier.jpg', 'snational1325.png', 'snational132503.png'];
+                                                        $imgFsDir = __DIR__ . '/../img/';
+                                                        render_image_slider($sliderImages, $heroImgName, IMG_DIR, $imgFsDir);
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <p class="story-caption">Le Secrétariat National 1325 assure la coordination des actions, la production de rapports et l’animation du dialogue entre institutions et société civile.</p>
+                                            </div>
+                                            <div class="story-copy">
+                                                <span class="eyebrow">Structure de coordination</span>
+                                                <h2>Une instance opérationnelle au service de la Résolution 1325</h2>
+                                                <p>Le Secrétariat National de la Résolution 1325 en RDC est la structure chargée du suivi et de la gestion quotidienne de la mise en œuvre de la Résolution sur l’ensemble du pays.</p>
+                                                <p>Il a été créé et mis en place par deux arrêtés ministériels du 04 août 2015 : l’un portant création, organisation et fonctionnement et l’autre portant nomination des membres du secrétariat national, installé officiellement le 08 septembre 2015.</p>
+                                                <div class="story-highlights">
+                                                    <span>Suivi national</span>
+                                                    <span>Coordination interministérielle</span>
+                                                    <span>Appui aux bénéficiaires</span>
+                                                    <span>Gestion des données</span>
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                        <div class="body-text">
+                                            <section id="contexte" class="section-block">
+                                                <div class="section-heading">
+                                                    <span class="section-kicker">Organisation</span>
+                                                    <h3>Composition du Secrétariat</h3>
+                                                    <p>Une architecture mixte qui associe expertise permanente et contribution institutionnelle élargie.</p>
+                                                </div>
+                                                <div class="composition-grid">
+                                                    <article class="content-card accent-card">
+                                                        <h4>Experts nationaux permanents</h4>
+                                                        <p class="card-intro">Le noyau opérationnel permanent assure la coordination administrative, financière, technique et logistique.</p>
+                                                        <ul class="feature-list strong-list">
+                                                            <li><strong>Madame Annie KENDA</strong> — Directeur chef de service Juridique et Secrétaire Permanente du Conseil national de la Femme : <strong>Coordonnatrice Nationale du SN1325</strong></li>
+                                                            <li><strong>Madame Esther KAMUANYA</strong> — Directeur chef de service chargée des questions socioéconomiques : <strong>Chargée des Finances</strong></li>
+                                                            <li><strong>Monsieur Didier LAPIAR</strong> — Expert à la cellule d’étude et de planification au Ministère du Genre, de la Famille et de l’Enfant : <strong>Chargé de l’administration et des questions techniques</strong></li>
+                                                            <li><strong>Délégué du Cabinet de Madame la Ministre du Genre, Enfant et Famille</strong> — <strong>Chargé de la logistique</strong></li>
+                                                        </ul>
+                                                    </article>
+                                                    <article class="content-card soft-card">
+                                                        <h4>Experts nationaux non permanents</h4>
+                                                        <p class="card-intro">Douze expertises complémentaires issues des institutions publiques et de la société civile soutiennent le pilotage stratégique.</p>
+                                                        <ul class="feature-list compact-list">
+                                                            <li>Un(e) Expert(e) du Ministère de la Justice</li>
+                                                            <li>Un(e) Expert(e) du Ministère des Affaires Étrangères</li>
+                                                            <li>Un(e) Expert(e) du Ministère du Budget</li>
+                                                            <li>Un(e) Expert(e) du Ministère du Plan</li>
+                                                            <li>Un(e) Expert(e) du Ministère de la Défense et des Anciens Combattants</li>
+                                                            <li>Un(e) Expert(e) du Ministère de l’Intérieur et de la Sécurité</li>
+                                                            <li>Trois représentants(es) de la société civile, notamment CAFCO, CJR1325 et WILF/RDC</li>
+                                                            <li>Un(e) Expert(e) du secrétariat général du Ministère du Genre, de la Famille et de l’Enfant</li>
+                                                            <li>Un(e) Expert(e) de la Cellule d’Études et de Planification de la promotion de la Femme, de la Famille et de la protection de l’Enfant</li>
+                                                            <li>Un(e) Expert(e) du Cabinet du Ministre du Genre</li>
+                                                        </ul>
+                                                    </article>
+                                                </div>
+                                            </section>
+
+                                            <section id="missions" class="section-block">
+                                                <div class="section-heading">
+                                                    <span class="section-kicker">Mandat opérationnel</span>
+                                                    <h3>Missions assignées au SN1325</h3>
+                                                    <p>Le Secrétariat agit comme centre de coordination, de suivi, d’accompagnement technique et de capitalisation.</p>
+                                                </div>
+                                                <div class="mission-grid">
+                                                    <article class="mission-card"><span>01</span><p>Participer aux activités du programme, conduire des missions de suivi et produire des rapports périodiques sur l’état de mise en œuvre du plan d’action national.</p></article>
+                                                    <article class="mission-card"><span>02</span><p>Préparer les réunions du comité de pilotage, assurer son secrétariat et maintenir une base de données utile au suivi des actions.</p></article>
+                                                    <article class="mission-card"><span>03</span><p>Assurer une concertation permanente autour des inégalités de genre entre les différents acteurs impliqués.</p></article>
+                                                    <article class="mission-card"><span>04</span><p>Initier des enquêtes périodiques sur la prise en compte du genre et la lutte contre les violences sexuelles, puis publier les résultats.</p></article>
+                                                    <article class="mission-card"><span>05</span><p>Créer et réviser annuellement les critères d’évaluation technique des propositions reçues.</p></article>
+                                                    <article class="mission-card"><span>06</span><p>Examiner les propositions initiales, établir une liste de projets à soumettre au Comité de Pilotage et formuler des recommandations.</p></article>
+                                                    <article class="mission-card"><span>07</span><p>Apporter des contributions techniques, assister les bénéficiaires de subventions dans la mise en œuvre, le suivi et le plaidoyer.</p></article>
+                                                    <article class="mission-card"><span>08</span><p>Participer au renforcement des capacités des bénéficiaires et d’autres ONG nationales sélectionnées.</p></article>
+                                                    <article class="mission-card"><span>09</span><p>Présenter, avec ONU Femmes en tant qu’administrateur du Fonds, les propositions retenues au Comité de Pilotage pour décision finale.</p></article>
+                                                </div>
+                                            </section>
+
+                                            <section id="institutions" class="section-block institutions">
+                                                <div class="section-heading">
+                                                    <span class="section-kicker">Écosystème</span>
+                                                    <h3>Structure institutionnelle et partenaires</h3>
+                                                    <p>La mise en œuvre repose sur une coordination institutionnelle forte, relayée par des partenaires techniques et financiers.</p>
+                                                </div>
+                                                <div class="institution-cards">
+                                                    <article class="inst-card" aria-labelledby="inst-acteurs">
+                                                        <h5 id="inst-acteurs">Acteurs clés</h5>
+                                                        <ul>
+                                                            <li>Ministère du Genre, Famille et Enfant — point focal institutionnel</li>
+                                                            <li>Secrétariat National 1325 — coordination stratégique et opérationnelle</li>
+                                                            <li>Points focaux provinciaux — déploiement territorial</li>
+                                                            <li>Société civile — mise en œuvre, veille et monitoring</li>
+                                                        </ul>
+                                                    </article>
+
+                                                    <article class="inst-card" aria-labelledby="inst-partenaires">
+                                                        <h5 id="inst-partenaires">Partenaires techniques et financiers</h5>
+                                                        <ul>
+                                                            <li>ONU Femmes RDC — appui technique et financier</li>
+                                                            <li>MONUSCO — division Genre</li>
+                                                            <li>Ambassade de Norvège</li>
+                                                            <li>ONG nationales et internationales</li>
+                                                        </ul>
+                                                    </article>
+                                                </div>
+                                            </section>
+
+                                            <section id="resultats" class="section-block results">
+                                                <div class="section-heading">
+                                                    <span class="section-kicker">Impact</span>
+                                                    <h3>Résultats et défis</h3>
+                                                    <p>Des avancées réelles sont constatées, mais elles restent fragiles face à des contraintes structurelles fortes.</p>
+                                                </div>
+                                                <div class="results-cards">
+                                                    <article class="result-card success-card" aria-labelledby="res-succes">
+                                                        <h5 id="res-succes">Succès documentés</h5>
+                                                        <ul>
+                                                            <li>Augmentation du nombre de femmes dans les instances</li>
+                                                            <li>Renforcement des capacités des organisations féminines</li>
+                                                            <li>Prise en compte du genre dans la réforme sécuritaire</li>
+                                                            <li>Documentation systématique des violences basées sur le genre</li>
+                                                        </ul>
+                                                    </article>
+
+                                                    <article class="result-card challenge-card" aria-labelledby="res-defis">
+                                                        <h5 id="res-defis">Défis persistants</h5>
+                                                        <ul>
+                                                            <li>Financement insuffisant des initiatives de genre</li>
+                                                            <li>Insécurité dans les zones de conflit</li>
+                                                            <li>Résistances à l’égalité de genre</li>
+                                                        </ul>
+                                                    </article>
+                                                </div>
+                                            </section>
+
+                                            <section class="engagement-band">
+                                                <div>
+                                                    <span class="section-kicker">Rester connecté</span>
+                                                    <h3>Suivre les actions du Secrétariat</h3>
+                                                    <p>Retrouvez les publications, prises de parole et actualités liées à la mise en œuvre de la Résolution 1325 en RDC.</p>
+                                                </div>
+                                                <div class="share">
+                                    <h4>Nous suivre</h4>
+                                    <ul>
+                                        <li><a href="https://web.facebook.com/sn1325/" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
+                                        <li><a href="https://x.com/R1325RDC" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href="https://www.linkedin.com/company/R%C3%A9solution%201325%20RDC/" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                            </section>
                                         </div>
-                                    </section>
-                                <section id="institutions" class="info-section institutions">
-                                    <h4 class="section-badge">Structure institutionnelle et partenaires</h4>
-                                    <div class="institution-cards">
-                                        <article class="inst-card" aria-labelledby="inst-acteurs">
-                                            <h5 id="inst-acteurs">Acteurs clés</h5>
-                                            <ul>
-                                                <li>Ministère du Genre, Famille et Enfant — point focal</li>
-                                                <li>Secrétariat National 1325 — coordination</li>
-                                                <li>Points focaux provinciaux — déploiement territorial</li>
-                                                <li>Société civile — mise en œuvre & monitoring</li>
-                                            </ul>
-                                        </article>
-
-                                        <article class="inst-card" aria-labelledby="inst-partenaires">
-                                            <h5 id="inst-partenaires">Partenaires techniques et financiers</h5>
-                                            <ul>
-                                                <li>ONU Femmes RDC — appui technique et financier</li>
-                                                <li>MONUSCO — division Genre</li>
-                                                <li>Ambassade de Norvège</li>
-                                                <li>ONGs nationales et internationales</li>
-                                            </ul>
-                                        </article>
                                     </div>
-                                </section>
 
-                                <section id="resultats" class="info-section results">
-                                    <h4 class="section-badge">Résultats et défis</h4>
-                                    <div class="results-cards">
-                                        <article class="result-card" aria-labelledby="res-succes">
-                                            <h5 id="res-succes">Succès documentés</h5>
-                                            <ul>
-                                                <li>Augmentation du nombre de femmes dans les instances</li>
-                                                <li>Renforcement des capacités des organisations féminines</li>
-                                                <li>Prise en compte du genre dans la réforme sécuritaire</li>
-                                                <li>Documentation systématique des violences basées sur le genre</li>
-                                            </ul>
-                                        </article>
-
-                                        <article class="result-card" aria-labelledby="res-defis">
-                                            <h5 id="res-defis">Défis persistants</h5>
-                                            <ul>
-                                                <li>Financement insuffisant des initiatives de genre</li>
-                                                <li>Insécurité dans les zones de conflit</li>
-                                                <li>Résistances à l'égalité de genre</li>
-                                            </ul>
-                                        </article>
-                                    </div>
-                                </section>
-
-                                <div style="height:12px"></div>
-
-                                <div class="share">
-									<h4>Nous suivres</h4>
-									<ul>
-										<li><a href="https://web.facebook.com/sn1325/" target="_blank"><i class="fa fa-facebook-official" aria-hidden="true"></i></a></li>
-										<li><a href="https://x.com/R1325RDC" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-										<li><a href="https://www.linkedin.com/company/R%C3%A9solution%201325%20RDC/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-									</ul>
-								</div>
-							</div>
+                                    <aside class="secretariat-sidebar">
+                                        <div class="sidebar-stack">
+                                            <article class="sidebar-card quick-nav-card">
+                                                <span class="sidebar-label">Navigation rapide</span>
+                                                <ul>
+                                                    <li><a href="#contexte">Composition</a></li>
+                                                    <li><a href="#missions">Missions</a></li>
+                                                    <li><a href="#institutions">Institutions et partenaires</a></li>
+                                                    <li><a href="#resultats">Résultats et défis</a></li>
+                                                </ul>
+                                            </article>
+                                            <article class="sidebar-card emphasis-card">
+                                                <span class="sidebar-label">Repères clés</span>
+                                                <ul class="fact-list">
+                                                    <li><strong>4</strong><span>experts permanents</span></li>
+                                                    <li><strong>12</strong><span>experts non permanents</span></li>
+                                                    <li><strong>2015</strong><span>année de création</span></li>
+                                                    <li><strong>1</strong><span>base de coordination nationale</span></li>
+                                                </ul>
+                                            </article>
+                                            <article class="sidebar-card contact-card">
+                                                <span class="sidebar-label">Coordination</span>
+                                                <h4>Secrétariat National 1325</h4>
+                                                <p>Kinshasa-Gombe, en diagonale du Premier Shopping Mall, dans la concession du Secrétariat au Développement Rural.</p>
+                                                <ul class="contact-points">
+                                                    <li><i class="fa fa-envelope" aria-hidden="true"></i><span>contact@sn1325.cd</span></li>
+                                                    <li><i class="fa fa-calendar" aria-hidden="true"></i><span>Lundi à vendredi, 8h00 à 16h00</span></li>
+                                                </ul>
+                                                <a class="sidebar-cta" href="<?= URL_CONTACT ?>">Contacter le secrétariat</a>
+                                            </article>
+                                        </div>
+                                    </aside>
+                                </div>
 						</div>
 					</div>
 				</div>

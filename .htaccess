@@ -40,14 +40,12 @@ Options -Indexes
 
 # Interdire l'accès aux fichiers PHP helpers/internes non destinés au public
 <FilesMatch "^(csrf_helper|upload_helper|rate_limiter|track_visitor|connectDb)\.php$">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
 # Interdire l'accès aux fichiers de configuration sensibles
 <FilesMatch "\.(env|sql|log|bak|backup|sh|bash)$">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
 # ============================================================
