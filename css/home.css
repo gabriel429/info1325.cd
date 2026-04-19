@@ -359,6 +359,90 @@ body > h2:first-of-type {
   min-height: 250px;
   border-radius: 24px !important;
   box-shadow: 0 24px 60px rgba(18, 44, 79, 0.08);
+  transform: translateY(0);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.axes .single-service::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.axes .single-service .ss-overlay {
+  transition: background 0.28s ease, opacity 0.28s ease;
+}
+
+.axes .single-service .ss-content {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  transform: translateY(0);
+  transition: transform 0.28s ease;
+}
+
+.axes .single-service .ss-content::after {
+  content: 'Voir le detail';
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.28s ease, transform 0.28s ease, background 0.28s ease;
+}
+
+.axes .single-service:hover,
+.axes a:hover .single-service,
+.axes a:focus-visible .single-service {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 70px rgba(18, 44, 79, 0.18);
+}
+
+.axes .single-service:hover::before,
+.axes a:hover .single-service::before,
+.axes a:focus-visible .single-service::before {
+  opacity: 1;
+}
+
+.axes .single-service:hover .ss-overlay,
+.axes a:hover .single-service .ss-overlay,
+.axes a:focus-visible .single-service .ss-overlay {
+  background: linear-gradient(rgba(6, 35, 68, 0.2), rgba(6, 35, 68, 0.72)) !important;
+}
+
+.axes .single-service:hover .ss-content,
+.axes a:hover .single-service .ss-content,
+.axes a:focus-visible .single-service .ss-content {
+  transform: translateY(-6px);
+}
+
+.axes .single-service:hover .ss-content::after,
+.axes a:hover .single-service .ss-content::after,
+.axes a:focus-visible .single-service .ss-content::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.axes a:focus-visible .single-service {
+  outline: 3px solid rgba(15, 99, 173, 0.32);
+  outline-offset: 3px;
 }
 
 .partners-band .single-partner {
