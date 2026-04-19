@@ -1,239 +1,212 @@
 <?php
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
-require_once $dateDbConnect; // connexion PDO si besoin
+require_once $dateDbConnect;
 
-// Page-specific CSS
 $pageCss = CSS_DIR . 'axes.css';
 
-// Header
+$axesBaseUrl = BASE_URL . 'pagesweb/axes/';
+$printUrl = BASE_URL . 'pagesweb/axes_print.php';
+
+$axes = [
+    'participation' => [
+        'title' => 'Axe Participation',
+        'label' => 'Participation',
+        'intro' => 'Renforcer la presence effective des femmes dans les mecanismes de paix, les espaces de decision et les institutions de securite.',
+        'summary' => 'La participation se veut non seulement la presence des femmes, mais plus encore une presence accrue, en ordre utile et significative dans les instances de prise des decisions et dans les mecanismes de maintien de la paix. Elle trouve son fondement dans les articles 1, 2, 3 et 4 de la Resolution 1325, qui recommande au Secretaire General et aux Etats membres de faire participer les femmes sur un pied d egalite avec les hommes aux instances decisionnelles dans le domaine de la paix et de la securite.',
+        'context' => 'Cet axe qui comporte 3 objectifs vise a augmenter la participation des femmes a tous les niveaux de prise de decision dans les processus de paix et de securite.',
+        'objectives' => [
+            [
+                'title' => 'Objectif 1',
+                'lead' => 'Accroitre a 40% la participation des femmes et filles dans les instances de prise de decisions dans les mecanismes et initiatives de paix.',
+                'detail' => 'Au cours de la periode de mise en oeuvre du Plan d Action National de 2eme generation, les femmes ont represente une moyenne de 21% dans les mecanismes et initiatives de paix, notamment dans les provinces de l Est. Le relevement de cette representativite a 40% permettrait de renforcer la voix des femmes dans l adoption des resolutions issues du reglement des conflits.'
+            ],
+            [
+                'title' => 'Objectif 2',
+                'lead' => 'Accroitre de 20% le taux de participation des femmes et filles dans les services de securite.',
+                'detail' => 'Le rapport d evaluation de la mise en oeuvre du plan d action national renseigne une moyenne de 3% pour la representativite des femmes dans les postes de service de securite. Avec une telle faible representativite, il est peu probable que les decisions prises integrent correctement les besoins specifiques des femmes.'
+            ],
+            [
+                'title' => 'Objectif 3',
+                'lead' => 'Accroitre a 35% le taux de participation des femmes et des filles dans les instances de prise de decision des institutions publiques et privees au niveau national, a 20% aux niveaux provincial et local et a 40% au sein de la magistrature.',
+                'detail' => 'Le rapport d evaluation du PAN 2 revele que les femmes occupent actuellement 33% des postes au sein du gouvernement national, 4% comme gouverneures des provinces, entre 10 et 20% au sein des gouvernements provinciaux, 13,6% a l Assemblee Nationale, 17,6% au Senat et 25% dans la magistrature. La presence des femmes dans la magistrature constitue un atout important dans la lutte contre l impunite des violations graves des droits des femmes.'
+            ]
+        ]
+    ],
+    'prevention' => [
+        'title' => 'Axe Prevention',
+        'label' => 'Prevention',
+        'intro' => 'Prevenir les conflits, reduire les risques de violences et promouvoir l inclusion des femmes dans les mecanismes de prevention et de consolidation de la paix.',
+        'summary' => 'Cet axe vise a prevenir la survenance des conflits et de toutes formes de violations des droits des femmes, des jeunes femmes et des petites filles avant, pendant et apres les conflits armes. Il vise aussi a promouvoir l inclusion des femmes dans les efforts de prevention des conflits, de resolution des conflits et de consolidation de la paix.',
+        'context' => 'La prevention est pensee ici comme un travail institutionnel, communautaire et social combinant normes, sensibilisation, dispositifs d alerte et reduction des facteurs de risque.',
+        'objectives' => [
+            ['title' => 'Objectif 1', 'lead' => 'Assurer la vulgarisation de la Resolution 1325, d autres instruments juridiques pertinents de prevention des violences contre les femmes et les filles, ainsi que le PAN 1325 de la 3eme Generation du CSNU.', 'detail' => 'La diffusion de ces textes est essentielle pour leur appropriation par les institutions, les communautes et les organisations chargees de leur mise en oeuvre.'],
+            ['title' => 'Objectif 2', 'lead' => 'Promouvoir la masculinite positive aupres des acteurs cles.', 'detail' => 'Cet objectif vise a transformer les comportements et representations sociales qui nourrissent les violences et les discriminations.'],
+            ['title' => 'Objectif 3', 'lead' => 'Mettre en place des mecanismes communautaires d alerte precoce, de dialogue permanent et de resolution pacifique des conflits.', 'detail' => 'La prevention locale repose sur une veille active, la mediation et des espaces de dialogue inclusifs au plus pres des communautes.'],
+            ['title' => 'Objectif 4', 'lead' => 'Contribuer a reduire le taux d enrolement des enfants-soldats au sein des groupes armes.', 'detail' => 'La protection de l enfance et l action communautaire sont ici integrees a la prevention des conflits.'],
+            ['title' => 'Objectif 5', 'lead' => 'Renforcer le controle et la reduction de la circulation des armes legeres et de petit calibre.', 'detail' => 'La reduction des armes en circulation contribue directement a diminuer l intensite et la frequence des violences dans les zones fragiles.'],
+            ['title' => 'Objectif 6', 'lead' => 'Lutter contre l exclusion des communautes dans l exploitation des ressources naturelles.', 'detail' => 'La prevention passe aussi par une gouvernance inclusive des ressources afin de reduire les tensions economiques et sociales.']
+        ]
+    ],
+    'protection' => [
+        'title' => 'Axe Protection',
+        'label' => 'Protection',
+        'intro' => 'Garantir la protection des droits des femmes, des filles et des personnes vulnerables pendant et apres les conflits.',
+        'summary' => 'Cet axe vise a assurer aux femmes, filles et autres personnes vulnerables la protection de leurs droits pendant et apres les conflits, ainsi que le respect et la promotion de leurs droits.',
+        'context' => 'L axe protection renforce a la fois la reponse institutionnelle, l acces a la justice et la lutte contre les violences graves liees aux conflits.',
+        'objectives' => [
+            ['title' => 'Objectif 1', 'lead' => 'Assurer le respect des droits des femmes et des filles pendant et apres les conflits.', 'detail' => 'Le cadre d action doit renforcer la prevention, la reponse et la garantie des droits fondamentaux dans les contextes de crise.'],
+            ['title' => 'Objectif 2', 'lead' => 'Lutter contre l impunite des violences sexuelles et violences basees sur le genre faites aux femmes et filles pendant et apres les conflits armes.', 'detail' => 'La justice, la prise en charge des survivantes et la redevabilite des auteurs constituent des leviers centraux de cet objectif.'],
+            ['title' => 'Objectif 3', 'lead' => 'Appuyer la lutte contre la traite des personnes.', 'detail' => 'La protection contre les reseaux de traite et d exploitation doit etre renforcee en lien avec les mecanismes judiciaires et communautaires.']
+        ]
+    ],
+    'relevement' => [
+        'title' => 'Axe Relevement',
+        'label' => 'Relevement',
+        'intro' => 'Integrer le genre dans la reconstruction et soutenir l autonomisation socio-economique des femmes affectees par les conflits.',
+        'summary' => 'L axe relevement vise a integrer la dimension genre dans les projets de reconstruction pendant et apres les conflits, en vue d assurer l autonomisation socio-economique des femmes victimes de conflits pour le retablissement de la stabilite et d une paix durable.',
+        'context' => 'Le relevement ne se limite pas a la reconstruction materielle. Il concerne aussi l acces aux opportunites, aux ressources et aux politiques publiques favorables a la resilience des femmes et des filles.',
+        'objectives' => [
+            ['title' => 'Objectif 1', 'lead' => 'Poursuivre l integration de la dimension genre dans la gestion des politiques et programmes de relevement.', 'detail' => 'Les programmes de relevement doivent integrer des leur conception les besoins differencies des femmes, des filles et des autres groupes vulnerables.'],
+            ['title' => 'Objectif 2', 'lead' => 'Assurer l autonomisation socio-economique des femmes et des filles victimes des conflits.', 'detail' => 'Le soutien aux activites generatrices de revenus, a la formation et a l acces aux services de base est un levier majeur pour restaurer l autonomie durable.'],
+            ['title' => 'Objectif 3', 'lead' => 'Mobiliser les ressources financieres necessaires en faveur des politiques et programmes de relevement post conflit au niveau national et provincial.', 'detail' => 'La perennite des actions de relevement depend d un financement structure, visible et aligne avec les priorites definies dans le PAN 1325.']
+        ]
+    ],
+    'gestion' => [
+        'title' => 'Axe Gestion des Conflits Emergents et Aide Humanitaire',
+        'label' => 'Gestion',
+        'intro' => 'Structurer une reponse adaptee aux nouveaux risques, aux urgences humanitaires et aux formes emergentes de violence.',
+        'summary' => 'Cet axe developpe les objectifs relatifs a la gestion des conflits emergents, a la reponse humanitaire, a la lutte contre le blanchiment des capitaux et la criminalite urbaine, ainsi qu a la protection contre le cyber-harcelement et la traite des personnes.',
+        'context' => 'Il complete les autres axes en prenant en compte les dynamiques nouvelles qui fragilisent la securite des femmes et des filles dans les contextes contemporains.',
+        'objectives' => [
+            ['title' => 'Objectif 1', 'lead' => 'Renforcer la reponse aux conflits emergents et aux situations humanitaires qui affectent les femmes et les filles.', 'detail' => 'La reponse humanitaire doit rester sensible au genre, rapide et coordonnee avec les mecanismes de protection.'],
+            ['title' => 'Objectif 2', 'lead' => 'Prendre en compte les nouvelles formes de criminalite et de violence dans les politiques de securite humaine.', 'detail' => 'Cet objectif elargit le champ d action aux risques urbains, financiers et numeriques qui touchent de maniere differenciee les femmes et les filles.']
+        ]
+    ]
+];
+
+$aliases = [
+    'relvement' => 'relevement',
+    'relevement' => 'relevement'
+];
+
+$requestedAxe = strtolower(trim((string) ($_GET['axe'] ?? '')));
+$selectedKey = null;
+
+if ($requestedAxe !== '') {
+    $normalizedKey = $aliases[$requestedAxe] ?? $requestedAxe;
+    if (isset($axes[$normalizedKey])) {
+        $selectedKey = $normalizedKey;
+    }
+}
+
+$selectedAxis = $selectedKey !== null ? $axes[$selectedKey] : null;
+$selectedObjectives = $selectedAxis['objectives'] ?? [];
+
+$SKIP_PAGE_TITLE = true;
 require_once $headerPath;
 ?>
 
-<!-- AXES Page -->
-<section class="section" style="padding:20px 0;background:#f8f9fa;">
+<section class="caremed-hero axes-hero">
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
-        <div class="card shadow-sm">
-          <div class="card-body p-5">
-            <div class="d-flex align-items-start mb-4">
-              <h1 class="mb-0 text-primary me-3">AXES STRATÉGIQUES DU PLAN D’ACTION NATIONAL 1325</h1>
-              <div class="ms-auto">
-                <a href="<?= BASE_URL ?>pagesweb/axes_print.php" class="btn btn-outline-secondary me-2 text-white" target="_blank">Imprimer / Télécharger</a>
-              </div>
-            </div>
-
-            <p class="lead">Cliquez sur une zone de la carte pour afficher l'axe correspondant.</p>
-
-            <!-- Carte interactive simple (SVG) -->
-            <div class="my-4" style="text-align:center;">
-              <svg id="axesMap" width="100%" height="340" viewBox="0 0 1000 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carte des axes">
-                <defs>
-                  <style>
-                    .node { cursor: pointer; fill: #ffffff; stroke: #0d6efd; stroke-width: 3px; transition: transform 180ms ease, filter 180ms ease, fill 180ms ease; transform-box: fill-box; transform-origin: center; }
-                    .node:hover { transform: scale(1.06); filter: drop-shadow(0 8px 12px rgba(13,110,253,0.12)); fill: #0d6efd; }
-                    /* fallback for any remaining text elements */
-                    .label { font-family: 'Poppins', Arial, sans-serif; font-size:16px; fill:#fff; pointer-events:none; }
-                    a { cursor: pointer; }
-                    /* When hovering the group, make the HTML label text white for contrast */
-                    g:hover div { color: #ffffff !important; }
-                    /* clicked state: make label text blue */
-                    g.clicked div { color: #0d6efd !important; }
-                  </style>
-                </defs>
-                <!-- nodes positioned horizontally (labels use foreignObject for justified white text) -->
-                <a href="<?= BASE_URL ?>pagesweb/axes.php?axe=participation"><g id="node-participation" data-axe="participation" transform="translate(100,170)"><circle class="node" r="60" />
-                    <foreignObject x="-60" y="-60" width="120" height="120">
-                      <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:6px;color:#000;text-align:justify;font-family:'Poppins',Arial,sans-serif;font-size:14px;line-height:1.1;">
-                        Participation
-                      </div>
-                    </foreignObject>
-                </g></a>
-                <a href="<?= BASE_URL ?>pagesweb/axes.php?axe=prevention"><g id="node-prevention" data-axe="prevention" transform="translate(300,80)"><rect class="node" x="-70" y="-40" width="140" height="80" rx="12" />
-                    <foreignObject x="-70" y="-40" width="140" height="80">
-                      <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:6px;color:#000;text-align:justify;font-family:'Poppins',Arial,sans-serif;font-size:14px;line-height:1.1;">
-                        Prévention
-                      </div>
-                    </foreignObject>
-                </g></a>
-                <a href="<?= BASE_URL ?>pagesweb/axes.php?axe=protection"><g id="node-protection" data-axe="protection" transform="translate(500,170)"><circle class="node" r="60" />
-                    <foreignObject x="-60" y="-60" width="120" height="120">
-                      <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:6px;color:#000;text-align:justify;font-family:'Poppins',Arial,sans-serif;font-size:14px;line-height:1.1;">
-                        Protection
-                      </div>
-                    </foreignObject>
-                </g></a>
-                <a href="<?= BASE_URL ?>pagesweb/axes.php?axe=relevement"><g id="node-relevement" data-axe="relevement" transform="translate(700,80)"><rect class="node" x="-70" y="-40" width="140" height="80" rx="12" />
-                    <foreignObject x="-70" y="-40" width="140" height="80">
-                      <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:6px;color:#000;text-align:justify;font-family:'Poppins',Arial,sans-serif;font-size:14px;line-height:1.1;">
-                        Relèvement
-                      </div>
-                    </foreignObject>
-                </g></a>
-                <a href="<?= BASE_URL ?>pagesweb/axes.php?axe=gestion"><g id="node-gestion" data-axe="gestion" transform="translate(900,170)"><circle class="node" r="60" />
-                    <foreignObject x="-60" y="-60" width="120" height="120">
-                      <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:6px;color:#000;text-align:justify;font-family:'Poppins',Arial,sans-serif;font-size:14px;line-height:1.1;">
-                        Gestion
-                      </div>
-                    </foreignObject>
-                </g></a>
-                <!-- connector lines -->
-                <line x1="160" y1="170" x2="240" y2="100" stroke="#dee2e6" stroke-width="4" />
-                <line x1="340" y1="100" x2="420" y2="170" stroke="#dee2e6" stroke-width="4" />
-                <line x1="560" y1="170" x2="640" y2="100" stroke="#dee2e6" stroke-width="4" />
-                <line x1="760" y1="100" x2="840" y2="170" stroke="#dee2e6" stroke-width="4" />
-              </svg>
-            </div>
-
-            <hr>
-
-            <h3 class="mt-4" id="participation"><strong>AXE PARTICIPATION</strong></h3>
-
-            <p>La participation se veut non seulement la présence des femmes, mais plus encore une présence accrue, en ordre utile et significative dans les instances de prise des décisions et dans les mécanismes de maintien de la paix. Elle trouve son fondement dans les articles 1, 2, 3 et 4 de la Résolution 1325, qui recommande au Secrétaire Général et aux États membres de « faire participer les femmes sur un pied d’égalité que les hommes aux instances décisionnelles dans le domaine de la paix et la sécurité, ainsi que la participation égale des femmes et des hommes dans toutes les négociations conduisant à la consolidation de la paix.</p>
-
-            <p>Cet axe qui comporte 3 objectifs vise à augmenter la participation des femmes à tous les niveaux de prise de décision dans les processus de paix et de sécurité.</p>
-
-            <h5>Objectif 1</h5>
-            <p>Accroître à 40% la participation des femmes et filles dans les instances de prise de décisions dans les mécanismes et initiatives de paix.</p>
-
-            <p>Au cours de la période de mise en oeuvre du Plan d’Action National de 2ème génération, les informations renseignent que les femmes ont représenté une moyenne de 21% dans les mécanismes et initiative de paix, notamment dans les provinces de l’Est. Il est possible de travailler pour porter cette représentativité à 40%, afin d’accroître la propension à faire entendre la voix des femmes lors de l’adoption des résolutions issues des règlements des conflits.</p>
-
-            <h5>Objectif 2</h5>
-            <p>Accroître de 20% le taux de participation des femmes et filles dans les services de sécurité.</p>
-
-            <p>Le rapport d’évaluation de la mise en oeuvre du plan d’action National renseigne une moyenne de 3 % pour la représentativité des femmes dans les postes de service de sécurité. Avec une telle faible représentativité, il est peu probable que des décisions prises puissent prendre en compte les besoins spécifiques des femmes.</p>
-
-            <h5>Objectif 3</h5>
-            <p>Accroître à 35% le taux de participation des femmes et des filles dans les instances de prise de décision des institutions publiques et privées au niveau national, à 20% aux niveaux provincial et local et à 40% au sein de la magistrature.</p>
-
-            <p>Le rapport d’évaluation du PAN 2 révèle que les femmes occupent actuellement 33% des postes au sein du gouvernement national, 4% comme gouverneures des provinces, entre 10 et 20% au sein des gouvernements provinciaux, 13,6% à l’Assemblée Nationale, 17,6% au Sénat et 25% dans la magistrature, sachant que la présence des femmes dans la magistrature constitue un atout important dans la lutte contre l’impunité des violations graves des droits des femmes.</p>
-
-            <hr>
-            <h3 class="mt-4"><strong>AXE PRÉVENTION</strong></h3>
-            <p>Cet axe vise à prévenir la survenance des conflits et de toutes formes de violations des droits des femmes, des jeunes femmes et des petites filles avant, pendant et après les conflits armés, et à promouvoir l’inclusion des femmes dans les efforts de prévention des conflits, de résolution des conflits et de consolidation de la paix, en reconnaissant leur rôle crucial dans ces domaines.</p>
-
-            <h5>Objectif 1</h5>
-            <p>Assurer la vulgarisation de la Résolution 1325, d’autres instruments juridiques pertinents de prévention des violences contre les femmes et les filles, ainsi que le PAN 1325 de la 3ème Génération du CSNU.</p>
-
-            <h5>Objectif 2</h5>
-            <p>Promouvoir Masculinité Positive auprès des acteurs clés.</p>
-
-            <h5>Objectif 3</h5>
-            <p>Mettre en place des mécanismes communautaires d’alerte précoce, de dialogue permanent et de résolution pacifique des conflits.</p>
-
-            <h5>Objectif 4</h5>
-            <p>Contribuer à réduire le taux d’enrôlement des enfants-soldats au sein des groupes armés.</p>
-
-            <h5>Objectif 5</h5>
-            <p>Renforcer le contrôle et la réduction de la circulation des armes légères et de petit calibre.</p>
-
-            <h5>Objectif 6</h5>
-            <p>Lutter contre l’exclusion des communautés dans l’exploitation des ressources naturelles.</p>
-
-            <hr>
-            <h3 class="mt-4"><strong>AXE PROTECTION</strong></h3>
-            <p>Cet axe vise à assurer aux femmes, filles et autres personnes vulnérables la protection de leurs droits pendant et après les conflits, ainsi que le respect et la promotion de leurs droits.</p>
-
-            <h5>Objectif 1</h5>
-            <p>Assurer le respect des droits des femmes et des filles pendant et après les conflits.</p>
-
-            <h5>Objectif 2</h5>
-            <p>Lutter contre l’impunité des violences sexuelles et violences basées sur le genre faites aux femmes et filles pendant et après les conflits armés.</p>
-
-            <h5>Objectif 3</h5>
-            <p>Appuyer la lutte contre la traite des personnes.</p>
-
-            <hr>
-            <h3 class="mt-4"><strong>AXE RELÈVEMENT</strong></h3>
-            <p>L’axe relèvement vise à intégrer la dimension genre dans les projets de reconstruction pendant et après les conflits, en vue d’assurer l’autonomisation socio-économique des femmes victimes de conflits pour le rétablissement de la stabilité et d’une paix durable.</p>
-
-            <h5>Objectif 1</h5>
-            <p>Poursuivre l’intégration de la dimension genre dans la gestion des politiques et programmes de relèvement.</p>
-
-            <h5>Objectif 2</h5>
-            <p>Assurer l’autonomisation socio-économique des femmes et des filles victimes des conflits.</p>
-
-            <h5>Objectif 3</h5>
-            <p>Mobiliser des ressources financières nécessaires en faveur des politiques et programmes de relèvement post conflit au niveau national et provincial.</p>
-
-            <hr>
-            <h3 class="mt-4"><strong>AXE GESTION DES CONFLITS ÉMERGENTS ET L’AIDE HUMANITAIRE</strong></h3>
-            <p>Le texte développe les objectifs relatifs à la gestion des conflits émergents, la réponse humanitaire, la lutte contre le blanchiment des capitaux et la criminalité urbaine, ainsi que la protection contre le cyber-harcèlement et la traite des personnes.</p>
-
-            <!-- Retour button removed: navigation to map handled via header/compoAxe -->
-
-          </div>
-        </div>
-      </div>
+    <div class="hero-content">
+      <div class="hero-breadcrumb">Accueil / Axes strategiques<?= $selectedAxis ? ' / ' . htmlspecialchars($selectedAxis['label']) : '' ?></div>
+      <h1><?= $selectedAxis ? htmlspecialchars($selectedAxis['title']) : 'Axes strategiques du Plan d Action National 1325' ?></h1>
+      <p class="lead"><?= $selectedAxis ? htmlspecialchars($selectedAxis['intro']) : 'Explorez les cinq axes structurants du PAN 1325 et accedez a un detail plus lisible de chaque priorite strategique.' ?></p>
     </div>
   </div>
 </section>
 
+<section class="axes-shell section">
+  <div class="container">
+    <div class="axes-topbar-card">
+      <div>
+        <span class="section-kicker">Navigation</span>
+        <h2>Carte de lecture des axes</h2>
+        <p>Cliquez sur un axe pour afficher son detail. L URL avec le parametre errone relvement ouvre maintenant logiquement l axe Relevement.</p>
+      </div>
+      <div class="axes-actions">
+        <a href="<?= htmlspecialchars($axesBaseUrl) ?>" class="btn btn-outline-primary">Voir l ensemble</a>
+        <a href="<?= htmlspecialchars($printUrl) ?>" class="btn btn-primary" target="_blank" rel="noopener">Imprimer / Telecharger</a>
+      </div>
+    </div>
+
+    <div class="axes-map-container">
+      <div class="axes-map">
+        <svg id="axesMap" width="100%" height="340" viewBox="0 0 1000 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carte des axes">
+          <a href="<?= htmlspecialchars($axesBaseUrl) ?>?axe=participation"><g class="<?= $selectedKey === 'participation' ? 'is-active' : '' ?>" data-axe="participation" transform="translate(100,170)"><circle class="node" r="60" /><foreignObject x="-60" y="-60" width="120" height="120"><div xmlns="http://www.w3.org/1999/xhtml" class="labelbox">Participation</div></foreignObject></g></a>
+          <a href="<?= htmlspecialchars($axesBaseUrl) ?>?axe=prevention"><g class="<?= $selectedKey === 'prevention' ? 'is-active' : '' ?>" data-axe="prevention" transform="translate(300,80)"><rect class="node" x="-70" y="-40" width="140" height="80" rx="12" /><foreignObject x="-70" y="-40" width="140" height="80"><div xmlns="http://www.w3.org/1999/xhtml" class="labelbox">Prevention</div></foreignObject></g></a>
+          <a href="<?= htmlspecialchars($axesBaseUrl) ?>?axe=protection"><g class="<?= $selectedKey === 'protection' ? 'is-active' : '' ?>" data-axe="protection" transform="translate(500,170)"><circle class="node" r="60" /><foreignObject x="-60" y="-60" width="120" height="120"><div xmlns="http://www.w3.org/1999/xhtml" class="labelbox">Protection</div></foreignObject></g></a>
+          <a href="<?= htmlspecialchars($axesBaseUrl) ?>?axe=relevement"><g class="<?= $selectedKey === 'relevement' ? 'is-active' : '' ?>" data-axe="relevement" transform="translate(700,80)"><rect class="node" x="-70" y="-40" width="140" height="80" rx="12" /><foreignObject x="-70" y="-40" width="140" height="80"><div xmlns="http://www.w3.org/1999/xhtml" class="labelbox">Relevement</div></foreignObject></g></a>
+          <a href="<?= htmlspecialchars($axesBaseUrl) ?>?axe=gestion"><g class="<?= $selectedKey === 'gestion' ? 'is-active' : '' ?>" data-axe="gestion" transform="translate(900,170)"><circle class="node" r="60" /><foreignObject x="-60" y="-60" width="120" height="120"><div xmlns="http://www.w3.org/1999/xhtml" class="labelbox">Gestion</div></foreignObject></g></a>
+          <line x1="160" y1="170" x2="240" y2="100" stroke="#d7e4f2" stroke-width="4" />
+          <line x1="340" y1="100" x2="420" y2="170" stroke="#d7e4f2" stroke-width="4" />
+          <line x1="560" y1="170" x2="640" y2="100" stroke="#d7e4f2" stroke-width="4" />
+          <line x1="760" y1="100" x2="840" y2="170" stroke="#d7e4f2" stroke-width="4" />
+        </svg>
+      </div>
+    </div>
+
+    <?php if ($selectedAxis): ?>
+      <div class="axes-detail-layout">
+        <aside class="axes-sidebar-card">
+          <span class="section-kicker">Axes disponibles</span>
+          <div class="axes-sidebar-list">
+            <?php foreach ($axes as $key => $axis): ?>
+              <a class="axes-sidebar-link <?= $selectedKey === $key ? 'is-active' : '' ?>" href="<?= htmlspecialchars($axesBaseUrl) ?>?axe=<?= htmlspecialchars($key) ?>">
+                <strong><?= htmlspecialchars($axis['label']) ?></strong>
+                <span><?= count($axis['objectives']) ?> objectifs</span>
+              </a>
+            <?php endforeach; ?>
+          </div>
+        </aside>
+
+        <article class="axes-detail">
+          <span class="section-kicker">Detail de l axe</span>
+          <h2><?= htmlspecialchars($selectedAxis['title']) ?></h2>
+          <p><?= htmlspecialchars($selectedAxis['summary']) ?></p>
+          <div class="axes-context-panel">
+            <strong>Lecture strategique</strong>
+            <p><?= htmlspecialchars($selectedAxis['context']) ?></p>
+          </div>
+
+          <div class="objectives">
+            <h3>Objectifs operationnels</h3>
+            <ul>
+              <?php foreach ($selectedObjectives as $objective): ?>
+                <li><?= htmlspecialchars($objective['lead']) ?></li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+
+          <div class="axes-objective-grid">
+            <?php foreach ($selectedObjectives as $objective): ?>
+              <article class="objective-card">
+                <span class="objective-eyebrow"><?= htmlspecialchars($objective['title']) ?></span>
+                <h3><?= htmlspecialchars($objective['lead']) ?></h3>
+                <p><?= htmlspecialchars($objective['detail']) ?></p>
+              </article>
+            <?php endforeach; ?>
+          </div>
+        </article>
+      </div>
+    <?php else: ?>
+      <div class="axes-grid">
+        <?php foreach ($axes as $key => $axis): ?>
+          <article class="axes-card">
+            <div class="card-icon"><?= strtoupper(substr($axis['label'], 0, 1)) ?></div>
+            <div class="card-content">
+              <h3 class="card-title"><?= htmlspecialchars($axis['title']) ?></h3>
+              <p class="card-description"><?= htmlspecialchars($axis['intro']) ?></p>
+              <div class="card-actions">
+                <a class="btn btn-primary" href="<?= htmlspecialchars($axesBaseUrl) ?>?axe=<?= htmlspecialchars($key) ?>">Voir le detail</a>
+              </div>
+            </div>
+          </article>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+  </div>
+</section>
+
 <?php require_once $footerPath; ?>
-
-<style>
-/* Styles supplémentaires pour axes.php */
-.card-body h1 { font-family: 'Poppins', Arial, sans-serif; font-weight:700; }
-.card-body p { line-height:1.6; color:#333; text-align:justify; text-justify:inter-word; hyphens:auto; }
-.card-body h3 { color:#0d6efd; }
-.highlight { background: linear-gradient(90deg, rgba(13,110,253,0.08), transparent); padding:6px 10px; border-radius:4px; }
-@media (max-width:768px){ svg#axesMap { height:260px; } }
-</style>
-
-<script>
-// Smooth scroll to axe if ?axe=... present and simple print button behavior
-document.addEventListener('DOMContentLoaded', function(){
-  try{
-    const params = new URLSearchParams(window.location.search);
-    const axe = (params.get('axe') || '').toLowerCase();
-
-    // helper to mark svg node as clicked (blue text)
-    function markNode(axeName){
-      try{
-        document.querySelectorAll('#axesMap g').forEach(g => g.classList.remove('clicked'));
-        if (!axeName) return;
-        const node = document.querySelector('#axesMap g[data-axe="' + axeName + '"]');
-        if (node) node.classList.add('clicked');
-      }catch(e){console.warn(e)}
-    }
-
-    // if ?axe= present, scroll to the section and mark node
-    if (axe) {
-      const idMap = {
-        'participation':'participation',
-        'prevention':'prevention',
-        'protection':'protection',
-        'relevement':'relevement',
-        'gestion':'gestion'
-      };
-      const target = document.getElementById(idMap[axe]);
-      markNode(axe);
-      if (target) {
-        setTimeout(function(){
-          target.scrollIntoView({behavior:'smooth', block:'start'});
-          target.classList.add('highlight');
-          setTimeout(()=> target.classList.remove('highlight'),4000);
-        },180);
-      }
-    }
-
-    // Add click handlers to svg anchors to show immediate clicked state
-    document.querySelectorAll('#axesMap a').forEach(a => {
-      a.addEventListener('click', function(){
-        try{
-          // find child g and mark
-          const g = this.querySelector('g[data-axe]');
-          if (g){
-            document.querySelectorAll('#axesMap g').forEach(x=>x.classList.remove('clicked'));
-            g.classList.add('clicked');
-          }
-        }catch(e){/* ignore */}
-        // allow navigation to proceed
-      });
-    });
-
-    // download button removed — no JS action required
-  } catch(e) { console.warn(e); }
-});
-</script>

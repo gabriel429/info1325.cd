@@ -377,6 +377,24 @@ Version:	1.1
 }
 /* Mobile Screen */
 @media only screen and (max-width: 767px) {
+.pro-features,
+.header .topbar {
+	display: none !important;
+}
+
+html,
+body {
+	overflow-x: hidden;
+}
+
+.header,
+.header .header-inner,
+.header .header-inner .container,
+.header .header-inner .inner,
+.header .header-inner .inner .row {
+	max-width: 100%;
+}
+
 .header.sticky{
 
 }
@@ -400,7 +418,7 @@ Version:	1.1
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 15px;
+	padding: 8px 15px;
 }
 .header .header-inner .inner .row {
 	display: flex;
@@ -426,7 +444,15 @@ Version:	1.1
 /* Logo */
 .header .logo {
 	float: none;
-	padding: 8px 0;
+	padding: 0;
+	height: auto;
+	max-width: min(230px, calc(100vw - 110px));
+}
+
+.header .logo a,
+.header .logo img {
+	display: block;
+	width: 100%;
 	height: auto;
 }
 /* Slicknav menu container */
@@ -546,11 +572,22 @@ Version:	1.1
 	color: #123a63;
 }
 .header .main-menu {
-	display: none;
+	display: none !important;
 }
 .header .widget-main {
 	float: right;
 	display: none;
+}
+.header .navigation,
+.header .nav.menu,
+.header .nav.menu > li,
+.header .get-quote {
+	display: none !important;
+}
+
+.header .mobile-nav {
+	display: block;
+	margin-left: auto;
 }
 .header.style2 .slicknav_nav {
 	margin-top: 0;

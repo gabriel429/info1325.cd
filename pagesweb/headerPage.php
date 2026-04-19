@@ -342,6 +342,7 @@
 // - Ne l'affiche pas pour certaines pages qui gèrent déjà leur propre breadcrumbs
 $skipBreadcrumbFor = [
 	'/pagesweb/actualites.php',
+	'/pagesweb/axes.php',
 	'/pagesweb/contact.php',
 	'/pagesweb/resolution.php',
 	'/index.php',
