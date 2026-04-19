@@ -237,78 +237,178 @@ nav.toc a:hover {
   box-shadow: var(--elevation-4);
 }
 
+@media (max-width: 992px) {
+  .caremed-hero {
+    padding: 56px 0 44px;
+  }
+  
+  .caremed-hero h1 {
+    font-size: 36px;
+  }
+  
+  h2 {
+    font-size: 22px;
+  }
+}
+
 @media (max-width: 768px) {
   main {
     padding: 1.5rem;
     margin: 1rem;
   }
+  
   .caremed-hero {
-    padding: 60px 0 40px;
+    padding: 44px 0 32px;
   }
+  
   .caremed-hero h1 {
-    font-size: 32px;
+    font-size: 28px;
+    margin: 10px 0;
   }
+  
+  .caremed-hero .lead {
+    font-size: 16px;
+  }
+  
   h2 {
     font-size: 20px;
+    margin: 16px 0 12px 0;
+  }
+  
+  h3 {
+    font-size: 17px;
+    margin: 12px 0 8px 0;
+  }
+  
+  section.title {
+    display: block;
+    padding-top: 1rem;
+  }
+  
+  section.open .content {
+    display: block;
+  }
+  
+  p {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  .doc-section, .content {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 12px;
+  }
+  
+  nav.toc {
+    padding: 1.2rem;
+    margin: 1.5rem auto;
   }
 }
-  display: none;
-  padding-top: 0.5rem;
-}
 
-section.open .content {
-  display: block;
-}
-
-p {
-  margin: 1rem 0;
-  text-align: left;
-  font-size:16px;
-  line-height:1.75;
-  color:var(--text-color);
-}
-
-/* Improve readability for long sections */
-.doc-section, .content {
-  max-width:880px;
-  margin:0 auto;
-}
-.doc-section h2{ font-size:24px; margin:0 0 0.6rem 0; color:var(--primary) }
-.doc-section h3{ font-size:20px; margin:0.8rem 0 0.4rem }
-.doc-section ol{ margin:0 0 1rem 1.2rem; padding-left:0 }
-.doc-section li{ margin-bottom:0.45rem }
-
-nav.toc {
-  background: var(--accent);
-  color: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin: 2rem auto;
-  max-width: var(--max-width);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-}
-
-nav.toc h2 {
-  color: white;
-  margin-top: 0;
-  cursor: default;
-}
-
-nav.toc a {
-  color: white;
-  text-decoration: none;
-  display: block;
-  margin: 0.4rem 0;
-  transition: opacity 0.3s;
-}
-
-nav.toc a:hover {
-  opacity: 0.8;
-}
-
-@media (max-width: 768px) {
-  main { padding: 1.5rem; }
-  h2 { font-size: 1.2rem; }
+@media (max-width: 576px) {
+  main {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+  
+  .caremed-hero {
+    padding: 32px 0 24px;
+  }
+  
+  .caremed-hero h1 {
+    font-size: 22px;
+    margin: 8px 0;
+  }
+  
+  .caremed-hero .lead {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .caremed-hero .hero-breadcrumb {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 18px;
+    margin: 12px 0 10px 0;
+  }
+  
+  h3 {
+    font-size: 15px;
+    margin: 10px 0 6px 0;
+  }
+  
+  section.title {
+    display: block;
+    padding-top: 0.75rem;
+  }
+  
+  section.open .content {
+    display: block;
+  }
+  
+  p {
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: left;
+  }
+  
+  .doc-section, .content {
+    max-width: 100%;
+    margin: 0;
+    padding: 0 10px;
+  }
+  
+  .doc-section h2 {
+    font-size: 18px;
+  }
+  
+  .doc-section h3 {
+    font-size: 15px;
+  }
+  
+  .doc-section ol {
+    margin: 0 0 1rem 1rem;
+  }
+  
+  .doc-section li {
+    font-size: 14px;
+    margin-bottom: 0.4rem;
+  }
+  
+  nav.toc {
+    padding: 1rem;
+    margin: 1rem auto;
+    border-radius: 6px;
+  }
+  
+  nav.toc h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  nav.toc a {
+    font-size: 13px;
+    margin: 0.3rem 0;
+  }
+  
+  .resolution-download {
+    padding: 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .resolution-download .btn-r1325 {
+    padding: 8px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* Style the R1325 PDF download block to match secretariat info card */

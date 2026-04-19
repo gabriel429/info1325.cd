@@ -247,51 +247,115 @@
 }
 
 /* Responsive */
+@media (max-width: 992px) {
+  .caremed-hero {
+    padding: 72px 0 52px;
+  }
+
+  .caremed-hero h1 {
+    font-size: 36px;
+  }
+  
+  .documentation-grid .section {
+    padding: 48px 0;
+  }
+}
+
 @media (max-width: 768px) {
   .caremed-hero {
-    padding: 60px 0 40px;
+    padding: 48px 0 36px;
   }
 
   .caremed-hero h1 {
     font-size: 28px;
+    margin: 10px 0;
+  }
+  
+  .caremed-hero .lead {
+    font-size: 16px;
+  }
+  
+  .caremed-hero .hero-breadcrumb {
+    font-size: 12px;
+  }
+
+  .documentation-grid .section {
+    padding: 36px 0;
   }
 
   .doc-thumb {
-    height: 180px;
+    height: 200px;
   }
 
   .doc-body {
     padding: 20px;
   }
+  
+  .doc-title {
+    font-size: 18px;
+  }
+  
+  .doc-excerpt {
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 576px) {
   .caremed-hero {
-    padding: 40px 0 30px;
+    padding: 32px 0 24px;
   }
 
   .caremed-hero h1 {
-    font-size: 24px;
+    font-size: 22px;
+    margin: 8px 0;
   }
 
   .caremed-hero .lead {
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .caremed-hero .hero-breadcrumb {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .documentation-grid .section {
+    padding: 20px 0;
+  }
+
+  .doc-card {
+    border-radius: 12px;
+    margin-bottom: 12px;
   }
 
   .doc-thumb {
-    height: 150px;
+    height: 140px;
+  }
+
+  .doc-body {
+    padding: 16px;
   }
 
   .doc-title {
-    font-size: 16px;
+    font-size: 15px;
+    margin-bottom: 6px;
   }
 
   .doc-excerpt {
     font-size: 12px;
   }
 
+  .doc-actions {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
   .doc-actions .btn {
-    font-size: 11px;
-    padding: 8px 10px;
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 100px;
   }
 }

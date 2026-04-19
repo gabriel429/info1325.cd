@@ -240,24 +240,101 @@
   transform: scale(1.02);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .caremed-hero {
     padding: 48px 0 36px;
   }
   .caremed-hero h1 {
+    font-size: 32px;
+  }
+  .news-card .news-image {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .caremed-hero {
+    padding: 36px 0 28px;
+  }
+  .caremed-hero h1 {
     font-size: 28px;
+  }
+  .caremed-hero .hero-breadcrumb {
+    font-size: 12px;
+    letter-spacing: 0.5px;
   }
   .news-card .news-image {
     height: 180px;
   }
   .news-single .news-card .news-image {
-    height: 240px;
+    height: 280px;
   }
   .news-card-mini .card-image {
     height: 130px;
   }
+  .news-card .news-body {
+    padding: 16px;
+  }
+  .news-card .news-title {
+    font-size: 18px;
+  }
 }
-  .caremed-hero .hero-content h1{ font-size:26px }
+
+@media (max-width: 576px) {
+  .caremed-hero {
+    padding: 28px 0 20px;
+  }
+  .caremed-hero h1 {
+    font-size: 24px;
+    margin: 8px 0;
+  }
+  .caremed-hero .hero-breadcrumb {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+  .news-card {
+    border-radius: 12px;
+  }
+  .news-card .news-image {
+    height: 150px;
+  }
+  .news-card .news-body {
+    padding: 12px;
+  }
+  .news-card .news-title {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .news-card .news-excerpt {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .news-single .news-card .news-image {
+    height: 200px;
+  }
+  .news-single .news-title {
+    font-size: 24px;
+  }
+  .news-card-mini .card-image {
+    height: 100px;
+  }
+  .news-card-mini .card-body {
+    padding: 12px;
+  }
+  .news-card-mini .card-title {
+    font-size: 14px;
+  }
+  .main-sidebar {
+    margin-top: 24px;
+  }
+  .main-sidebar .single-widget {
+    margin-bottom: 16px;
+    padding: 16px;
+  }
+  .related-news .section-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
 }
 
 /* Force fixed-size thumbnails in recent-post widget to avoid collapsing */
