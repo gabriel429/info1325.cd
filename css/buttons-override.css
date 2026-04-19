@@ -259,7 +259,7 @@ footer.footer .single-footer h2 {
   position: relative !important;
   cursor: default !important;
   border-left: none !important;
-  border-bottom: 3px solid #ffffff !important;
+  border-bottom: none !important;
   transform: none !important;
 }
 
@@ -432,7 +432,15 @@ footer.footer .single-footer {
 }
 
 footer.footer .single-footer h2::before {
-  display: none !important;
+  display: block !important;
+  position: absolute !important;
+  content: "" !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 50px !important;
+  height: 3px !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-radius: 999px !important;
 }
 
 footer.footer .single-footer h2::after {
