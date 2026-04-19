@@ -224,71 +224,71 @@
 
 <!-- jquery Min JS -->
 
-<script src="<?= JS_DIR ?>jquery.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'jquery.min.js') ?>"></script>
 
 <!-- jquery Migrate JS -->
 
-<script src="<?= JS_DIR ?>jquery-migrate-3.0.0.js"></script>
+<script src="<?= asset_url(JS_DIR . 'jquery-migrate-3.0.0.js') ?>"></script>
 
 <!-- jquery Ui JS -->
 
-<script src="<?= JS_DIR ?>jquery-ui.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'jquery-ui.min.js') ?>"></script>
 
 <!-- Easing JS -->
 
-<script src="<?= JS_DIR ?>easing.js"></script>
+<script src="<?= asset_url(JS_DIR . 'easing.js') ?>"></script>
 
 <!-- Color JS -->
 
-<script src="<?= JS_DIR ?>colors.js"></script>
+<script src="<?= asset_url(JS_DIR . 'colors.js') ?>"></script>
 
 <!-- Popper JS -->
 
-<script src="<?= JS_DIR ?>popper.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'popper.min.js') ?>"></script>
 
 <!-- Bootstrap Datepicker JS -->
 
-<script src="<?= JS_DIR ?>bootstrap-datepicker.js"></script>
+<script src="<?= asset_url(JS_DIR . 'bootstrap-datepicker.js') ?>"></script>
 
 <!-- Jquery Nav JS -->
 
-<script src="<?= JS_DIR ?>jquery.nav.js"></script>
+<script src="<?= asset_url(JS_DIR . 'jquery.nav.js') ?>"></script>
 
 <!-- Slicknav JS -->
 
-<script src="<?= JS_DIR ?>slicknav.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'slicknav.min.js') ?>"></script>
 
 <!-- ScrollUp JS -->
 
-<script src="<?= JS_DIR ?>jquery.scrollUp.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'jquery.scrollUp.min.js') ?>"></script>
 
 <!-- Niceselect JS -->
 
-<script src="<?= JS_DIR ?>niceselect.js"></script>
+<script src="<?= asset_url(JS_DIR . 'niceselect.js') ?>"></script>
 
 <!-- Tilt Jquery JS -->
 
-<script src="<?= JS_DIR ?>tilt.jquery.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'tilt.jquery.min.js') ?>"></script>
 
 <!-- Owl Carousel JS -->
 
-<script src="<?= JS_DIR ?>owl-carousel.js"></script>
+<script src="<?= asset_url(JS_DIR . 'owl-carousel.js') ?>"></script>
 
 <!-- counterup JS -->
 
-<script src="<?= JS_DIR ?>jquery.counterup.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'jquery.counterup.min.js') ?>"></script>
 
 <!-- Steller JS -->
 
-<script src="<?= JS_DIR ?>steller.js"></script>
+<script src="<?= asset_url(JS_DIR . 'steller.js') ?>"></script>
 
 <!-- Wow JS -->
 
-<script src="<?= JS_DIR ?>wow.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'wow.min.js') ?>"></script>
 
 <!-- Magnific Popup JS -->
 
-<script src="<?= JS_DIR ?>jquery.magnific-popup.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'jquery.magnific-popup.min.js') ?>"></script>
 
 <!-- Counter Up CDN JS -->
 
@@ -296,7 +296,7 @@
 
 <!-- Bootstrap JS -->
 
-<script src="<?= JS_DIR ?>bootstrap.min.js"></script>
+<script src="<?= asset_url(JS_DIR . 'bootstrap.min.js') ?>"></script>
 
 <!-- Main JS -->
 <!-- GMaps JS (doit être chargé avant les scripts qui utilisent `GMaps`) -->
@@ -304,11 +304,11 @@
 <?php if(!empty($INCLUDE_GOOGLE_MAPS)) : ?>
     <!-- Load Google Maps API asynchronously; set a valid API key in a secure config -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
-    <script src="<?= JS_DIR ?>gmaps.min.js"></script>
-    <script src="<?= JS_DIR ?>map-active.js"></script>
+    <script src="<?= asset_url(JS_DIR . 'gmaps.min.js') ?>"></script>
+    <script src="<?= asset_url(JS_DIR . 'map-active.js') ?>"></script>
 <?php endif; ?>
 
-<script src="<?= JS_DIR ?>main.js"></script>
+<script src="<?= asset_url(JS_DIR . 'main.js') ?>"></script>
 
 </body>
 

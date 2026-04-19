@@ -74,6 +74,11 @@ Version:	1.1
 			duration: 300,
 			closeOnClick:true,
 		});
+
+		var mobileDatabaseLink = '<li class="mobile-menu-database"><a href="https://sn1325.org/" target="_blank" rel="noopener noreferrer">Base de donnees SN1325</a></li>';
+		if ($('.mobile-nav .slicknav_nav .mobile-menu-database').length === 0) {
+			$('.mobile-nav .slicknav_nav').append(mobileDatabaseLink);
+		}
 		
 		/*===============================
 			Hero Slider JS

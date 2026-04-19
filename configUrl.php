@@ -42,6 +42,34 @@ function url(string $path): string {
     return BASE_URL . ltrim($path, '/');
 }
 
+// Helper pour versionner les assets statiques et éviter le cache navigateur.
+function asset_url(string $path): string {
+    if ($path === '' || preg_match('#^(https?:)?//#i', $path)) {
+        return $path;
+    }
+
+    $parts = parse_url($path);
+    if ($parts === false || empty($parts['path'])) {
+        return $path;
+    }
+
+    $assetPath = $parts['path'];
+    $projectPrefix = trim(PROJECT_ROOT_URL, '/');
+    $relativePath = ltrim($assetPath, '/');
+
+    if ($projectPrefix !== '' && strpos($relativePath, $projectPrefix . '/') === 0) {
+        $relativePath = substr($relativePath, strlen($projectPrefix) + 1);
+    }
+
+    $absolutePath = ROOT_DIR . str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
+    if (!is_file($absolutePath)) {
+        return $path;
+    }
+
+    $separator = strpos($path, '?') === false ? '?' : '&';
+    return $path . $separator . 'v=' . filemtime($absolutePath);
+}
+
 // URLs des pages
 define('URL_404', BASE_URL . 'pagesweb/404/');
 define('URL_ACCUEIL', BASE_URL);

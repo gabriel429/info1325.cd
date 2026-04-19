@@ -38,19 +38,19 @@
 
 <!-- Bootstrap CSS -->
 
-		<link rel="stylesheet" href="<?= CSS_DIR ?>bootstrap.min.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'bootstrap.min.css') ?>">
 
 		<!-- Nice Select CSS -->
 
-		<link rel="stylesheet" href="<?= CSS_DIR ?>nice-select.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'nice-select.css') ?>">
 
 		<!-- Font Awesome CSS -->
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>font-awesome.min.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'font-awesome.min.css') ?>">
 
 		<!-- icofont CSS -->
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>icofont.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'icofont.css') ?>">
 
         
 			<?php
@@ -65,42 +65,42 @@
 			?>
 		<!-- Slicknav -->
 
-		<link rel="stylesheet" href="<?= CSS_DIR ?>slicknav.min.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'slicknav.min.css') ?>">
 
 		<!-- Owl Carousel CSS -->
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>owl-carousel.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'owl-carousel.css') ?>">
 
 		<!-- Datepicker CSS -->
 
-		<link rel="stylesheet" href="<?= CSS_DIR ?>datepicker.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'datepicker.css') ?>">
 
 		<!-- Animate CSS -->
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>animate.min.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'animate.min.css') ?>">
 
 		<!-- Magnific Popup CSS -->
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>magnific-popup.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'magnific-popup.css') ?>">
 
 		
 
 		<!-- Medipro CSS -->
 
-        <link rel="stylesheet" href="<?= CSS_DIR ?>normalize.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'normalize.css') ?>">
 
-		<link rel="stylesheet" href="<?= CSS_DIR ?>style.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'style.css') ?>">
 
-		<link rel="stylesheet" href="<?= CSS_DIR ?>responsive.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'responsive.css') ?>">
 		<!-- Theme overrides: CareMed-inspired variables (applies site-wide) -->
-		<link rel="stylesheet" href="<?= CSS_DIR ?>caremed-variables.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'caremed-variables.css') ?>">
 		<!-- Material Design 3 Global Styles -->
-		<link rel="stylesheet" href="<?= CSS_DIR ?>material-design-global.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'material-design-global.css') ?>">
 		<?php if (!empty($pageCss)) : ?>
-			<link rel="stylesheet" href="<?= $pageCss ?>">
+			<link rel="stylesheet" href="<?= asset_url($pageCss) ?>">
 		<?php endif; ?>
 		<!-- Override global pour tous les boutons - charge en dernier -->
-		<link rel="stylesheet" href="<?= CSS_DIR ?>buttons-override.css">
+		<link rel="stylesheet" href="<?= asset_url(CSS_DIR . 'buttons-override.css') ?>">
 
 		<style>
 			/* Réduction des grands espaces entre sections pour la page d'accueil */
@@ -301,8 +301,6 @@
 												</ul>
 
 											</li>
-
-											<li class="mobile-menu-only"><a href="https://sn1325.org/" target="_blank" rel="noopener noreferrer">BASE DE DONNÉES</a></li>
 
 										</ul>
 
