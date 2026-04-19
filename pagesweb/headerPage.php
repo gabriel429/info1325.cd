@@ -256,15 +256,7 @@
 								<div class="logo">
 
 									<a href="https://info1325.cd/">
-
- 									 <div style="width: 250px; height: 80px; aspect-ratio:1/1;">
-
-  									<img src="<?= IMG_DIR ?>logoMingenre02.png" alt="logo">
-
-									</div>
-
-
-
+										<img src="<?= IMG_DIR ?>logoMingenre02.png" alt="logo" class="logo-img">
 									</a>
 
 								</div>
