@@ -211,6 +211,17 @@ body {
   background: rgba(255, 255, 255, 0.94);
 }
 
+.schedule .single-schedule .single-content h4,
+.schedule .single-schedule .single-content p,
+.schedule .single-schedule .single-content .time-sidual li,
+.schedule .single-schedule .single-content a {
+  color: #12304f;
+}
+
+.schedule .single-schedule .single-content a::before {
+  background: #0f63ad;
+}
+
 .schedule .single-schedule .icon {
   width: 56px;
   height: 56px;
