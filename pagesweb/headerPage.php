@@ -192,6 +192,15 @@
 	
 
 		<!-- Header Area -->
+		<?php
+		$currentScript = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+		$requestPath = (string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
+		$isHomePage = $currentScript === '' || $currentScript === 'index.php' || $requestPath === '/' || preg_match('#/info1325\.cd/?$#', $requestPath);
+		$isActualitesPage = in_array($currentScript, ['actualites.php', 'actualites-list.php'], true);
+		$isDocumentationPage = in_array($currentScript, ['documentation.php', 'all-documentations.php', 'documentation_event.php'], true);
+		$isResolutionPage = $currentScript === 'resolution.php';
+		$isSecretariatGroup = in_array($currentScript, ['secretariat.php', 'contact.php', 'gallery.php'], true);
+		?>
 
 		<header class="header" >
 
@@ -281,22 +290,22 @@
 
 										<ul class="nav menu">
 
-											<li class="active"><a href="https://info1325.cd/">Accueil</a>
+												<li class="<?= $isHomePage ? 'active' : '' ?>"><a href="https://info1325.cd/">Accueil</a>
 
 											</li>
 
-											<li><a href="<?= URL_ACTUALITES ?>">ACTUALITÉS</a></li>
+												<li class="<?= $isActualitesPage ? 'active' : '' ?>"><a href="<?= URL_ACTUALITES ?>">ACTUALITÉS</a></li>
 
-											<li><a href="<?= URL_DOCUMENTATION ?>">DOCUMENTATION</a></li>
+												<li class="<?= $isDocumentationPage ? 'active' : '' ?>"><a href="<?= URL_DOCUMENTATION ?>">DOCUMENTATION</a></li>
 
-											<li><a href="<?= URL_RESOLUTION1325 ?>">RÉSOLUTION<i class="icofont-rounded-down"></i></a></li>
+												<li class="<?= $isResolutionPage ? 'active' : '' ?>"><a href="<?= URL_RESOLUTION1325 ?>">RÉSOLUTION<i class="icofont-rounded-down"></i></a></li>
 
-											<li><a href="<?= URL_SECRETAIRIATNATIONAL ?>">SECRÉTARIAT<i class="icofont-rounded-down"></i></a>
+												<li class="<?= $isSecretariatGroup ? 'active' : '' ?>"><a href="<?= URL_SECRETAIRIATNATIONAL ?>">SECRÉTARIAT<i class="icofont-rounded-down"></i></a>
 
 												<ul class="dropdown">
 
-													<li><a href="<?= URL_CONTACT ?>">Contact</a></li>
-													<li><a href="<?= URL_GALERIE ?>">Galerie</a></li>
+														<li class="<?= $currentScript === 'contact.php' ? 'active' : '' ?>"><a href="<?= URL_CONTACT ?>">Contact</a></li>
+														<li class="<?= $currentScript === 'gallery.php' ? 'active' : '' ?>"><a href="<?= URL_GALERIE ?>">Galerie</a></li>
 
 												</ul>
 
