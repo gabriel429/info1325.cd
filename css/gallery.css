@@ -1,4 +1,366 @@
-/* Gallery - Material Design 3 */
-/* Variables globales définies dans caremed-variables.css - ne pas redéfinir :root ici */
+body {
+  background:
+    radial-gradient(circle at top left, rgba(15, 99, 173, 0.06), transparent 28%),
+    linear-gradient(180deg, #f4f8fc 0%, #f9f4ec 100%);
+}
 
-/* Hero Section */\n.caremed-hero {\n  padding: 80px 0 60px;\n  background: linear-gradient(135deg, var(--primary) 0%, var(--tertiary) 100%);\n  color: #fff;\n  position: relative;\n  overflow: hidden;\n}\n\n.caremed-hero::before {\n  content: '';\n  position: absolute;\n  top: -50%;\n  right: -10%;\n  width: 500px;\n  height: 500px;\n  background: rgba(255, 255, 255, 0.05);\n  border-radius: 50%;\n  animation: float 6s ease-in-out infinite;\n}\n\n@keyframes float {\n  0%, 100% { transform: translateY(0px); }\n  50% { transform: translateY(20px); }\n}\n\n.caremed-hero .hero-content {\n  max-width: 900px;\n  margin: 0 auto;\n  text-align: center;\n  position: relative;\n  z-index: 1;\n}\n\n.caremed-hero h1 {\n  font-size: 42px;\n  font-weight: 700;\n  margin: 12px 0;\n  letter-spacing: -0.5px;\n  animation: slideDown 0.6s ease-out;\n}\n\n.caremed-hero .lead {\n  opacity: 0.95;\n  font-size: 18px;\n  line-height: 1.6;\n  animation: slideUp 0.6s ease-out 0.2s both;\n}\n\n@keyframes slideDown {\n  from { opacity: 0; transform: translateY(-20px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n@keyframes slideUp {\n  from { opacity: 0; transform: translateY(20px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n/* Gallery Container */\n.gallery-section {\n  padding: 60px 20px;\n  background: linear-gradient(180deg, #fefdfb 0%, #f7f2e9 100%);\n}\n\n.gallery-section .section-title {\n  text-align: center;\n  font-size: 32px;\n  font-weight: 700;\n  color: var(--primary);\n  margin-bottom: 40px;\n}\n\n/* Gallery Grid */\n.gallery-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));\n  gap: 24px;\n  max-width: 1400px;\n  margin: 0 auto;\n}\n\n.gallery-item {\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: var(--elevation-2);\n  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);\n  cursor: pointer;\n  position: relative;\n  height: 280px;\n  background: var(--surface);\n}\n\n.gallery-item:hover {\n  box-shadow: var(--elevation-4);\n  transform: translateY(-8px);\n}\n\n.gallery-item img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  display: block;\n  transition: transform 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);\n}\n\n.gallery-item:hover img {\n  transform: scale(1.08);\n}\n\n/* Overlay */\n.gallery-item .overlay {\n  position: absolute;\n  inset: 0;\n  background: linear-gradient(180deg, rgba(17, 82, 147, 0) 0%, rgba(17, 82, 147, 0.7) 100%);\n  display: flex;\n  align-items: flex-end;\n  padding: 20px;\n  opacity: 0;\n  transition: opacity 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);\n}\n\n.gallery-item:hover .overlay {\n  opacity: 1;\n}\n\n.gallery-item .overlay-content {\n  color: #fff;\n}\n\n.gallery-item .overlay-title {\n  font-size: 18px;\n  font-weight: 700;\n  margin: 0 0 8px 0;\n}\n\n.gallery-item .overlay-description {\n  font-size: 13px;\n  opacity: 0.9;\n  line-height: 1.4;\n}\n\n/* Gallery Modal/Lightbox */\n.gallery-modal {\n  display: none;\n  position: fixed;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.9);\n  z-index: 1000;\n  align-items: center;\n  justify-content: center;\n  animation: fadeIn 0.3s ease-out;\n}\n\n.gallery-modal.active {\n  display: flex;\n}\n\n@keyframes fadeIn {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n\n.gallery-modal .modal-content {\n  position: relative;\n  max-width: 90%;\n  max-height: 90%;\n  background: var(--surface);\n  border-radius: 16px;\n  padding: 0;\n  box-shadow: var(--elevation-5);\n}\n\n.gallery-modal img {\n  width: 100%;\n  height: auto;\n  display: block;\n  border-radius: 16px;\n}\n\n.gallery-modal .modal-close {\n  position: absolute;\n  top: -40px;\n  right: 0;\n  background: rgba(255, 255, 255, 0.1);\n  border: none;\n  color: #fff;\n  font-size: 32px;\n  cursor: pointer;\n  width: 40px;\n  height: 40px;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);\n}\n\n.gallery-modal .modal-close:hover {\n  background: rgba(255, 255, 255, 0.2);\n  transform: scale(1.1);\n}\n\n/* Gallery Navigation Buttons */\n.gallery-nav {\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n  background: rgba(17, 82, 147, 0.8);\n  border: none;\n  color: #fff;\n  font-size: 24px;\n  cursor: pointer;\n  width: 50px;\n  height: 50px;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);\n  z-index: 10;\n}\n\n.gallery-nav:hover {\n  background: var(--secondary);\n  transform: translateY(-50%) scale(1.1);\n}\n\n.gallery-nav.prev {\n  left: 20px;\n}\n\n.gallery-nav.next {\n  right: 20px;\n}\n\n/* Gallery Filter Buttons */\n.gallery-filters {\n  display: flex;\n  justify-content: center;\n  gap: 12px;\n  margin-bottom: 40px;\n  flex-wrap: wrap;\n}\n\n.filter-btn {\n  padding: 10px 20px;\n  border: 2px solid var(--outline-variant);\n  background: var(--surface);\n  color: var(--primary);\n  border-radius: 12px;\n  cursor: pointer;\n  font-weight: 600;\n  font-size: 14px;\n  transition: all 0.3s cubic-bezier(0.2, 0, 0.38, 0.9);\n  box-shadow: var(--elevation-1);\n}\n\n.filter-btn:hover,\n.filter-btn.active {\n  background: linear-gradient(135deg, var(--primary), var(--tertiary));\n  color: #fff;\n  border-color: transparent;\n  box-shadow: var(--elevation-2);\n  transform: translateY(-2px);\n}\n\n/* Responsive */\n@media (max-width: 1024px) {\n  .gallery-grid {\n    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));\n    gap: 20px;\n  }\n\n  .gallery-item {\n    height: 240px;\n  }\n}\n\n@media (max-width: 768px) {\n  .caremed-hero {\n    padding: 60px 0 40px;\n  }\n\n  .caremed-hero h1 {\n    font-size: 28px;\n  }\n\n  .gallery-grid {\n    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));\n    gap: 16px;\n  }\n\n  .gallery-item {\n    height: 180px;\n  }\n\n  .gallery-section {\n    padding: 40px 16px;\n  }\n\n  .gallery-section .section-title {\n    font-size: 24px;\n    margin-bottom: 30px;\n  }\n}\n\n@media (max-width: 576px) {\n  .gallery-grid {\n    grid-template-columns: repeat(2, 1fr);\n  }\n\n  .gallery-item {\n    height: 150px;\n  }\n\n  .gallery-nav {\n    width: 40px;\n    height: 40px;\n    font-size: 20px;\n  }\n\n  .gallery-nav.prev {\n    left: 10px;\n  }\n\n  .gallery-nav.next {\n    right: 10px;\n  }\n\n  .gallery-modal .modal-content {\n    max-width: 95%;\n  }\n}\n
+.gallery-hero {
+  position: relative;
+  padding: 110px 0 88px;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.gallery-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(7, 46, 94, 0.84) 0%, rgba(15, 99, 173, 0.68) 52%, rgba(0, 167, 214, 0.3) 100%),
+    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.14), transparent 34%);
+}
+
+.gallery-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.gallery-hero .hero-content {
+  max-width: 780px;
+  color: #fff;
+}
+
+.gallery-hero .hero-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gallery-hero h1 {
+  margin: 18px 0 16px;
+  font-size: clamp(2.6rem, 4vw, 4.2rem);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  color: #fff;
+}
+
+.gallery-hero .lead {
+  max-width: 650px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.gallery-shell.section {
+  padding-top: 0 !important;
+}
+
+.gallery-intro {
+  margin-top: -38px;
+}
+
+.gallery-overview {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.overview-card,
+.gallery-lead-panel,
+.gallery-filters-panel,
+.gallery-card,
+.gallery-empty {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(17, 82, 147, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(18, 44, 79, 0.08);
+}
+
+.overview-card {
+  padding: 24px;
+}
+
+.overview-label,
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(15, 99, 173, 0.08);
+  color: #0f63ad;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.overview-card strong {
+  display: block;
+  margin-bottom: 10px;
+  color: #12304f;
+  font-size: 1.45rem;
+}
+
+.overview-card p,
+.gallery-lead-panel p,
+.gallery-meta,
+.gallery-empty p,
+.gallery-filters-header p {
+  margin: 0;
+  color: #5a6c80;
+  line-height: 1.75;
+}
+
+.gallery-lead-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.9fr);
+  gap: 28px;
+  padding: 30px;
+  margin-bottom: 24px;
+}
+
+.gallery-lead-panel h2,
+.gallery-filters-header h2,
+.gallery-empty h3 {
+  margin: 0 0 12px;
+  color: #12304f;
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  line-height: 1.08;
+}
+
+.gallery-points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gallery-points li {
+  position: relative;
+  padding-left: 18px;
+  color: #5a6c80;
+  line-height: 1.75;
+}
+
+.gallery-points li + li {
+  margin-top: 10px;
+}
+
+.gallery-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0f63ad, #00a7d6);
+}
+
+.gallery-filters-panel {
+  padding: 28px;
+}
+
+.gallery-filters-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-end;
+  margin-bottom: 18px;
+}
+
+.gallery-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: rgba(15, 99, 173, 0.06);
+  border: 1px solid rgba(15, 99, 173, 0.12);
+  color: #12304f;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.filter-btn .count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(18, 48, 79, 0.08);
+  color: #0f63ad;
+  font-size: 12px;
+}
+
+.filter-btn:hover,
+.filter-btn:focus,
+.filter-btn.active {
+  background: linear-gradient(135deg, #0f63ad, #00a7d6);
+  border-color: transparent;
+  box-shadow: 0 18px 34px rgba(15, 99, 173, 0.2);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.filter-btn:hover .count,
+.filter-btn:focus .count,
+.filter-btn.active .count {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.gallery-card {
+  overflow: hidden;
+}
+
+.gallery-link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.gallery-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.gallery-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.gallery-card:hover .gallery-media img {
+  transform: scale(1.06);
+}
+
+.gallery-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(7, 46, 94, 0.02), rgba(7, 46, 94, 0.24));
+}
+
+.gallery-body {
+  padding: 20px;
+}
+
+.gallery-body h3 {
+  margin: 0 0 8px;
+  color: #12304f;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.gallery-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.gallery-empty {
+  padding: 34px;
+  text-align: center;
+}
+
+@media (max-width: 1199px) {
+  .gallery-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 991px) {
+  .gallery-hero {
+    padding: 96px 0 74px;
+  }
+
+  .gallery-overview,
+  .gallery-lead-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-filters-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .gallery-hero {
+    padding: 84px 0 62px;
+  }
+
+  .gallery-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-intro {
+    margin-top: -24px;
+  }
+
+  .gallery-lead-panel,
+  .gallery-filters-panel,
+  .gallery-empty,
+  .overview-card {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 575px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-hero .lead {
+    font-size: 16px;
+  }
+
+  .filter-btn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .gallery-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

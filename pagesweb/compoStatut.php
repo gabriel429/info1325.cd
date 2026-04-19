@@ -1,26 +1,3 @@
-<!-- Bootstrap CSS -->
-		<link rel="stylesheet" href="<?= CSS_DIR ?>bootstrap.min.css">
-		<!-- Nice Select CSS -->
-		<link rel="stylesheet" href="<?= CSS_DIR ?>nice-select.css">
-		<!-- Font Awesome CSS -->
-        <link rel="stylesheet" href="<?= CSS_DIR ?>font-awesome.min.css">
-		<!-- icofont CSS -->
-        <link rel="stylesheet" href="<?= CSS_DIR ?>icofont.css">
-		<!-- Slicknav -->
-		<link rel="stylesheet" href="<?= CSS_DIR ?>slicknav.min.css">
-		<!-- Owl Carousel CSS -->
-        <link rel="stylesheet" href="<?= CSS_DIR ?>owl-carousel.css">
-		<!-- Datepicker CSS -->
-		<link rel="stylesheet" href="<?= CSS_DIR ?>datepicker.css">
-		<!-- Animate CSS -->
-        <link rel="stylesheet" href="<?= CSS_DIR ?>animate.min.css">
-		<!-- Magnific Popup CSS -->
-        <link rel="stylesheet" href="<?= CSS_DIR ?>magnific-popup.css">
-		
-		<!-- Medipro CSS -->
-        <link rel="stylesheet" href="<?= CSS_DIR ?>normalize.css">
-        <link rel="stylesheet" href="<?= CSS_DIR ?>style.css">
-        <link rel="stylesheet" href="<?= CSS_DIR ?>responsive.css">
 <!-- Start Fun-facts -->
 <?php
 require_once __DIR__ . '/../configUrl.php';
