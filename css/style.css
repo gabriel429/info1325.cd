@@ -775,6 +775,40 @@ body{
 	transition: color 0.3s ease;
 }
 
+@media (min-width: 992px) {
+	.header .header-inner .row {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+	}
+
+	.header .header-inner .row > .col-lg-3:first-child {
+		flex: 0 0 auto;
+		max-width: none;
+	}
+
+	.header .header-inner .row > .col-lg-6 {
+		flex: 1 1 auto;
+		max-width: none;
+		min-width: 0;
+	}
+
+	.header .header-inner .row > .col-lg-3:last-child {
+		flex: 0 0 auto;
+		max-width: none;
+	}
+
+	.header .main-menu,
+	.header .navigation {
+		width: 100%;
+	}
+
+	.header .get-quote {
+		margin-left: 16px;
+		white-space: nowrap;
+	}
+	}
+
 .header .nav li a::before {
 	position: absolute;
 	content: "";
