@@ -25,7 +25,7 @@
         <div class="hero-content">
             <div class="hero-breadcrumb">Accueil / Secrétariat</div>
             <h1>Secrétariat National 1325</h1>
-            <p class="lead">Coordination, actions et ressources pour la mise en œuvre de la Résolution 1325 en RDC.</p>
+            <p class="lead">Instance nationale de coordination, de suivi et d’appui technique pour la mise en œuvre de l’agenda Femmes, Paix et Sécurité en République Démocratique du Congo.</p>
         </div>
     </div>
 </section>
@@ -39,22 +39,22 @@
                                     <article class="overview-card">
                                         <span class="overview-label">Création officielle</span>
                                         <strong>2015</strong>
-                                        <p>Mise en place et installation par arrêtés ministériels.</p>
+                                        <p>Création et installation officielles par arrêtés ministériels du Ministère du Genre.</p>
                                     </article>
                                     <article class="overview-card">
                                         <span class="overview-label">Équipe nationale</span>
                                         <strong>16 experts</strong>
-                                        <p>4 permanents et 12 non permanents mobilisés autour du plan d’action.</p>
+                                        <p>4 experts permanents et 12 experts non permanents mobilisés autour du plan d’action national.</p>
                                     </article>
                                     <article class="overview-card">
                                         <span class="overview-label">Portée</span>
                                         <strong>Nationale</strong>
-                                        <p>Coordination, suivi et supervision de la mise en œuvre sur l’ensemble du pays.</p>
+                                        <p>Coordination, suivi, supervision et capitalisation des actions sur l’ensemble du territoire.</p>
                                     </article>
                                     <article class="overview-card">
                                         <span class="overview-label">Pilotage</span>
                                         <strong>Multi-acteurs</strong>
-                                        <p>Ministères, société civile, partenaires techniques et financiers.</p>
+                                        <p>Dispositif articulé entre institutions publiques, société civile et partenaires techniques et financiers.</p>
                                     </article>
                                 </div>
 
@@ -74,19 +74,19 @@
                                                         render_image_slider_from_dir($pageImgDirFs, '/\.(jpe?g|png|gif)$/i', $heroImgName, IMG_DIR . 'secretariat/', $heroFsPath);
                                                     } else {
                                                         // fallback: explicit list
-                                                        $sliderImages = ['didier.jpg', 'snational1325.png', 'snational132503.png'];
+                                                        $sliderImages = ['didier.jpg', 'snational132503.png', 'snational132504.png', 'snational132505.png', 'snational132506.png', 'snational132507.png', 'snational132508.png', 'snational132510.png', 'snational132511.png', 'snational132513.png'];
                                                         $imgFsDir = __DIR__ . '/../img/';
                                                         render_image_slider($sliderImages, $heroImgName, IMG_DIR, $imgFsDir);
                                                     }
                                                     ?>
                                                 </div>
-                                                <p class="story-caption">Le Secrétariat National 1325 assure la coordination des actions, la production de rapports et l’animation du dialogue entre institutions et société civile.</p>
+                                                <p class="story-caption">Galerie institutionnelle du Secrétariat National 1325, illustrant la coordination, les activités de suivi et les cadres de concertation mis en œuvre autour de la Résolution 1325.</p>
                                             </div>
                                             <div class="story-copy">
                                                 <span class="eyebrow">Structure de coordination</span>
                                                 <h2>Une instance opérationnelle au service de la Résolution 1325</h2>
-                                                <p>Le Secrétariat National de la Résolution 1325 en RDC est la structure chargée du suivi et de la gestion quotidienne de la mise en œuvre de la Résolution sur l’ensemble du pays.</p>
-                                                <p>Il a été créé et mis en place par deux arrêtés ministériels du 04 août 2015 : l’un portant création, organisation et fonctionnement et l’autre portant nomination des membres du secrétariat national, installé officiellement le 08 septembre 2015.</p>
+                                                <p>Le Secrétariat National de la Résolution 1325 en RDC constitue le dispositif technique chargé d’assurer le suivi opérationnel, la coordination quotidienne et l’animation institutionnelle de la mise en œuvre de la Résolution sur l’ensemble du territoire national.</p>
+                                                <p>Mis en place à la suite des arrêtés ministériels du 04 août 2015 portant création, organisation, fonctionnement et nomination de ses membres, il a été officiellement installé le 08 septembre 2015 pour soutenir l’ancrage national de l’agenda Femmes, Paix et Sécurité.</p>
                                                 <div class="story-highlights">
                                                     <span>Suivi national</span>
                                                     <span>Coordination interministérielle</span>
@@ -101,22 +101,22 @@
                                                 <div class="section-heading">
                                                     <span class="section-kicker">Organisation</span>
                                                     <h3>Composition du Secrétariat</h3>
-                                                    <p>Une architecture mixte qui associe expertise permanente et contribution institutionnelle élargie.</p>
+                                                    <p>Une architecture mixte qui associe un noyau opérationnel permanent à une contribution institutionnelle élargie, afin d’assurer expertise, représentation et relais sectoriels.</p>
                                                 </div>
                                                 <div class="composition-grid">
                                                     <article class="content-card accent-card">
                                                         <h4>Experts nationaux permanents</h4>
-                                                        <p class="card-intro">Le noyau opérationnel permanent assure la coordination administrative, financière, technique et logistique.</p>
+                                                        <p class="card-intro">Le noyau permanent garantit la continuité administrative, financière, technique et logistique du Secrétariat.</p>
                                                         <ul class="feature-list strong-list">
                                                             <li><strong>Madame Annie KENDA</strong> — Directeur chef de service Juridique et Secrétaire Permanente du Conseil national de la Femme : <strong>Coordonnatrice Nationale du SN1325</strong></li>
                                                             <li><strong>Madame Esther KAMUANYA</strong> — Directeur chef de service chargée des questions socioéconomiques : <strong>Chargée des Finances</strong></li>
-                                                            <li><strong>Monsieur Didier LAPIAR</strong> — Expert à la cellule d’étude et de planification au Ministère du Genre, de la Famille et de l’Enfant : <strong>Chargé de l’administration et des questions techniques</strong></li>
+                                                            <li><strong>Monsieur Didier LAPIARD</strong> — Expert à la cellule d’étude et de planification au Ministère du Genre, de la Famille et de l’Enfant : <strong>Chargé de l’administration et des questions techniques</strong></li>
                                                             <li><strong>Délégué du Cabinet de Madame la Ministre du Genre, Enfant et Famille</strong> — <strong>Chargé de la logistique</strong></li>
                                                         </ul>
                                                     </article>
                                                     <article class="content-card soft-card">
                                                         <h4>Experts nationaux non permanents</h4>
-                                                        <p class="card-intro">Douze expertises complémentaires issues des institutions publiques et de la société civile soutiennent le pilotage stratégique.</p>
+                                                        <p class="card-intro">Douze expertises complémentaires issues des institutions publiques et de la société civile appuient le pilotage stratégique, le plaidoyer et l’ancrage intersectoriel.</p>
                                                         <ul class="feature-list compact-list">
                                                             <li>Un(e) Expert(e) du Ministère de la Justice</li>
                                                             <li>Un(e) Expert(e) du Ministère des Affaires Étrangères</li>
@@ -137,7 +137,7 @@
                                                 <div class="section-heading">
                                                     <span class="section-kicker">Mandat opérationnel</span>
                                                     <h3>Missions assignées au SN1325</h3>
-                                                    <p>Le Secrétariat agit comme centre de coordination, de suivi, d’accompagnement technique et de capitalisation.</p>
+                                                    <p>Le Secrétariat agit comme centre de coordination, de suivi, d’accompagnement technique, de concertation et de capitalisation des actions engagées.</p>
                                                 </div>
                                                 <div class="mission-grid">
                                                     <article class="mission-card"><span>01</span><p>Participer aux activités du programme, conduire des missions de suivi et produire des rapports périodiques sur l’état de mise en œuvre du plan d’action national.</p></article>
@@ -156,7 +156,7 @@
                                                 <div class="section-heading">
                                                     <span class="section-kicker">Écosystème</span>
                                                     <h3>Structure institutionnelle et partenaires</h3>
-                                                    <p>La mise en œuvre repose sur une coordination institutionnelle forte, relayée par des partenaires techniques et financiers.</p>
+                                                    <p>La mise en œuvre de la Résolution 1325 repose sur une coordination institutionnelle forte, relayée par des partenaires techniques et financiers engagés dans l’agenda genre, paix et sécurité.</p>
                                                 </div>
                                                 <div class="institution-cards">
                                                     <article class="inst-card" aria-labelledby="inst-acteurs">
@@ -185,7 +185,7 @@
                                                 <div class="section-heading">
                                                     <span class="section-kicker">Impact</span>
                                                     <h3>Résultats et défis</h3>
-                                                    <p>Des avancées réelles sont constatées, mais elles restent fragiles face à des contraintes structurelles fortes.</p>
+                                                    <p>Des avancées réelles sont observées dans la prise en compte du genre, mais elles demeurent fragiles face aux contraintes institutionnelles, sécuritaires et financières.</p>
                                                 </div>
                                                 <div class="results-cards">
                                                     <article class="result-card success-card" aria-labelledby="res-succes">
@@ -213,7 +213,7 @@
                                                 <div>
                                                     <span class="section-kicker">Rester connecté</span>
                                                     <h3>Suivre les actions du Secrétariat</h3>
-                                                    <p>Retrouvez les publications, prises de parole et actualités liées à la mise en œuvre de la Résolution 1325 en RDC.</p>
+                                                    <p>Retrouvez les publications, interventions publiques, informations institutionnelles et actualités liées à la mise en œuvre de la Résolution 1325 en RDC.</p>
                                                 </div>
                                                 <div class="share">
                                     <h4>Nous suivre</h4>
@@ -250,7 +250,7 @@
                                             <article class="sidebar-card contact-card">
                                                 <span class="sidebar-label">Coordination</span>
                                                 <h4>Secrétariat National 1325</h4>
-                                                <p>Kinshasa-Gombe, en diagonale du Premier Shopping Mall, dans la concession du Secrétariat au Développement Rural.</p>
+                                                <p>Le Secrétariat reçoit au siège de coordination à Kinshasa-Gombe, dans la concession du Secrétariat au Développement Rural, en diagonale du Premier Shopping Mall.</p>
                                                 <ul class="contact-points">
                                                     <li><i class="fa fa-envelope" aria-hidden="true"></i><span>contact@sn1325.cd</span></li>
                                                     <li><i class="fa fa-calendar" aria-hidden="true"></i><span>Lundi à vendredi, 8h00 à 16h00</span></li>

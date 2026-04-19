@@ -9,22 +9,61 @@ $SKIP_PAGE_TITLE = true; // hide header h2; this page has its own hero
 require_once $headerPath; // inclut le head et ouvre <body>
 ?>
 
-<!-- Hero (CareMed-style) -->
-<section class="caremed-hero" style="background-color:var(--primary);">
+<!-- Hero -->
+<section class="caremed-hero resolution-hero" style="background-color:var(--primary);">
   <div class="overlay"></div>
   <div class="container">
     <div class="hero-content">
+      <div class="hero-breadcrumb">Accueil / Résolution 1325</div>
       <h1>RÉSOLUTION 1325</h1>
-      <p class="lead">Texte officiel, ressources et guides pour la mise en œuvre nationale.</p>
+      <p class="lead">Cadre de référence, repères d’analyse et ressources documentaires pour la mise en œuvre de l’agenda Femmes, Paix et Sécurité en RDC.</p>
     </div>
   </div>
 </section>
 
-<main>
+<section class="resolution-intro section">
+  <div class="container">
+    <div class="resolution-overview">
+      <article class="overview-card">
+        <span class="overview-label">Référence</span>
+        <strong>ONU 1325</strong>
+        <p>Texte fondateur du Conseil de sécurité sur les femmes, la paix et la sécurité.</p>
+      </article>
+      <article class="overview-card">
+        <span class="overview-label">Finalité</span>
+        <strong>Participation et protection</strong>
+        <p>Renforcer la place des femmes dans la prévention, la gestion des conflits et la consolidation de la paix.</p>
+      </article>
+      <article class="overview-card">
+        <span class="overview-label">Usage</span>
+        <strong>Document de travail</strong>
+        <p>Base d’orientation pour l’action publique, le plaidoyer et les programmes de mise en œuvre.</p>
+      </article>
+    </div>
+
+    <div class="resolution-lead-panel">
+      <div class="lead-copy">
+        <span class="section-kicker">Lecture guidée</span>
+        <h2>Comprendre la Résolution avant de la mettre en œuvre</h2>
+        <p>Cette page rassemble les extraits structurants de la Résolution 1325 et les principaux éléments d’analyse utiles aux institutions, organisations de la société civile, partenaires et praticiens engagés dans l’agenda Femmes, Paix et Sécurité.</p>
+      </div>
+      <div class="lead-aside">
+        <span class="aside-label">Repères rapides</span>
+        <ul class="lead-points">
+          <li>Lecture synthétique du cadre normatif</li>
+          <li>Focus sur la participation, la prévention et la protection</li>
+          <li>Accès direct au document PDF officiel en fin de page</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="resolution-main">
 
 <!-- Contenu principal — sections documentaires -->
 
-<section data-doc-section id='i-introduction-g-n-rale'>
+<section class="doc-card open" data-doc-section id='i-introduction-g-n-rale'>
 
 
 <h2 class="doc-section-title">LA RÉSOLUTION 1325 À L’ÉCHELLE NATIONALE</h2>
@@ -36,7 +75,7 @@ require_once $headerPath; // inclut le head et ouvre <body>
 
 </section>
 
-<section data-doc-section id='i-i'>
+<section class="doc-card" data-doc-section id='i-i'>
 
 <h2 class="doc-section-title">I. Introduction générale</h2>
 
@@ -48,7 +87,7 @@ require_once $headerPath; // inclut le head et ouvre <body>
 
 <!-- (Pour gagner en lisibilité le long contenu a été conservé mais retiré des duplications) -->
 
-<section data-doc-section id='ii-i'>
+<section class="doc-card" data-doc-section id='ii-i'>
 
 <h2 class="doc-section-title">II. Introduction aux concepts   Objectifs   </h2>
 
@@ -64,7 +103,7 @@ require_once $headerPath; // inclut le head et ouvre <body>
 
 <p class="doc-paragraph">économique, la sécurité alimentair e, la sécurité sanitaire, la sécurité environnementale, la  sécurité personnelle, la s écurité communautaire et la sécurité politique.    30. Le rapport du Secrétaire général de l’ ONU sur les Objectifs du Millénaire abonde  dans le même sens. La10 liberté de vivre à l’abri du besoin  et la liberté de vivre à l’abri  de la peur  est un appel qui place la personne humain e au cœur de l’agenda international  et qui promeut une conception de la sécurité  construite concomitamme nt sur le droit au  développement et le droit de vivre dans un environnement sécuritaire.   31. Dans la foulée du rapport sur les Object ifs du Millénaire, la Commission sur la  sécurité humaine a produit en 2003 le rapport intitulé La sécurité humaine maintenant .  Ce rapport met l’accent sur la sécurité économique et l’accès universel aux  droits socioéconomiques, la garantie des libertés  ci viles et politiques, la protection des citoyens  contre les menaces et contre les violences,  notamment celles perpétrées par les armes  légères. La dignité humaine y est présentée comme une valeur  centrale, d’où la nécessité,  pour la communauté internationale, de chercher des  solutions qui dépassent l’assistance des individus, mais qui visent  leur véritable autonomie.   32. La Déclaration finale du Sommet mondial de 2005 va dans la même direction. À  l’issu de ce Sommet, les chefs d’État et  de gouvernement ont affirmé leur volonté  d’élaborer une doctrine de sécurité comm une, fondée sur la constatation que de  nombreuses menaces sont étroitement imbri quées, que le développement, la paix, la  sécurité et les droits de l’homme sont interdépendants 11.   33. À l’échelle régionale, l’Union africaine endosse le concept de sécurité humaine interprété dans son sens holistique. Le Pacte 12 de non agression et de défense commune  de l’Union africaine stipule da ns son article 1(w) que « la sécurité humaine signifie la  sécurité de l’individu eu égard à la satis faction de ses besoins fondamentaux. Elle  comprend également la création des conditio ns sociales, économiques, politiques,  environnementales et culturelles nécessaires à la survie et à la dignité de l’individu, y  compris la protection et le respect des droits  humains, la bonne gouvernan ce et la garantie  à chaque individu des opportunités et de s choix de son plein épanouissement ».    34. Lors du lancement solennel du Conseil de paix  et de sécurité de  l’Union africaine,  les chefs d’État et de gouvern ements ont déclaré: « Nous 13 reconnaissons que les  fondements de la paix et de la sécurité en  Afrique sont intimement liés au concept de  sécurité humaine. En conséquence, nous réaffirmons notre engagements à promouvoir une vision globale de la sécurité humaine ».                                                      10 Organisation des Nations Unies,  Nous les peuples, le rôle des Nations Unies au XX ème siècle,  para 194  et 202  11 Nations Unies, Assemblée générale, Document final du Sommet mondial de 2005, para 72 (A/60/L.1*)  12 Pacte de non agression et de défense commune de l’Union africaine, adopté le 31 janvier 2005, à Abuja,  Nigeria  13 Déclaration d’engagement en faveur de la paix et de la sécurité en Afrique, des chefs d’État et de  gouvernement des États membres du Conseil de paix et de sécurité de l’Union africaine. Addis Ababa, 25  mai 2004   13</p>
 
-<section data-doc-section id='iii-l'>
+<section class="doc-card" data-doc-section id='iii-l'>
 
 <h2 class="doc-section-title">III. Les femmes, la paix et la sécurité : analyse des conflits africains et des défis  sexospécifiques afférents</h2>
 
