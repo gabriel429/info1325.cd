@@ -271,7 +271,7 @@
 
 							</div>
 
-							<div class="col-lg-7 col-md-9 col-12">
+							<div class="col-lg-6 col-md-9 col-12">
 
 								<!-- Main Menu -->
 
@@ -312,11 +312,11 @@
 
 							</div>
 
-							<div class="col-lg-2 col-12">
+							<div class="col-lg-3 col-12">
 
 								<div class="get-quote">
 
-									<a href="https://sn1325.org/" target="_blank" class="btn">Base de données SN1325</a>
+									<a href="https://sn1325.org/" target="_blank" rel="noopener noreferrer" class="btn">Base de données SN1325</a>
 
 								</div>
 
