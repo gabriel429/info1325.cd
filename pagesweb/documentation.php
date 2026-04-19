@@ -1,19 +1,11 @@
 <?php
 
-// ===============================
-
-// documentation.php
-
-// Composant Documentation SN1325
-
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
-require_once $dateDbConnect; // Connexion PDO
+require_once $dateDbConnect;
 
-// Page-specific CSS
 $pageCss = CSS_DIR . 'documentation.css';
 
-// Récupération des documentations depuis la base
 try {
     $stmt = $pdo->query("SELECT * FROM documentations ORDER BY datePub DESC");
     $docs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,61 +13,134 @@ try {
     die("Erreur de récupération : " . $e->getMessage());
 }
 
-// Composants header/footer
-$SKIP_PAGE_TITLE = true; // hide the header-rendered h2 for this page
-require_once $headerPath;
+$featuredDocs = array_slice($docs, 0, 3);
+$libraryDocs = array_slice($docs, 3);
+$totalDocs = count($docs);
+$latestDocYear = !empty($docs[0]['anneePub']) ? $docs[0]['anneePub'] : date('Y');
 
+$SKIP_PAGE_TITLE = true;
+require_once $headerPath;
 ?>
 
-<!-- Hero -->
 <?php $hero = BASE_URL . 'img/documentations/hero-docs.jpg'; ?>
-<section class="caremed-hero" style="background-image: url('<?= $hero ?>');">
+<section class="caremed-hero documentation-hero" style="background-image: url('<?= $hero ?>');">
     <div class="overlay"></div>
     <div class="container">
         <div class="hero-content">
-            <h1>DOCUMENTATION 1325</h1>
-            <p class="lead">Retrouvez nos publications, rapports et ressources téléchargeables.</p>
+            <div class="hero-breadcrumb">Accueil / Documentation</div>
+            <h1>Documentation 1325</h1>
+            <p class="lead">Retrouvez les publications, rapports, plans d’action et ressources de référence mobilisés par le Secrétariat National 1325.</p>
         </div>
     </div>
 </section>
 
-<!-- Grid -->
+<section class="documentation-intro section">
+    <div class="container">
+        <div class="documentation-overview">
+            <article class="overview-card">
+                <span class="overview-label">Bibliothèque active</span>
+                <strong><?= $totalDocs ?> ressources</strong>
+                <p>Ensemble des publications, textes normatifs et rapports archivés sur la plateforme.</p>
+            </article>
+            <article class="overview-card">
+                <span class="overview-label">Mise à jour</span>
+                <strong><?= htmlspecialchars((string) $latestDocYear) ?></strong>
+                <p>Année la plus récente disponible dans la collection documentaire publiée.</p>
+            </article>
+            <article class="overview-card">
+                <span class="overview-label">Accès</span>
+                <strong>Lecture et téléchargement</strong>
+                <p>Chaque ressource peut être consultée en ligne ou récupérée pour diffusion et travail interne.</p>
+            </article>
+        </div>
+
+        <div class="doc-lead-panel">
+            <div class="lead-copy">
+                <span class="section-kicker">Centre de ressources</span>
+                <h2>Une bibliothèque documentaire au service du plaidoyer et de l’action</h2>
+                <p>Cette page rassemble les outils de référence utiles aux institutions, partenaires techniques, organisations de la société civile, chercheurs et praticiens investis dans l’agenda Femmes, Paix et Sécurité.</p>
+            </div>
+            <div class="lead-aside">
+                <span class="aside-label">Repères rapides</span>
+                <ul class="lead-points">
+                    <li>Plans d’action nationaux et rapports pays</li>
+                    <li>Cadres juridiques et textes de référence</li>
+                    <li>Accès direct aux fichiers PDF suivis par la plateforme</li>
+                </ul>
+            </div>
+        </div>
+
+        <?php if (!empty($featuredDocs)): ?>
+            <div class="featured-docs">
+                <?php foreach ($featuredDocs as $doc):
+                    $docId = (int) ($doc['id'] ?? 0);
+                    $imgName = $doc['img'] ?? '';
+                    $imgPath = BASE_URL . 'img/documentations/' . rawurlencode($imgName);
+                    $pdfFileName = basename($doc['fichier_pdf'] ?? '');
+                    $viewUrl = ($docId > 0 && $pdfFileName !== '')
+                        ? BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId . '&action=view&file=' . rawurlencode($pdfFileName)
+                        : '#';
+                    $downloadUrl = ($docId > 0 && $pdfFileName !== '')
+                        ? BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId . '&action=download&file=' . rawurlencode($pdfFileName)
+                        : '#';
+                ?>
+                    <article class="featured-doc-card">
+                        <div class="featured-thumb" style="background-image:url('<?= htmlspecialchars($imgPath) ?>')"></div>
+                        <div class="featured-body">
+                            <span class="feature-meta"><?= htmlspecialchars(date('d M Y', strtotime($doc['datePub'] ?? 'now'))) ?></span>
+                            <h3><a href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($doc['titreDoc'] ?? 'Document') ?></a></h3>
+                            <p><?= htmlspecialchars($doc['auteur'] ?? 'Publication SN1325') ?><?php if (!empty($doc['anneePub'])): ?> · <?= htmlspecialchars($doc['anneePub']) ?><?php endif; ?></p>
+                            <div class="featured-actions">
+                                <a class="btn btn-outline-primary" href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener">Voir</a>
+                                <a class="btn btn-primary" href="<?= htmlspecialchars($downloadUrl) ?>" rel="noopener">Télécharger</a>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+
 <section class="section documentation-grid">
     <div class="container">
-        <div class="row">
+        <div class="section-heading">
+            <span class="section-kicker">Bibliothèque complète</span>
+            <h3>Toutes les publications disponibles</h3>
+            <p>Parcourez l’ensemble des documents archivés et accédez rapidement aux versions de consultation et de téléchargement.</p>
+        </div>
+
+        <div class="doc-library-grid">
             <?php foreach ($docs as $doc):
-                    $imgName = $doc['img'] ?? '';
-                    $docId = (int)($doc['id'] ?? 0);
-                    $encodedImg = rawurlencode($imgName);
-                    $imgPath = BASE_URL . 'img/documentations/' . $encodedImg;
-                    $pdfFile = ROOT_DIR . 'img/documentations/' . ($doc['fichier_pdf'] ?? '');
-                    $pdfFileName = basename($doc['fichier_pdf'] ?? '');
-                    $pdfPath = file_exists($pdfFile) ? BASE_URL . 'img/documentations/' . $pdfFileName : '#';
-                    $trackingBase = BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId;
-                    $viewUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=view&file=' . rawurlencode($pdfFileName)) : '#';
-                    $downloadUrl = ($docId > 0 && $pdfPath !== '#') ? ($trackingBase . '&action=download&file=' . rawurlencode($pdfFileName)) : '#';
+                $imgName = $doc['img'] ?? '';
+                $docId = (int) ($doc['id'] ?? 0);
+                $encodedImg = rawurlencode($imgName);
+                $imgPath = BASE_URL . 'img/documentations/' . $encodedImg;
+                $pdfFileName = basename($doc['fichier_pdf'] ?? '');
+                $viewUrl = ($docId > 0 && $pdfFileName !== '')
+                    ? BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId . '&action=view&file=' . rawurlencode($pdfFileName)
+                    : '#';
+                $downloadUrl = ($docId > 0 && $pdfFileName !== '')
+                    ? BASE_URL . 'pagesweb/documentation_event.php?doc_id=' . $docId . '&action=download&file=' . rawurlencode($pdfFileName)
+                    : '#';
             ?>
-            <div class="col-lg-4 col-md-6 col-12 mb-4">
-                <div class="doc-card">
+                <article class="doc-card">
                     <a class="doc-thumb-link" href="<?= htmlspecialchars($imgPath) ?>" title="<?= htmlspecialchars($doc['titreDoc'] ?? '') ?>">
                         <div class="doc-thumb" style="background-image:url('<?= htmlspecialchars($imgPath) ?>')"></div>
                     </a>
                     <div class="doc-body">
-                        <div class="doc-meta"><?= htmlspecialchars(date('d M, Y', strtotime($doc['datePub']))) ?></div>
-                                                <div class="doc-title"><a href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($doc['titreDoc']) ?></a></div>
-                        <div class="doc-excerpt">Auteur: <?= htmlspecialchars($doc['auteur'] ?? 'Inconnu') ?> — Année: <?= htmlspecialchars($doc['anneePub'] ?? 'N/A') ?></div>
-                        <div class="doc-actions mt-2">
-                                                            <a class="btn btn-outline-primary btn-sm me-2" href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener">Voir</a>
-                                                        <a class="btn btn-primary btn-sm" href="<?= htmlspecialchars($downloadUrl) ?>" rel="noopener">Télécharger</a>
+                        <div class="doc-meta"><?= htmlspecialchars(date('d M, Y', strtotime($doc['datePub'] ?? 'now'))) ?></div>
+                        <h4 class="doc-title"><a href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener"><?= htmlspecialchars($doc['titreDoc'] ?? 'Document') ?></a></h4>
+                        <div class="doc-excerpt">Auteur: <?= htmlspecialchars($doc['auteur'] ?? 'Inconnu') ?><?php if (!empty($doc['anneePub'])): ?> · Année: <?= htmlspecialchars($doc['anneePub']) ?><?php endif; ?></div>
+                        <div class="doc-actions">
+                            <a class="btn btn-outline-primary" href="<?= htmlspecialchars($viewUrl) ?>" target="_blank" rel="noopener">Voir</a>
+                            <a class="btn btn-primary" href="<?= htmlspecialchars($downloadUrl) ?>" rel="noopener">Télécharger</a>
                         </div>
                     </div>
-                </div>
-            </div>
+                </article>
             <?php endforeach; ?>
         </div>
     </div>
 </section>
 
-
 <?php require_once $footerPath; ?>
-
