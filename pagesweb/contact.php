@@ -24,7 +24,6 @@
 		<section class="caremed-hero contact-hero" style="background:linear-gradient(90deg, rgba(17,82,147,0.9), rgba(0,123,193,0.9));">
 			<div class="container">
 					<div class="hero-content">
-						<div class="hero-breadcrumb">Accueil / Contact</div>
 						<h1>Contactez le Secrétariat</h1>
 						<p class="lead">Point de contact institutionnel pour les demandes d’information, les partenariats et les collaborations techniques.</p>
 					</div>

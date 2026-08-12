@@ -59,7 +59,6 @@ require_once $headerPath;
 <section class="gallery-hero" style="background-image: url('<?= h($heroImage) ?>');">
     <div class="container">
         <div class="hero-content">
-            <div class="hero-breadcrumb">Accueil / Galerie</div>
             <h1>Galerie photo du SN1325</h1>
             <p class="lead">Temps forts, ateliers, activités médiatiques et moments institutionnels documentés par le Secrétariat National 1325.</p>
         </div>

@@ -41,20 +41,6 @@ body {
   text-align: center;
 }
 
-.hero-breadcrumb {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
 .resolution-hero h1 {
   margin: 20px 0 14px;
   font-size: clamp(2.6rem, 4.6vw, 4.2rem);
@@ -518,7 +504,6 @@ body {
     padding: 48px 0 38px;
   }
 
-  .hero-breadcrumb,
   .overview-label,
   .section-kicker,
   .aside-label {

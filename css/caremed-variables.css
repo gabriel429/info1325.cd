@@ -93,14 +93,6 @@ body {
   text-align: center;
 }
 
-.caremed-hero .hero-breadcrumb {
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 12px;
-  letter-spacing: 0.2px;
-  font-size: 13px;
-  text-transform: uppercase;
-}
-
 .caremed-hero h1 {
   color: #fff;
   margin: 0;
@@ -379,8 +371,6 @@ body {
 }
 .caremed-hero{ padding:100px 0 70px }
 .caremed-hero h1{ font-size:36px }
-.caremed-hero .hero-breadcrumb{ font-size:14px }
-
 /* small helpers */
 .news-card .news-excerpt p{ margin:0 }
 @media(min-width:992px){ .news-single .row > .col-lg-8{ padding-right:40px } }

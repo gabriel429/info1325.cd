@@ -25,7 +25,6 @@
     <div class="overlay"></div>
     <div class="container">
         <div class="hero-content">
-            <div class="hero-breadcrumb">Accueil / Secrétariat</div>
             <h1>Secrétariat National 1325</h1>
             <p class="lead">Instance nationale de coordination, de suivi et d’appui technique pour la mise en œuvre de l’agenda Femmes, Paix et Sécurité en République Démocratique du Congo.</p>
         </div>

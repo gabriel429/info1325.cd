@@ -31,20 +31,6 @@ body {
   color: #fff;
 }
 
-.gallery-hero .hero-breadcrumb {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
 .gallery-hero h1 {
   margin: 18px 0 16px;
   font-size: clamp(2.6rem, 4vw, 4.2rem);

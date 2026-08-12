@@ -46,7 +46,6 @@ require_once $headerPath;
     <div class="overlay"></div>
     <div class="container">
         <div class="hero-content">
-            <div class="hero-breadcrumb">Accueil / Documentation</div>
             <h1>Documentation 1325</h1>
             <p class="lead">Publications, rapports, plans d’action et ressources de référence mobilisés par le Secrétariat National 1325.</p>
         </div>

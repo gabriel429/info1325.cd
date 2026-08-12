@@ -43,7 +43,6 @@ require_once $headerPath; // inclut le head et ouvre <body>
   <div class="overlay"></div>
   <div class="container">
     <div class="hero-content">
-      <div class="hero-breadcrumb">Accueil / Résolution 1325</div>
       <h1>RÉSOLUTION 1325</h1>
       <p class="lead">Cadre de référence, repères d’analyse et ressources documentaires pour la mise en œuvre de l’agenda Femmes, Paix et Sécurité en RDC.</p>
     </div>
