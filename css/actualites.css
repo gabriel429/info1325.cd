@@ -9,7 +9,7 @@
 .article-header {
   background: #10233f;
   color: #fff;
-  padding: 72px 0 58px;
+  padding: 72px 0 58px !important;
 }
 
 .index-heading {
@@ -37,7 +37,7 @@
 .article-header h1 {
   margin: 14px 0 12px;
   color: #fff;
-  font-size: clamp(2.1rem, 4vw, 3.6rem);
+  font-size: 58px;
   line-height: 1.08;
   font-weight: 800;
   letter-spacing: 0;
@@ -436,16 +436,21 @@
 @media (max-width: 767px) {
   .news-index-hero,
   .article-header {
-    padding: 52px 0 46px;
+    padding: 52px 0 46px !important;
   }
 
   .article-header {
-    padding-bottom: 78px;
+    padding-bottom: 78px !important;
   }
 
   .index-heading p,
   .article-standfirst {
     font-size: 16px;
+  }
+
+  .index-heading h1,
+  .article-header h1 {
+    font-size: 34px;
   }
 
   .featured-copy,
@@ -479,5 +484,12 @@
   .article-content {
     font-size: 16px;
     line-height: 1.78;
+  }
+}
+
+@media (max-width: 575px) {
+  .index-heading h1,
+  .article-header h1 {
+    font-size: 30px;
   }
 }

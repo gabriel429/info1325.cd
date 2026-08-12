@@ -3,6 +3,76 @@ ini_set('default_charset', 'UTF-8');
 if (!headers_sent()) {
     header('Content-Type: text/html; charset=UTF-8');
 }
+
+if (!function_exists('meta_escape')) {
+	function meta_escape($value): string
+	{
+		return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+	}
+}
+
+if (!function_exists('meta_plain_text')) {
+	function meta_plain_text($value, int $length = 220): string
+	{
+		$text = trim(preg_replace('/\s+/', ' ', strip_tags((string)$value)) ?? '');
+		if ($text === '') {
+			return '';
+		}
+
+		return function_exists('mb_strimwidth')
+			? mb_strimwidth($text, 0, $length, '...')
+			: substr($text, 0, $length);
+	}
+}
+
+if (!function_exists('meta_origin')) {
+	function meta_origin(): string
+	{
+		$host = $_SERVER['HTTP_HOST'] ?? 'info1325.cd';
+		$forwardedProto = trim(explode(',', (string)($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? ''))[0]);
+		$isLocal = preg_match('/(^localhost$|^127\.0\.0\.1|\.local$|\.test$)/i', $host);
+		$scheme = $forwardedProto !== ''
+			? $forwardedProto
+			: ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || !$isLocal ? 'https' : 'http');
+
+		return $scheme . '://' . $host;
+	}
+}
+
+if (!function_exists('meta_absolute_url')) {
+	function meta_absolute_url($url): string
+	{
+		$url = trim((string)$url);
+		if ($url === '') {
+			return '';
+		}
+		if (preg_match('#^https?://#i', $url)) {
+			return $url;
+		}
+		if (strpos($url, '//') === 0) {
+			return parse_url(meta_origin(), PHP_URL_SCHEME) . ':' . $url;
+		}
+
+		$origin = meta_origin();
+		$host = (string)(parse_url($origin, PHP_URL_HOST) ?? '');
+		$isLocalHost = preg_match('/(^localhost$|^127\.0\.0\.1$|^\[?::1\]?$)/i', $host);
+		if (!$isLocalHost && defined('PROJECT_ROOT_URL')) {
+			$projectPrefix = '/' . trim(PROJECT_ROOT_URL, '/') . '/';
+			if ($projectPrefix !== '//' && strpos($url, $projectPrefix) === 0) {
+				$url = '/' . substr($url, strlen($projectPrefix));
+			}
+		}
+
+		return rtrim($origin, '/') . '/' . ltrim($url, '/');
+	}
+}
+
+$metaTitle = $pageTitle ?? $PAGE_TITLE ?? 'SN1325 - Secrétariat National de la Résolution 1325 en RDC';
+$metaDescription = meta_plain_text($pageDescription ?? 'Plateforme officielle du Secrétariat National Permanent 1325 en République Démocratique du Congo.');
+$metaUrl = meta_absolute_url($pageUrl ?? ($_SERVER['REQUEST_URI'] ?? BASE_URL));
+$metaImage = meta_absolute_url($pageImage ?? (IMG_DIR . 'logo.png'));
+$metaImageAlt = meta_plain_text($pageImageAlt ?? $metaTitle, 120);
+$metaType = $pageType ?? 'website';
 ?>
 <!doctype html>
 
@@ -18,17 +88,38 @@ if (!headers_sent()) {
 
 		<meta name="keywords" content="Site keywords here">
 
-		<meta name="description" content="">
+		<meta name="description" content="<?= meta_escape($metaDescription) ?>">
 
 		<meta name='copyright' content=''>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+		<link rel="canonical" href="<?= meta_escape($metaUrl) ?>">
+		<meta property="og:locale" content="fr_FR">
+		<meta property="og:site_name" content="SN1325">
+		<meta property="og:type" content="<?= meta_escape($metaType) ?>">
+		<meta property="og:title" content="<?= meta_escape($metaTitle) ?>">
+		<meta property="og:description" content="<?= meta_escape($metaDescription) ?>">
+		<meta property="og:url" content="<?= meta_escape($metaUrl) ?>">
+		<meta property="og:image" content="<?= meta_escape($metaImage) ?>">
+		<meta property="og:image:secure_url" content="<?= meta_escape($metaImage) ?>">
+		<meta property="og:image:alt" content="<?= meta_escape($metaImageAlt) ?>">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="<?= meta_escape($metaTitle) ?>">
+		<meta name="twitter:description" content="<?= meta_escape($metaDescription) ?>">
+		<meta name="twitter:image" content="<?= meta_escape($metaImage) ?>">
+		<?php if (!empty($pagePublishedTime)): ?>
+			<meta property="article:published_time" content="<?= meta_escape($pagePublishedTime) ?>">
+		<?php endif; ?>
+		<?php if (!empty($pageAuthor)): ?>
+			<meta property="article:author" content="<?= meta_escape($pageAuthor) ?>">
+		<?php endif; ?>
+
 		
 
 		<!-- Title -->
 
-        <title><?= htmlspecialchars($pageTitle ?? $PAGE_TITLE ?? 'SN1325 - Secrétariat National de la Résolution 1325 en RDC', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></title>
+        <title><?= meta_escape($metaTitle) ?></title>
 
 		
 
@@ -166,36 +257,6 @@ if (!headers_sent()) {
         <!-- End Preloader -->
 
 		
-
-		<!-- Coordonnateur SN1325 -->
-
-		<ul class="pro-features">
-
-			<a class="get-pro">SN1325</a>
-
-			<li class="big-title">Secrétariat National Permanent 1325</li>
-
-			<li class="title">Contacter nos services</li>
-
-			<li>- Coordonateur National -</li>
-
-			<li>Mr DIDIER LAPIARD</li>
-
-			<li>lapiardidier561@gmail.com</li>
-
-			<li>contact@sn1325.cd</li>
-
-			<li>Kinshasa-Gombe, en diagonale du Premier Shopping Mall, dans la concession du Secrétariat au Développement Rural.</li>
-
-			<div class="button">
-
-				<a href="mailto:lapiardidier561@gmail.com" target="_blank" class="btn">Prendre rendez-vous ici</a>
-
-			</div>
-
-		</ul>
-
-	
 
 		<!-- Header Area -->
 		<?php

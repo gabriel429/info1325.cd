@@ -109,9 +109,10 @@ $SKIP_PAGE_TITLE = true;
 require_once $headerPath;
 ?>
 
-<section class="caremed-hero axes-hero">
+<section class="site-page-hero">
   <div class="container">
-    <div class="hero-content">
+    <div class="site-page-heading">
+      <span><?= $selectedAxis ? 'Axe stratégique' : 'Axes stratégiques' ?></span>
       <h1><?= $selectedAxis ? htmlspecialchars($selectedAxis['title']) : 'Axes strategiques du Plan d Action National 1325' ?></h1>
       <p class="lead"><?= $selectedAxis ? htmlspecialchars($selectedAxis['intro']) : 'Les cinq priorites du PAN 1325 structurent l action nationale autour de la participation, la prevention, la protection, le relevement et la reponse humanitaire.' ?></p>
     </div>

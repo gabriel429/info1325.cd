@@ -6,9 +6,8 @@
         $SKIP_PAGE_TITLE = true; // this page renders its own hero
         $pageCss = CSS_DIR . 'secretariat.css';
 
-        // Hero image basename (used to avoid duplicating it in the slider)
+        // Image basename used to avoid duplicating it in the page slider.
         $heroImgName = 'snational1325.png';
-        $heroImg = IMG_DIR . $heroImgName;
         require_once __DIR__ . '/track_visitor.php';
         require_once __DIR__ . '/csrf_helper.php';
 
@@ -21,10 +20,10 @@
 <!-- Composant header page cn fin  -->
 
 <!-- Hero CareMed pour le secrétariat -->
-<section class="caremed-hero" style="background-image:url('<?= $heroImg ?>'); background-size:cover; background-position:center;">
-    <div class="overlay"></div>
+<section class="site-page-hero">
     <div class="container">
-        <div class="hero-content">
+        <div class="site-page-heading">
+            <span>Secrétariat</span>
             <h1>Secrétariat National 1325</h1>
             <p class="lead">Instance nationale de coordination, de suivi et d’appui technique pour la mise en œuvre de l’agenda Femmes, Paix et Sécurité en République Démocratique du Congo.</p>
         </div>

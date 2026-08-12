@@ -6,7 +6,6 @@ require_once __DIR__ . '/csrf_helper.php';
 
 // Page-specific CSS (headerPage.php lira cette variable si définie)
 $pageCss = CSS_DIR . 'resolution.css';
-$resolutionHero = BASE_URL . 'img/' . rawurlencode('Resolution 1325.png');
 
 $resolutionPillars = [
   [
@@ -39,10 +38,10 @@ require_once $headerPath; // inclut le head et ouvre <body>
 ?>
 
 <!-- Hero -->
-<section class="caremed-hero resolution-hero" style="background-image:url('<?= htmlspecialchars($resolutionHero) ?>'); background-color:var(--primary);">
-  <div class="overlay"></div>
+<section class="site-page-hero">
   <div class="container">
-    <div class="hero-content">
+    <div class="site-page-heading">
+      <span>Résolution</span>
       <h1>RÉSOLUTION 1325</h1>
       <p class="lead">Cadre de référence, repères d’analyse et ressources documentaires pour la mise en œuvre de l’agenda Femmes, Paix et Sécurité en RDC.</p>
     </div>

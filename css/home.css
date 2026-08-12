@@ -72,15 +72,50 @@ body {
 }
 
 .hero-slide-copy {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   width: 100%;
   box-sizing: border-box;
   padding: 26px 30px 28px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 0;
   border-radius: 8px;
-  background: rgba(12, 24, 47, 0.7);
-  box-shadow: 0 20px 48px rgba(5, 15, 31, 0.22);
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
+  background:
+    linear-gradient(135deg, rgba(8, 18, 38, 0.84), rgba(12, 26, 52, 0.62) 58%, rgba(24, 45, 82, 0.46));
+  box-shadow:
+    0 28px 68px rgba(3, 10, 24, 0.34),
+    0 10px 24px rgba(3, 10, 24, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(3, 10, 24, 0.2);
+  -webkit-backdrop-filter: blur(8px) saturate(112%);
+  backdrop-filter: blur(8px) saturate(112%);
+}
+
+.hero-slide-copy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 32%);
+  pointer-events: none;
+}
+
+.hero-slide-copy::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  box-shadow:
+    inset 16px 0 32px rgba(255, 255, 255, 0.035),
+    inset -24px 0 42px rgba(2, 8, 18, 0.14);
+  pointer-events: none;
+}
+
+.hero-slide-copy > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-slide-eyebrow,
@@ -787,7 +822,11 @@ body > h2:first-of-type {
 
   .hero-slide-copy {
     padding: 18px 18px 20px;
-    background: rgba(12, 24, 47, 0.72);
+    background:
+      linear-gradient(135deg, rgba(8, 18, 38, 0.86), rgba(12, 26, 52, 0.68) 58%, rgba(24, 45, 82, 0.52));
+    box-shadow:
+      0 20px 46px rgba(3, 10, 24, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
   }
 
   .hero-slide-eyebrow {

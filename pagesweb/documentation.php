@@ -8,11 +8,6 @@ require_once __DIR__ . '/csrf_helper.php';
 
 $pageCss = CSS_DIR . 'documentation.css';
 
-$heroFsPath = __DIR__ . '/../img/documentations/hero-docs.jpg';
-$hero = file_exists($heroFsPath)
-    ? BASE_URL . 'img/documentations/hero-docs.jpg'
-    : BASE_URL . 'img/bread-bg21.jpg';
-
 $resolveDocImage = static function (?string $imgName): string {
     $imgName = trim((string) $imgName);
 
@@ -42,10 +37,10 @@ $SKIP_PAGE_TITLE = true;
 require_once $headerPath;
 ?>
 
-<section class="caremed-hero documentation-hero" style="background-image: url('<?= $hero ?>');">
-    <div class="overlay"></div>
+<section class="site-page-hero">
     <div class="container">
-        <div class="hero-content">
+        <div class="site-page-heading">
+            <span>Documentation</span>
             <h1>Documentation 1325</h1>
             <p class="lead">Publications, rapports, plans d’action et ressources de référence mobilisés par le Secrétariat National 1325.</p>
         </div>

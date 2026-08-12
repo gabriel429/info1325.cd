@@ -50,15 +50,15 @@ foreach ($items as $item) {
 
 $currentActivityLabel = $activity === 'all' ? 'Toutes les activités' : $activity;
 $latestPublication = $latestTimestamp > 0 ? date('d/m/Y', $latestTimestamp) : 'Mise à jour continue';
-$heroImage = BASE_URL . 'img/bread-bg21.jpg';
 
 $SKIP_PAGE_TITLE = true;
 require_once $headerPath;
 ?>
 
-<section class="gallery-hero" style="background-image: url('<?= h($heroImage) ?>');">
+<section class="site-page-hero">
     <div class="container">
-        <div class="hero-content">
+        <div class="site-page-heading">
+            <span>Galerie</span>
             <h1>Galerie photo du SN1325</h1>
             <p class="lead">Temps forts, ateliers, activités médiatiques et moments institutionnels documentés par le Secrétariat National 1325.</p>
         </div>

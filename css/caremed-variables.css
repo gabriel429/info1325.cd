@@ -40,6 +40,64 @@
   --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
+.site-page-hero {
+  background: #10233f;
+  color: #fff;
+  padding: 72px 0 58px !important;
+}
+
+.site-page-heading {
+  max-width: 840px;
+}
+
+.site-page-heading span {
+  display: inline-flex;
+  align-items: center;
+  color: #ffd166;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.site-page-heading h1 {
+  margin: 14px 0 12px;
+  color: #fff;
+  font-size: 58px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.site-page-heading p {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 18px;
+  line-height: 1.75;
+}
+
+@media (max-width: 767px) {
+  .site-page-hero {
+    padding: 52px 0 46px !important;
+  }
+
+  .site-page-heading h1 {
+    font-size: 34px;
+  }
+
+  .site-page-heading p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
+
+@media (max-width: 575px) {
+  .site-page-heading h1 {
+    font-size: 30px;
+  }
+}
+
 /* Typography */
 body {
   font-family: 'Poppins', var(--font-main), Arial, sans-serif;

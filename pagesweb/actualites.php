@@ -77,6 +77,15 @@ if ($isDetail) {
     $relatedNews = $relatedStmt->fetchAll(PDO::FETCH_ASSOC);
 
     $pageTitle = $actu['titre'] . ' - Actualités 1325';
+    $pageDescription = actualite_summary($actu, 220);
+    $pageUrl = actualite_url($actu);
+    $pageImage = actualite_image_url($actu['imgMise'] ?? null);
+    $pageImageAlt = $actu['titre'];
+    $pageType = 'article';
+    $pageAuthor = actualite_author($actu);
+    if (!empty($actu['date_pub'])) {
+        $pagePublishedTime = (new DateTime((string)$actu['date_pub']))->format(DateTime::ATOM);
+    }
     require_once $headerPath;
     ?>
 
@@ -160,6 +169,12 @@ $stmt = $pdo->query("
 $actualites = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $pageTitle = 'Actualités 1325';
+$pageDescription = "Articles, activités, plaidoyers et annonces autour de l'agenda Femmes, Paix et Sécurité en RDC.";
+$pageUrl = URL_ACTUALITES;
+if ($featured && !empty($featured['imgMise'])) {
+    $pageImage = actualite_image_url($featured['imgMise']);
+    $pageImageAlt = $featured['titre'] ?? $pageTitle;
+}
 require_once $headerPath;
 ?>
 
