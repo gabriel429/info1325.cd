@@ -24,43 +24,41 @@ try {
         INDEX idx_group (setting_group)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
-    // Insert default settings if table is empty
-    $stmt = $pdo->query("SELECT COUNT(*) FROM site_settings");
-    if ((int)$stmt->fetchColumn() === 0) {
-        $defaults = [
-            // General
-            ['site_name', 'SN1325', 'general', 'Nom du site web'],
-            ['site_tagline', 'Plateforme Nationale 1325', 'general', 'Slogan du site'],
-            ['site_description', 'Plateforme Nationale de Mise en Œuvre de la Résolution 1325', 'general', 'Description du site'],
-            ['site_keywords', 'résolution 1325, femmes, paix, sécurité, Sénégal', 'general', 'Mots-clés SEO'],
+    // Insert missing default settings without overwriting existing values.
+    $defaults = [
+        // General
+        ['site_name', 'SN1325', 'general', 'Nom du site web'],
+        ['site_tagline', 'Plateforme Nationale 1325', 'general', 'Slogan du site'],
+        ['site_description', 'Plateforme Nationale de Mise en Œuvre de la Résolution 1325', 'general', 'Description du site'],
+        ['site_keywords', 'résolution 1325, femmes, paix, sécurité, Sénégal', 'general', 'Mots-clés SEO'],
 
-            // Contact
-            ['contact_email', 'contact@sn1325.cd', 'contact', 'Email de contact principal'],
-            ['contact_phone', '+221 XX XXX XX XX', 'contact', 'Téléphone de contact'],
-            ['contact_address', 'Dakar, Sénégal', 'contact', 'Adresse postale'],
+        // Contact
+        ['contact_email', 'contact@sn1325.cd', 'contact', 'Email de contact principal'],
+        ['contact_phone', '+221 XX XXX XX XX', 'contact', 'Téléphone de contact'],
+        ['contact_address', 'Dakar, Sénégal', 'contact', 'Adresse postale'],
 
-            // Social Media
-            ['social_facebook', '', 'social', 'URL page Facebook'],
-            ['social_twitter', '', 'social', 'URL compte Twitter/X'],
-            ['social_instagram', '', 'social', 'URL compte Instagram'],
-            ['social_linkedin', '', 'social', 'URL page LinkedIn'],
-            ['social_youtube', '', 'social', 'URL chaîne YouTube'],
+        // Social Media
+        ['social_facebook', 'https://web.facebook.com/sn1325/', 'social', 'URL page Facebook'],
+        ['social_twitter', 'https://x.com/R1325RDC', 'social', 'URL compte Twitter/X'],
+        ['social_instagram', '', 'social', 'URL compte Instagram'],
+        ['social_whatsapp', 'https://whatsapp.com/channel/0029VbBYE3UJENxszyUe2e3F', 'social', 'URL chaîne WhatsApp'],
+        ['social_linkedin', 'https://www.linkedin.com/company/r1325rdc/', 'social', 'URL page LinkedIn'],
+        ['social_youtube', 'https://youtube.com/@resolution1325rdc?si=IWwQB3N7fc5RFUHD', 'social', 'URL chaîne YouTube'],
 
-            // SEO
-            ['seo_meta_title', 'SN1325 - Plateforme Nationale', 'seo', 'Titre meta par défaut'],
-            ['seo_meta_description', 'Plateforme de mise en œuvre de la Résolution 1325', 'seo', 'Description meta par défaut'],
-            ['seo_google_analytics', '', 'seo', 'ID Google tag pour Analytics ou Ads (G-..., AW-...)'],
+        // SEO
+        ['seo_meta_title', 'SN1325 - Plateforme Nationale', 'seo', 'Titre meta par défaut'],
+        ['seo_meta_description', 'Plateforme de mise en œuvre de la Résolution 1325', 'seo', 'Description meta par défaut'],
+        ['seo_google_analytics', '', 'seo', 'ID Google tag pour Analytics ou Ads (G-..., AW-...)'],
 
-            // Features
-            ['enable_comments', '1', 'features', 'Activer les commentaires sur actualités'],
-            ['enable_newsletter', '1', 'features', 'Activer inscription newsletter'],
-            ['maintenance_mode', '0', 'features', 'Mode maintenance (1=activé, 0=désactivé)'],
-        ];
+        // Features
+        ['enable_comments', '1', 'features', 'Activer les commentaires sur actualités'],
+        ['enable_newsletter', '1', 'features', 'Activer inscription newsletter'],
+        ['maintenance_mode', '0', 'features', 'Mode maintenance (1=activé, 0=désactivé)'],
+    ];
 
-        $stmt = $pdo->prepare("INSERT INTO site_settings (setting_key, setting_value, setting_group, description) VALUES (?, ?, ?, ?)");
-        foreach ($defaults as $setting) {
-            $stmt->execute($setting);
-        }
+    $stmt = $pdo->prepare("INSERT IGNORE INTO site_settings (setting_key, setting_value, setting_group, description) VALUES (?, ?, ?, ?)");
+    foreach ($defaults as $setting) {
+        $stmt->execute($setting);
     }
 } catch (PDOException $e) {
     error_log("Error creating settings table: " . $e->getMessage());

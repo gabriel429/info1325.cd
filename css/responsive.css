@@ -50,14 +50,28 @@ Version:	1.1
 .header .top-link li a {
 	font-size: 13px;
 }
+.header .topbar-left {
+	gap: 10px;
+}
+.header .top-social {
+	gap: 6px;
+}
+.header .top-social a {
+	width: 28px;
+	height: 28px;
+	font-size: 12px;
+}
 .header .top-contact li a{
 	font-size:13px;
 }
 .header .top-contact li {
 	display: inline-block;
-	margin-right: 25px;
+	margin-right: 0;
 	color: #2C2D3F;
 	font-size: 13px;
+}
+.header .top-contact {
+	gap: 14px;
 }
 .header .header-inner .get-quote {
 	margin-top: 12px;
@@ -68,6 +82,80 @@ Version:	1.1
 	font-size: 13px;
 	font-weight: 500;
 	padding: 20px 4px;
+}
+.header,
+.header .header-inner,
+.header .header-inner .container,
+.header .header-inner .inner,
+.header .header-inner .inner .row {
+	max-width: 100%;
+}
+.header .header-inner {
+	padding: 0;
+	background: #fff;
+	box-shadow: 0 10px 24px rgba(12, 34, 58, 0.08);
+}
+.header .header-inner .inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 15px;
+}
+.header .header-inner .inner .row {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	margin: 0;
+}
+.header .header-inner .inner .row > div:first-child {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex: 1;
+	padding: 0;
+	max-width: 100%;
+}
+.header .header-inner .inner .row > div:not(:first-child),
+.header .main-menu,
+.header .navigation,
+.header .nav.menu,
+.header .get-quote {
+	display: none !important;
+}
+.header .logo {
+	float: none;
+	padding: 0;
+	height: auto;
+	max-width: min(250px, calc(100vw - 118px));
+}
+.header .logo a,
+.header .logo img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+.header .mobile-nav {
+	display: block;
+	margin-left: auto;
+}
+.slicknav_menu {
+	display: block;
+	background: transparent;
+	padding: 0;
+	margin: 0;
+	line-height: 1;
+	position: relative;
+	isolation: isolate;
+}
+.slicknav_btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 46px;
+	margin: 0;
 }
 .header .nav li .dropdown {
 	width: 200px;

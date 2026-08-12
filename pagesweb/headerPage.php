@@ -88,6 +88,43 @@ try {
 } catch (Throwable $e) {
 	error_log('Google tag settings error: ' . $e->getMessage());
 }
+
+if (!function_exists('header_social_url')) {
+	function header_social_url(string $settingKey, string $fallback): string
+	{
+		if (function_exists('get_setting')) {
+			$value = trim((string)get_setting($settingKey, ''));
+			if ($value !== '') {
+				return $value;
+			}
+		}
+
+		return $fallback;
+	}
+}
+
+$headerSocialLinks = [
+	[
+		'label' => 'Facebook',
+		'url' => header_social_url('social_facebook', 'https://web.facebook.com/sn1325/'),
+		'icon' => '<i class="fa fa-facebook" aria-hidden="true"></i>',
+	],
+	[
+		'label' => 'X',
+		'url' => header_social_url('social_twitter', 'https://x.com/R1325RDC'),
+		'icon' => '<span class="social-x" aria-hidden="true">X</span>',
+	],
+	[
+		'label' => 'WhatsApp',
+		'url' => header_social_url('social_whatsapp', 'https://whatsapp.com/channel/0029VbBYE3UJENxszyUe2e3F'),
+		'icon' => '<i class="fa fa-whatsapp" aria-hidden="true"></i>',
+	],
+	[
+		'label' => 'LinkedIn',
+		'url' => header_social_url('social_linkedin', 'https://www.linkedin.com/company/r1325rdc/'),
+		'icon' => '<i class="fa fa-linkedin" aria-hidden="true"></i>',
+	],
+];
 ?>
 <!doctype html>
 
@@ -307,10 +344,21 @@ try {
 						<div class="col-lg-6 col-md-5 col-12">
 
 							<!-- Contact -->
-							<ul class="top-link">
-								<li><a href="<?= URL_SECRETAIRIATNATIONAL ?>">A propos</a></li>
-								<li><a href="<?= URL_CONTACT ?>">Contact</a></li>
-							</ul>
+							<div class="topbar-left">
+								<ul class="top-social" aria-label="Réseaux sociaux">
+									<?php foreach ($headerSocialLinks as $socialLink): ?>
+										<li>
+											<a href="<?= meta_escape($socialLink['url']) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= meta_escape($socialLink['label']) ?>">
+												<?= $socialLink['icon'] ?>
+											</a>
+										</li>
+									<?php endforeach; ?>
+								</ul>
+								<ul class="top-link">
+									<li><a href="<?= URL_SECRETAIRIATNATIONAL ?>">A propos</a></li>
+									<li><a href="<?= URL_CONTACT ?>">Contact</a></li>
+								</ul>
+							</div>
 
 							<!-- End Contact -->
 

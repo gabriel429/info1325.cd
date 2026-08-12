@@ -144,12 +144,20 @@ function get_contact_email() {
  * @return array Social media URLs
  */
 function get_social_links() {
+    $facebook = trim((string)get_setting('social_facebook', ''));
+    $twitter = trim((string)get_setting('social_twitter', ''));
+    $instagram = trim((string)get_setting('social_instagram', ''));
+    $whatsapp = trim((string)get_setting('social_whatsapp', ''));
+    $linkedin = trim((string)get_setting('social_linkedin', ''));
+    $youtube = trim((string)get_setting('social_youtube', ''));
+
     return [
-        'facebook' => get_setting('social_facebook', ''),
-        'twitter' => get_setting('social_twitter', ''),
-        'instagram' => get_setting('social_instagram', ''),
-        'linkedin' => get_setting('social_linkedin', ''),
-        'youtube' => get_setting('social_youtube', ''),
+        'facebook' => $facebook !== '' ? $facebook : 'https://web.facebook.com/sn1325/',
+        'twitter' => $twitter !== '' ? $twitter : 'https://x.com/R1325RDC',
+        'instagram' => $instagram,
+        'whatsapp' => $whatsapp !== '' ? $whatsapp : 'https://whatsapp.com/channel/0029VbBYE3UJENxszyUe2e3F',
+        'linkedin' => $linkedin !== '' ? $linkedin : 'https://www.linkedin.com/company/r1325rdc/',
+        'youtube' => $youtube !== '' ? $youtube : 'https://youtube.com/@resolution1325rdc?si=IWwQB3N7fc5RFUHD',
     ];
 }
 
@@ -163,6 +171,7 @@ function display_social_icons($class_list = 'fs-4') {
         'facebook' => 'facebook',
         'twitter' => 'twitter-x',
         'instagram' => 'instagram',
+        'whatsapp' => 'whatsapp',
         'linkedin' => 'linkedin',
         'youtube' => 'youtube',
     ];
