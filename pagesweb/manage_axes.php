@@ -3,6 +3,7 @@ session_start();
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // provides $pdo
+require_once __DIR__ . '/csrf_helper.php';
 
 if (!isset($_SESSION['user'])) {
     header('Location:' . URL_AUTHENTIFICATION);
@@ -31,6 +32,7 @@ try {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
+    csrf_verify();
     // Validation serveur : limites de longueur
     $titleMax = 80;
     $descMax = 300;
@@ -143,6 +145,7 @@ require_once __DIR__ . '/admin_layout_top.php';
 </div>
     <?= $message ?>
     <form method="post" enctype="multipart/form-data">
+        <?= csrf_field() ?>
         <input type="hidden" name="save" value="1">
         <div class="row">
 <?php for ($i=1;$i<=6;$i++):

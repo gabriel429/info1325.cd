@@ -7,6 +7,8 @@
 	$pageCss = CSS_DIR . 'contact.css';
 	// keep compatibility with older inline handler checks
 	$simple_mail_sent = null;
+	require_once __DIR__ . '/track_visitor.php';
+	require_once __DIR__ . '/csrf_helper.php';
 	//require_once $dataDbConnect; 
 
 // Use central mail handler at ../mail/mail.php which prefers PHPMailer/SMTP when available
@@ -64,6 +66,7 @@
 							<?php endif; ?>
 
 							<form id="contactForm" method="post" action="/mail/mail.php" novalidate>
+								<?= csrf_field() ?>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">

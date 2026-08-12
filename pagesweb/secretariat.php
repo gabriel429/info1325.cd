@@ -9,6 +9,8 @@
         // Hero image basename (used to avoid duplicating it in the slider)
         $heroImgName = 'snational1325.png';
         $heroImg = IMG_DIR . $heroImgName;
+        require_once __DIR__ . '/track_visitor.php';
+        require_once __DIR__ . '/csrf_helper.php';
 
     //require_once $dataDbConnect; 
 

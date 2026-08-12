@@ -73,7 +73,7 @@ function asset_url(string $path): string {
 // URLs des pages
 define('URL_404', BASE_URL . 'pagesweb/404/');
 define('URL_ACCUEIL', BASE_URL);
-define('URL_ACTUALITES', BASE_URL . 'pagesweb/actualites/');
+define('URL_ACTUALITES', BASE_URL . 'actualites/');
 define('URL_DOCUMENTATION', BASE_URL . 'pagesweb/documentation/');
 define('URL_RESOLUTION1325', BASE_URL . 'pagesweb/resolution/');
 define('URL_SECRETAIRIATNATIONAL', BASE_URL . 'pagesweb/secretariat/');
@@ -90,8 +90,8 @@ define('URL_STATUT', BASE_URL . 'pagesweb/compoStatut/');
 define('URL_AUTHENTIFICATION', BASE_URL . 'pagesweb/authentification/');
 define('URL_ADDACTUALITES', BASE_URL . 'pagesweb/add-actualites/');
 define('URL_GALERIE', BASE_URL . 'pagesweb/gallery.php');
-// Point to the actual admin management page for editing news
-define('URL_ADMINISTRATEUR', BASE_URL . 'pagesweb/administrateur.php');
+// Interface editoriale principale des actualites.
+define('URL_ADMINISTRATEUR', URL_ADDACTUALITES);
 define('URL_ADDDOCUMENTATIONS', BASE_URL . 'pagesweb/add-documentation/');
 define('URL_ADDSPACEADMIN', BASE_URL . 'pagesweb/add-space/');
 define('URL_MANAGE_FUNFACTS', BASE_URL . 'pagesweb/manage_funfacts/');

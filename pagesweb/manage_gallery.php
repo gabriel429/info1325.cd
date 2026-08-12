@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
+require_once __DIR__ . '/csrf_helper.php';
 session_start();
 // Simple protection: require logged user for admin gallery management
 if (!isset($_SESSION['user'])){
@@ -20,6 +21,7 @@ if (file_exists($dataFile)){
 $errors = [];
 $success = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    csrf_verify();
     if (!empty($_POST['action']) && $_POST['action'] === 'delete' && !empty($_POST['file'])){
         $file = basename($_POST['file']);
         // remove from disk and from json
@@ -104,6 +106,7 @@ require_once __DIR__ . '/admin_layout_top.php';
 
     <h4>Ajouter des images (max 5)</h4>
     <form method="post" enctype="multipart/form-data">
+        <?= csrf_field() ?>
         <input type="hidden" name="action" value="upload">
         <div class="mb-2">
             <label>Images (sélection multiple)
@@ -129,6 +132,7 @@ require_once __DIR__ . '/admin_layout_top.php';
                 <td><?= $up?date('Y-m-d H:i',$up):'' ?></td>
                 <td>
                     <form method="post" style="display:inline" onsubmit="return confirm('Supprimer ?')">
+                        <?= csrf_field() ?>
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="file" value="<?= h($file) ?>">
                         <button class="btn btn-sm btn-danger">Supprimer</button>

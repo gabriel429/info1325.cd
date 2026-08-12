@@ -22,7 +22,7 @@
 
 		<!-- Title -->
 
-        <title>SN1325 - Secrétariat National de la Résolution 1325 en RDC</title>
+        <title><?= htmlspecialchars($pageTitle ?? $PAGE_TITLE ?? 'SN1325 - Secrétariat National de la Résolution 1325 en RDC') ?></title>
 
 		
 
@@ -196,7 +196,8 @@
 		$currentScript = basename((string) ($_SERVER['SCRIPT_NAME'] ?? ''));
 		$requestPath = (string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH);
 		$isHomePage = $currentScript === '' || $currentScript === 'index.php' || $requestPath === '/' || preg_match('#/info1325\.cd/?$#', $requestPath);
-		$isActualitesPage = in_array($currentScript, ['actualites.php', 'actualites-list.php'], true);
+		$isActualitesPage = in_array($currentScript, ['actualites.php', 'actualites-list.php'], true)
+			|| preg_match('#/actualites(?:/|$)#', $requestPath);
 		$isDocumentationPage = in_array($currentScript, ['documentation.php', 'all-documentations.php', 'documentation_event.php'], true);
 		$isResolutionPage = $currentScript === 'resolution.php';
 		$isSecretariatGroup = in_array($currentScript, ['secretariat.php', 'contact.php', 'gallery.php'], true);

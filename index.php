@@ -10,6 +10,7 @@ $isHomePage = true;
 
 // Track visitor
 require_once __DIR__ . '/pagesweb/track_visitor.php';
+require_once __DIR__ . '/pagesweb/csrf_helper.php';
 ?>
 
 <?php require_once $headerPath;  ?> 

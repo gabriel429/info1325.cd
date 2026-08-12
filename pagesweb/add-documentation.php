@@ -21,15 +21,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
     try {
         $action = $_POST['action'] ?? 'create';
-        $titreDoc = trim($_POST['titreDoc']);
-        $auteur = trim($_POST['auteur']);
-        $anneePub = $_POST['anneePub'] ?: null;
-        $datePub = $_POST['datePub'];
-        $pan = isset($_POST['pan']) ? (int)$_POST['pan'] : 0;
 
-        $targetDir = __DIR__ . '/../img/documentations/';
+        if ($action === 'delete') {
+            $id = (int)($_POST['doc_id'] ?? 0);
+            $stmt = $pdo->prepare("DELETE FROM documentations WHERE id=:id");
+            $stmt->execute([':id' => $id]);
+            $message = "<div class='alert alert-warning alert-dismissible fade show'><i class='bi bi-trash-fill me-2'></i>Documentation supprimée avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+        } else {
+            $titreDoc = trim($_POST['titreDoc']);
+            $auteur = trim($_POST['auteur']);
+            $anneePub = $_POST['anneePub'] ?: null;
+            $datePub = $_POST['datePub'];
+            $pan = isset($_POST['pan']) ? (int)$_POST['pan'] : 0;
 
-        if ($action === 'update') {
+            $targetDir = __DIR__ . '/../img/documentations/';
+
+            if ($action === 'update') {
             // MODE MODIFICATION
             $id = (int)$_POST['doc_id'];
 
@@ -80,21 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
 
             $message = "<div class='alert alert-success alert-dismissible fade show'><i class='bi bi-check-circle-fill me-2'></i><strong>Succès!</strong> La documentation a été ajoutée avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
+            }
         }
     } catch (Exception $e) {
         $message = "<div class='alert alert-danger alert-dismissible fade show'><i class='bi bi-exclamation-triangle-fill me-2'></i><strong>Erreur:</strong> " . htmlspecialchars($e->getMessage()) . "<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
-    }
-}
-
-// 🔹 Suppression
-if (isset($_GET['delete'])) {
-    try {
-        $id = (int)$_GET['delete'];
-        $stmt = $pdo->prepare("DELETE FROM documentations WHERE id=:id");
-        $stmt->execute([':id' => $id]);
-        $message = "<div class='alert alert-warning alert-dismissible fade show'><i class='bi bi-trash-fill me-2'></i>Documentation supprimée avec succès.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
-    } catch (Exception $e) {
-        $message = "<div class='alert alert-danger alert-dismissible fade show'><i class='bi bi-exclamation-triangle-fill me-2'></i>Erreur lors de la suppression.<button type='button' class='btn-close' data-bs-dismiss='alert'></button></div>";
     }
 }
 // ---- Layout variables ----
@@ -310,12 +306,15 @@ require_once __DIR__ . '/admin_layout_top.php';
                                                     data-doc='<?= htmlspecialchars(json_encode($doc), ENT_QUOTES, 'UTF-8') ?>'>
                                                 <i class="bi bi-pencil"></i> Modifier
                                             </button>
-                                            <a href="?delete=<?= $doc['id'] ?>"
-                                               class="btn btn-sm btn-outline-danger"
-                                               title="Supprimer"
-                                               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette documentation ?')">
-                                                <i class="bi bi-trash"></i> Supprimer
-                                            </a>
+                                            <form method="POST" class="d-inline"
+                                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette documentation ?')">
+                                                <?= csrf_field() ?>
+                                                <input type="hidden" name="action" value="delete">
+                                                <input type="hidden" name="doc_id" value="<?= htmlspecialchars($doc['id']) ?>">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                                    <i class="bi bi-trash"></i> Supprimer
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

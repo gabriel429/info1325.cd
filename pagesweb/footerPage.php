@@ -130,6 +130,7 @@
                         <p>Abonnez-vous à notre newsletter pour recevoir toutes nos actualités dans votre boîte de réception.</p>
 
                         <form id="newsletterForm" action="/mail/newsletter.php" method="post" class="newsletter-inner" aria-label="Formulaire d'abonnement newsletter">
+                            <?php if (function_exists('csrf_field')) csrf_field(); ?>
 
                             <input name="email" placeholder="Votre adresse mail" class="common-input" onfocus="this.placeholder=''" onblur="this.placeholder='Votre adresse mail'" required type="email" aria-label="Adresse email">
 

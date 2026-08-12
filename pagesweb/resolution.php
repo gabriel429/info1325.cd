@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
+require_once __DIR__ . '/track_visitor.php';
+require_once __DIR__ . '/csrf_helper.php';
 
 // Page-specific CSS (headerPage.php lira cette variable si définie)
 $pageCss = CSS_DIR . 'resolution.css';

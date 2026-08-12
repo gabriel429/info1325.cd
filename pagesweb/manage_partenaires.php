@@ -138,8 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 }
 
 // Suppression
-if (isset($_GET['delete'])) {
-    $id = (int)$_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    csrf_verify();
+    $id = (int)($_POST['partner_id'] ?? 0);
     $stmt = $pdo->prepare("SELECT image FROM partenaires WHERE id=:id");
     $stmt->execute([':id'=>$id]);
     $row = $stmt->fetch();
@@ -243,7 +244,12 @@ require_once __DIR__ . '/admin_layout_top.php';
                         <td><?php if ($p['image'] && file_exists($targetDir . $p['image'])): ?><img src="<?= IMG_DIR . 'partenaires/' . rawurlencode($p['image']) ?>" style="height:40px"><?php else: ?>—<?php endif; ?></td>
                         <td><?= htmlspecialchars($p['url']) ?></td>
                         <td>
-                            <a href="?delete=<?= $p['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ?')">Supprimer</a>
+                            <form method="post" class="d-inline" onsubmit="return confirm('Supprimer ?')">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="partner_id" value="<?= htmlspecialchars($p['id']) ?>">
+                                <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>

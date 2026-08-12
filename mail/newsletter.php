@@ -2,10 +2,17 @@
 header('Content-Type: application/json; charset=utf-8');
 
 require_once __DIR__ . '/../pagesweb/connectDb.php';
+require_once __DIR__ . '/../pagesweb/csrf_helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
+    exit;
+}
+
+if (!csrf_validate(false)) {
+    http_response_code(403);
+    echo json_encode(['success' => false, 'message' => 'Session expirée. Veuillez recharger la page et réessayer.']);
     exit;
 }
 

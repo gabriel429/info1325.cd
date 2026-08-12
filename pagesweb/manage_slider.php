@@ -3,6 +3,7 @@ session_start();
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // provides $pdo
+require_once __DIR__ . '/csrf_helper.php';
 
 // require login + specific role (admin or slider manager)
 if (!isset($_SESSION['user']) || !in_array($_SESSION['role'] ?? '', ['admin','slider'])) {
@@ -25,6 +26,7 @@ $pdo->exec("CREATE TABLE IF NOT EXISTS slides (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
+    csrf_verify();
     $maxSlides = 6;
     $targetDir = __DIR__ . '/../img/slider/';
     if (!is_dir($targetDir)) mkdir($targetDir, 0777, true);
@@ -107,6 +109,7 @@ require_once __DIR__ . '/admin_layout_top.php';
 </div>
     <?= $message ?>
     <form method="post" enctype="multipart/form-data">
+        <?= csrf_field() ?>
         <input type="hidden" name="save" value="1">
         <div class="row">
             <?php for ($i=1;$i<=6;$i++):

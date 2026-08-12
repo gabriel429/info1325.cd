@@ -97,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'reset
 }
 
 // Toggle active status
-if (isset($_GET['toggle_active'])) {
-    $id = (int)$_GET['toggle_active'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'toggle_active') {
+    $id = (int)($_POST['user_id'] ?? 0);
     if ($id === (int)($_SESSION['user_id'] ?? 0)) {
         $msg = 'Vous ne pouvez pas désactiver votre propre compte.';
         $msgType = 'warning';
@@ -117,8 +117,8 @@ if (isset($_GET['toggle_active'])) {
 }
 
 // Delete user
-if (isset($_GET['delete'])) {
-    $id = (int)$_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete_user') {
+    $id = (int)($_POST['user_id'] ?? 0);
     // prevent deleting yourself
     if ($id === (int)($_SESSION['user_id'] ?? 0)) {
         $msg = 'Vous ne pouvez pas supprimer votre propre compte.';
@@ -290,20 +290,28 @@ require_once __DIR__ . '/admin_layout_top.php';
                         </button>
 
                         <!-- Toggle Active Button -->
-                        <a href="?toggle_active=<?= $u['id'] ?>"
-                           class="btn btn-outline-<?= $u['active'] ? 'secondary' : 'success' ?>"
-                           title="<?= $u['active'] ? 'Désactiver' : 'Activer' ?>"
-                           onclick="return confirm('<?= $u['active'] ? 'Désactiver' : 'Activer' ?> cet utilisateur ?');">
-                          <i class="bi bi-<?= $u['active'] ? 'toggle-on' : 'toggle-off' ?>"></i>
-                        </a>
+                        <form method="post" class="d-inline"
+                              onsubmit="return confirm('<?= $u['active'] ? 'Désactiver' : 'Activer' ?> cet utilisateur ?');">
+                          <?php csrf_field(); ?>
+                          <input type="hidden" name="action" value="toggle_active">
+                          <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
+                          <button type="submit"
+                                  class="btn btn-outline-<?= $u['active'] ? 'secondary' : 'success' ?>"
+                                  title="<?= $u['active'] ? 'Désactiver' : 'Activer' ?>">
+                            <i class="bi bi-<?= $u['active'] ? 'toggle-on' : 'toggle-off' ?>"></i>
+                          </button>
+                        </form>
 
                         <!-- Delete Button -->
-                        <a href="?delete=<?= $u['id'] ?>"
-                           class="btn btn-outline-danger"
-                           title="Supprimer"
-                           onclick="return confirm('⚠️ Supprimer définitivement cet utilisateur ?\nCette action est irréversible.');">
-                          <i class="bi bi-trash"></i>
-                        </a>
+                        <form method="post" class="d-inline"
+                              onsubmit="return confirm('⚠️ Supprimer définitivement cet utilisateur ?\nCette action est irréversible.');">
+                          <?php csrf_field(); ?>
+                          <input type="hidden" name="action" value="delete_user">
+                          <input type="hidden" name="user_id" value="<?= $u['id'] ?>">
+                          <button type="submit" class="btn btn-outline-danger" title="Supprimer">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        </form>
                       <?php else: ?>
                         <span class="badge bg-light text-dark">Votre compte</span>
                       <?php endif; ?>

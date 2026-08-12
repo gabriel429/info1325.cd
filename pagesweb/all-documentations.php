@@ -11,6 +11,7 @@ require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 
 require_once $dateDbConnect; // contient $pdo
+require_once __DIR__ . '/csrf_helper.php';
 
 
 
@@ -96,6 +97,8 @@ function uploadFile($fileKey, $targetDir, $allowedTypes)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
 
+    csrf_verify();
+
     try {
 
         $id = (int)$_POST['doc_id'];
@@ -174,9 +177,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 // 🔹 Suppression
 
-if (isset($_GET['delete'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
 
-    $id = (int)$_GET['delete'];
+    csrf_verify();
+
+    $id = (int)($_POST['doc_id'] ?? 0);
 
     $stmt = $pdo->prepare("DELETE FROM documentations WHERE id=:id");
 
@@ -215,6 +220,12 @@ require_once __DIR__ . '/admin_layout_top.php';
 
     <?= $message ?>
 
+    <form id="deleteDocForm" method="post" class="d-none">
+        <?= csrf_field() ?>
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="doc_id" id="delete_doc_id">
+    </form>
+
 
 
     <!-- 🔹 Formulaire de modification (caché par défaut) -->
@@ -226,6 +237,7 @@ require_once __DIR__ . '/admin_layout_top.php';
         <div class="card-body">
 
             <form method="post" enctype="multipart/form-data">
+                <?= csrf_field() ?>
 
                 <input type="hidden" name="action" value="update">
 
@@ -463,7 +475,8 @@ function confirmDelete(id) {
 
         if (result.isConfirmed) {
 
-            window.location.href = "?delete=" + id;
+            document.getElementById('delete_doc_id').value = id;
+            document.getElementById('deleteDocForm').submit();
 
         }
 

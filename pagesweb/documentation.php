@@ -3,6 +3,8 @@
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect;
+require_once __DIR__ . '/track_visitor.php';
+require_once __DIR__ . '/csrf_helper.php';
 
 $pageCss = CSS_DIR . 'documentation.css';
 

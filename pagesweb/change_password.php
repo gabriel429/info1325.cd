@@ -3,6 +3,7 @@ session_start();
 require_once __DIR__ . '/../configUrl.php';
 require_once __DIR__ . '/../defConstLiens.php';
 require_once $dateDbConnect; // provides $pdo
+require_once __DIR__ . '/csrf_helper.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ' . URL_AUTHENTIFICATION);
@@ -12,6 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $msg = '';
 $msgType = 'info';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_verify();
     $current = $_POST['current'] ?? '';
     $new = $_POST['new'] ?? '';
     $confirm = $_POST['confirm'] ?? '';
@@ -67,6 +69,7 @@ require_once __DIR__ . '/admin_layout_top.php';
                     </div>
                 <?php endif; ?>
                 <form method="post">
+                    <?= csrf_field() ?>
                     <div class="mb-3">
                         <label class="form-label">Mot de passe actuel</label>
                         <input type="password" name="current" class="form-control" required

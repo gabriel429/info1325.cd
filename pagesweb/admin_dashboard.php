@@ -28,7 +28,7 @@ try {
 
 try {
     $stats['visitors_today'] = (int)$pdo->query(
-        "SELECT COUNT(DISTINCT ip_address) FROM visitors WHERE DATE(visited_at) = CURDATE()"
+        "SELECT COUNT(DISTINCT visitor_id) FROM visits WHERE visit_date = CURDATE()"
     )->fetchColumn();
 } catch (Exception $e) {}
 

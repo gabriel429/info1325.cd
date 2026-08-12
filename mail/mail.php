@@ -1,17 +1,41 @@
 <?php
 // Simple contact mail handler with optional PHPMailer/SMTP support
 require_once __DIR__ . '/../configUrl.php';
+require_once __DIR__ . '/../pagesweb/csrf_helper.php';
 
-$name = trim($_POST['name'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$phone = trim($_POST['phone'] ?? '');
-$subject = trim($_POST['subject'] ?? 'Message via site');
-$message = trim($_POST['message'] ?? '');
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !csrf_validate(false)) {
+	http_response_code(403);
+	exit('Requête invalide. Veuillez recharger la page de contact et réessayer.');
+}
+
+function clean_contact_text(string $value, int $maxLength): string {
+	$value = preg_replace('/[\r\n]+/', ' ', trim($value));
+	return mb_substr($value, 0, $maxLength);
+}
+
+$name = clean_contact_text((string)($_POST['name'] ?? ''), 120);
+$email = trim((string)($_POST['email'] ?? ''));
+$phone = clean_contact_text((string)($_POST['phone'] ?? ''), 40);
+$subject = clean_contact_text((string)($_POST['subject'] ?? 'Message via site'), 180);
+$message = trim((string)($_POST['message'] ?? ''));
+$message = mb_substr($message, 0, 5000);
+
+if (
+	mb_strlen($name) < 2 ||
+	!filter_var($email, FILTER_VALIDATE_EMAIL) ||
+	mb_strlen($phone) < 7 ||
+	mb_strlen($subject) < 3 ||
+	mb_strlen($message) < 10
+) {
+	http_response_code(400);
+	exit('Veuillez remplir correctement tous les champs obligatoires.');
+}
 
 $to = 'projet1325@gmail.com';
 $full_subject = 'Nouveau message site: ' . ($subject ?: 'Contact');
 $email_message = "Name: " . $name . "\nEmail: " . $email . "\nPhone: " . $phone . "\nSubject: " . $subject . "\n\nMessage:\n" . $message . "\n";
-$headers = "From: " . ($email ?: 'no-reply@info1325.cd') . "\r\n";
+$headers = "From: no-reply@info1325.cd\r\n";
+$headers .= "Reply-To: " . $email . "\r\n";
 
 $sent = false;
 

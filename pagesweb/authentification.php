@@ -9,7 +9,8 @@ require_once __DIR__ . '/rate_limiter.php'; // Rate limiting protection
 
 // Ensure users table exists and create a default admin if none exists
 function ensureUsersTable(
-    PDO $pdo
+    PDO $pdo,
+    bool $isLocalEnv = false
 ) {
     $pdo->exec("CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,16 +31,18 @@ function ensureUsersTable(
     // If no users, create default admin
     $stmt = $pdo->query("SELECT COUNT(*) as c FROM users");
     $count = (int)$stmt->fetchColumn();
-    if ($count === 0) {
+    if ($count === 0 && $isLocalEnv) {
         $defaultEmail = 'admin@sn1325.cd';
         $defaultPassword = password_hash('admin123', PASSWORD_DEFAULT);
         $ins = $pdo->prepare('INSERT INTO users (email, password, role, active) VALUES (:e,:p,:r,:a)');
         $ins->execute([':e'=>$defaultEmail,':p'=>$defaultPassword,':r'=>'admin',':a'=>1]);
         // Note: first-time password is "admin123" — change it after first login.
+    } elseif ($count === 0) {
+        error_log('Aucun utilisateur administrateur configuré. Créez le premier compte manuellement en production.');
     }
 }
 
-ensureUsersTable($pdo);
+ensureUsersTable($pdo, $isLocal ?? false);
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

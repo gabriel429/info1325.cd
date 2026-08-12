@@ -185,11 +185,33 @@ function is_unique_visit_today($pdo, $visitor_id) {
 function track_visit() {
     global $pdo;
 
-    // Don't track admin pages
-    $current_page = $_SERVER['REQUEST_URI'] ?? '';
-    if (strpos($current_page, '/pagesweb/') !== false &&
-        strpos($current_page, 'authentification') === false) {
-        return; // Skip tracking for admin pages
+    // Don't track administration and internal utility pages.
+    $scriptName = basename((string) parse_url((string) ($_SERVER['SCRIPT_NAME'] ?? ''), PHP_URL_PATH));
+    $adminScripts = [
+        'add-actualites.php',
+        'add-documentation.php',
+        'add-space.php',
+        'admin_dashboard.php',
+        'administrateur.php',
+        'all-documentations.php',
+        'authentification.php',
+        'change_password.php',
+        'install_partenaires.php',
+        'logout.php',
+        'manage_axes.php',
+        'manage_funfacts.php',
+        'manage_gallery.php',
+        'manage_partenaires.php',
+        'manage_settings.php',
+        'manage_slider.php',
+        'manage_users.php',
+        'simulate_axes_upload.php',
+        'success-add-actualites.php',
+        'success-add-documentation.php',
+    ];
+
+    if (in_array($scriptName, $adminScripts, true)) {
+        return;
     }
 
     // Get visitor information
