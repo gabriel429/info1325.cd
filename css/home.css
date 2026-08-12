@@ -115,14 +115,14 @@ body {
   border: 0;
   border-radius: 8px;
   background:
-    linear-gradient(135deg, rgba(8, 18, 38, 0.84), rgba(12, 26, 52, 0.62) 58%, rgba(24, 45, 82, 0.46));
+    linear-gradient(100deg, rgba(8, 18, 38, 0.84) 0%, rgba(12, 26, 52, 0.56) 58%, rgba(24, 45, 82, 0.16) 100%);
   box-shadow:
-    0 28px 68px rgba(3, 10, 24, 0.34),
-    0 10px 24px rgba(3, 10, 24, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -1px 0 rgba(3, 10, 24, 0.2);
-  -webkit-backdrop-filter: blur(8px) saturate(112%);
-  backdrop-filter: blur(8px) saturate(112%);
+    0 28px 68px rgba(3, 10, 24, 0.28),
+    0 10px 24px rgba(3, 10, 24, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(3, 10, 24, 0.12);
+  -webkit-backdrop-filter: blur(12px) saturate(126%);
+  backdrop-filter: blur(12px) saturate(126%);
 }
 
 .hero-slide-copy::before {
@@ -131,8 +131,8 @@ body {
   inset: 0;
   z-index: 0;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 34%),
-    radial-gradient(circle at 92% 12%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 32%);
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025) 48%, rgba(255, 255, 255, 0) 82%),
+    radial-gradient(circle at 96% 10%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 34%);
   pointer-events: none;
 }
 
@@ -142,8 +142,8 @@ body {
   inset: 0;
   z-index: 0;
   box-shadow:
-    inset 16px 0 32px rgba(255, 255, 255, 0.035),
-    inset -24px 0 42px rgba(2, 8, 18, 0.14);
+    inset 18px 0 34px rgba(255, 255, 255, 0.035),
+    inset -56px 0 70px rgba(255, 255, 255, 0.035);
   pointer-events: none;
 }
 
@@ -868,10 +868,12 @@ body > h2:first-of-type {
   .hero-slide-copy {
     padding: 18px 18px 20px;
     background:
-      linear-gradient(135deg, rgba(8, 18, 38, 0.86), rgba(12, 26, 52, 0.68) 58%, rgba(24, 45, 82, 0.52));
+      linear-gradient(100deg, rgba(8, 18, 38, 0.84) 0%, rgba(12, 26, 52, 0.64) 68%, rgba(24, 45, 82, 0.34) 100%);
     box-shadow:
       0 20px 46px rgba(3, 10, 24, 0.32),
       inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    -webkit-backdrop-filter: blur(10px) saturate(118%);
+    backdrop-filter: blur(10px) saturate(118%);
   }
 
   .hero-slide-eyebrow {
