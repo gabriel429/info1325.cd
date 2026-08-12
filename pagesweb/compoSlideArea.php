@@ -72,6 +72,34 @@ if (!function_exists('slideImagePath')) {
     }
 }
 
+if (!function_exists('renderHeroTeasers')) {
+    function renderHeroTeasers(array $heroTeasers, ?array $activeNews = null): void
+    {
+        if (empty($heroTeasers)) {
+            return;
+        }
+        ?>
+        <div class="hero-teaser-strip" aria-label="Actualités mises en avant">
+            <?php foreach ($heroTeasers as $teaserIndex => $teaser): ?>
+                <?php
+                $teaserText = actualite_summary($teaser, 96);
+                if ($teaserText === '') {
+                    $teaserText = (string)($teaser['titre'] ?? '');
+                }
+                $activeId = (int)($activeNews['id'] ?? 0);
+                $teaserIsActive = $activeId > 0
+                    ? (int)($teaser['id'] ?? 0) === $activeId
+                    : $teaserIndex === 0;
+                ?>
+                <a class="hero-teaser <?= $teaserIsActive ? 'is-active' : '' ?>" href="<?= htmlspecialchars(actualite_url($teaser), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+                    <span><?= htmlspecialchars($teaserText, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></span>
+                </a>
+            <?php endforeach; ?>
+        </div>
+        <?php
+    }
+}
+
 ?>
 
 <section class="slider">
@@ -96,30 +124,14 @@ if (!function_exists('slideImagePath')) {
                             </div>
                         </div>
                     </div>
-                    <?php if (!empty($heroTeasers)): ?>
-                        <div class="hero-teaser-strip" aria-label="Actualités mises en avant">
-                            <?php foreach ($heroTeasers as $teaserIndex => $teaser): ?>
-                                <?php
-                                $teaserText = actualite_summary($teaser, 96);
-                                if ($teaserText === '') {
-                                    $teaserText = (string)($teaser['titre'] ?? '');
-                                }
-                                $teaserIsActive = (int)($teaser['id'] ?? 0) === (int)($news['id'] ?? 0);
-                                if (!$teaserIsActive && (int)($news['id'] ?? 0) === 0) {
-                                    $teaserIsActive = $teaserIndex === 0;
-                                }
-                                ?>
-                                <a class="hero-teaser <?= $teaserIsActive ? 'is-active' : '' ?>" href="<?= htmlspecialchars(actualite_url($teaser), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
-                                    <span><?= htmlspecialchars($teaserText, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></span>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
+                    <?php renderHeroTeasers($heroTeasers, $news); ?>
                 </div>
             <?php endforeach; ?>
 
             <?php foreach ($manualSlides as $slide): $img = slideImagePath($slide, (int)($slide['position'] ?? 1)); ?>
-                <div class="single-slider" style="background-image:url('<?= htmlspecialchars($img) ?>')">
+                <div class="single-slider featured-news-slide manual-hero-slide">
+                    <div class="slide-backdrop" style="background-image:url('<?= htmlspecialchars($img, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>')" aria-hidden="true"></div>
+                    <img class="slide-image" src="<?= htmlspecialchars($img, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" alt="" aria-hidden="true" decoding="async">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-lg-7">
@@ -140,6 +152,7 @@ if (!function_exists('slideImagePath')) {
                             </div>
                         </div>
                     </div>
+                    <?php renderHeroTeasers($heroTeasers); ?>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
