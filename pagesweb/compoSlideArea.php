@@ -66,8 +66,10 @@ if (!function_exists('slideImagePath')) {
 <section class="slider">
     <div class="hero-slider">
         <?php if (!empty($featuredNews) || !empty($manualSlides)): ?>
-            <?php foreach ($featuredNews as $news): ?>
-                <div class="single-slider" style="background-image:url('<?= htmlspecialchars(actualite_image_url($news['imgMise'] ?? null)) ?>')">
+            <?php foreach ($featuredNews as $news): $featuredImage = actualite_image_url($news['imgMise'] ?? null); ?>
+                <div class="single-slider featured-news-slide">
+                    <div class="slide-backdrop" style="background-image:url('<?= htmlspecialchars($featuredImage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>')" aria-hidden="true"></div>
+                    <img class="slide-image" src="<?= htmlspecialchars($featuredImage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" alt="" aria-hidden="true" decoding="async">
                     <div class="container">
                         <div class="row align-items-center">
                             <div class="col-lg-7">

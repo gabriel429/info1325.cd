@@ -149,7 +149,7 @@ try {
 
 		<!-- Favicon -->
 
-		<link rel="icon" href="<?= asset_url(IMG_DIR . 'favicon.png') ?>">
+		<link rel="icon" type="image/png" href="<?= asset_url(IMG_DIR . 'favicon.png') ?>">
 
 		
 
