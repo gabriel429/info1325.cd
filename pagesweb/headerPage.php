@@ -1,3 +1,9 @@
+<?php
+ini_set('default_charset', 'UTF-8');
+if (!headers_sent()) {
+    header('Content-Type: text/html; charset=UTF-8');
+}
+?>
 <!doctype html>
 
 <html class="no-js" lang="zxx">
@@ -22,7 +28,7 @@
 
 		<!-- Title -->
 
-        <title><?= htmlspecialchars($pageTitle ?? $PAGE_TITLE ?? 'SN1325 - Secrétariat National de la Résolution 1325 en RDC') ?></title>
+        <title><?= htmlspecialchars($pageTitle ?? $PAGE_TITLE ?? 'SN1325 - Secrétariat National de la Résolution 1325 en RDC', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></title>
 
 		
 
@@ -59,8 +65,8 @@
 			$s1 = rtrim(ROOT_DIR, '/') . '/css/style.css';
 			$s2 = rtrim(ROOT_DIR, '/') . '/css/responsive.css';
 			if (defined('DEBUG_ASSETS') && DEBUG_ASSETS) {
-			    echo "<!-- ASSET_DEBUG: style=" . htmlspecialchars(CSS_DIR . 'style.css') . " exists=" . (file_exists($s1) ? '1' : '0') . " -->\n";
-			    echo "<!-- ASSET_DEBUG: responsive=" . htmlspecialchars(CSS_DIR . 'responsive.css') . " exists=" . (file_exists($s2) ? '1' : '0') . " -->\n";
+			    echo "<!-- ASSET_DEBUG: style=" . htmlspecialchars(CSS_DIR . 'style.css', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . " exists=" . (file_exists($s1) ? '1' : '0') . " -->\n";
+			    echo "<!-- ASSET_DEBUG: responsive=" . htmlspecialchars(CSS_DIR . 'responsive.css', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . " exists=" . (file_exists($s2) ? '1' : '0') . " -->\n";
 			}
 			?>
 		<!-- Slicknav -->
@@ -389,7 +395,7 @@ if (!empty($showBreadcrumb)) {
 			<div class="bread-inner">
 				<div class="row">
 					<div class="col-12">
-						<h2><?= htmlspecialchars($PAGE_TITLE) ?></h2>
+						<h2><?= htmlspecialchars($PAGE_TITLE, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></h2>
 					</div>
 				</div>
 			</div>
@@ -404,7 +410,7 @@ if (!empty($showBreadcrumb)) {
 		if (empty($SKIP_PAGE_TITLE)) {
 			?>
 			<div class="container page-header">
-				<h2><?= htmlspecialchars($PAGE_TITLE) ?></h2>
+				<h2><?= htmlspecialchars($PAGE_TITLE, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></h2>
 			</div>
 			<?php
 		}

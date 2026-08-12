@@ -13,6 +13,11 @@ $pageTitle   = $pageTitle   ?? 'Administration';
 $breadcrumb  = $breadcrumb  ?? [];
 $activePage  = $activePage  ?? '';
 
+ini_set('default_charset', 'UTF-8');
+if (!headers_sent()) {
+    header('Content-Type: text/html; charset=UTF-8');
+}
+
 // Lien actif helper
 function sidebarActive(string $page, string $current): string {
     return $page === $current ? ' active' : '';
@@ -23,7 +28,7 @@ function sidebarActive(string $page, string $current): string {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= htmlspecialchars($pageTitle) ?> — SN1325 Admin</title>
+    <title><?= htmlspecialchars($pageTitle, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?> — SN1325 Admin</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -648,10 +653,10 @@ function sidebarActive(string $page, string $current): string {
                 <?php foreach ($breadcrumb as $idx => $crumb): ?>
                     <?php if ($idx < count($breadcrumb) - 1): ?>
                         <li class="breadcrumb-item">
-                            <a href="<?= htmlspecialchars($crumb['url'] ?? '#') ?>"><?= htmlspecialchars($crumb['label']) ?></a>
+                            <a href="<?= htmlspecialchars($crumb['url'] ?? '#', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>"><?= htmlspecialchars($crumb['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></a>
                         </li>
                     <?php else: ?>
-                        <li class="breadcrumb-item active"><?= htmlspecialchars($crumb['label']) ?></li>
+                        <li class="breadcrumb-item active"><?= htmlspecialchars($crumb['label'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></li>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </ol>
@@ -663,8 +668,8 @@ function sidebarActive(string $page, string $current): string {
                 <?= strtoupper(substr($_SESSION['user'] ?? 'A', 0, 1)) ?>
             </div>
             <div class="d-none d-sm-block">
-                <div class="user-name"><?= htmlspecialchars($_SESSION['user'] ?? '') ?></div>
-                <div class="user-role"><?= htmlspecialchars($_SESSION['role'] ?? 'user') ?></div>
+                <div class="user-name"><?= htmlspecialchars($_SESSION['user'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></div>
+                <div class="user-role"><?= htmlspecialchars($_SESSION['role'] ?? 'user', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></div>
             </div>
         </div>
     </header>

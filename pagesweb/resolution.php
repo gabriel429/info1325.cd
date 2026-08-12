@@ -50,50 +50,12 @@ require_once $headerPath; // inclut le head et ouvre <body>
   </div>
 </section>
 
-<section class="resolution-intro section">
-  <div class="container">
-    <div class="resolution-overview">
-      <article class="overview-card">
-        <span class="overview-label">Référence</span>
-        <strong>ONU 1325</strong>
-        <p>Texte fondateur du Conseil de sécurité sur les femmes, la paix et la sécurité.</p>
-      </article>
-      <article class="overview-card">
-        <span class="overview-label">Finalité</span>
-        <strong>Participation et protection</strong>
-        <p>Renforcer la place des femmes dans la prévention, la gestion des conflits et la consolidation de la paix.</p>
-      </article>
-      <article class="overview-card">
-        <span class="overview-label">Usage</span>
-        <strong>Document de travail</strong>
-        <p>Base d’orientation pour l’action publique, le plaidoyer et les programmes de mise en œuvre.</p>
-      </article>
-    </div>
-
-    <div class="resolution-lead-panel">
-      <div class="lead-copy">
-        <span class="section-kicker">Lecture guidée</span>
-        <h2>Comprendre la Résolution avant de la mettre en œuvre</h2>
-        <p>Cette page rassemble les extraits structurants de la Résolution 1325 et les principaux éléments d’analyse utiles aux institutions, organisations de la société civile, partenaires et praticiens engagés dans l’agenda Femmes, Paix et Sécurité.</p>
-      </div>
-      <div class="lead-aside">
-        <span class="aside-label">Repères rapides</span>
-        <ul class="lead-points">
-          <li>Lecture synthétique du cadre normatif</li>
-          <li>Focus sur la participation, la prévention et la protection</li>
-          <li>Accès direct au document PDF officiel en fin de page</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="resolution-framework section">
   <div class="container">
     <div class="framework-header">
-      <span class="section-kicker">Les quatre piliers</span>
-      <h2>Une lecture stratégique de la Résolution 1325</h2>
-      <p>Au-delà du texte, la Résolution 1325 structure une doctrine d’action: participation, prévention, protection et relèvement. Ces piliers servent ici de grille de lecture rapide avant d’entrer dans le contenu intégral.</p>
+      <span class="section-kicker">Cadre d’action</span>
+      <h2>Les quatre piliers de la Résolution 1325</h2>
+      <p>Participation, prévention, protection et relèvement structurent l’action publique autour de l’agenda Femmes, Paix et Sécurité.</p>
     </div>
 
     <div class="resolution-pillars">
@@ -112,8 +74,8 @@ require_once $headerPath; // inclut le head et ouvre <body>
     <div class="resolution-reading-layout">
       <aside class="resolution-sidebar">
         <div class="sidebar-panel nav-panel">
-          <span class="aside-label">Navigation</span>
-          <h3>Parcours de lecture</h3>
+          <span class="aside-label">Sommaire</span>
+          <h3>Sections du document</h3>
           <ul class="section-nav-list">
             <?php foreach ($resolutionSections as $section): ?>
               <li><a href="#<?= htmlspecialchars($section['id']) ?>"><?= htmlspecialchars($section['label']) ?></a></li>
@@ -122,10 +84,10 @@ require_once $headerPath; // inclut le head et ouvre <body>
         </div>
 
         <div class="sidebar-panel emphasis-panel">
-          <span class="aside-label">À retenir</span>
-          <h3>Une résolution à traduire en dispositifs concrets</h3>
+          <span class="aside-label">Document officiel</span>
+          <h3>Résolution 1325 ONU</h3>
           <p>La valeur de la Résolution 1325 ne se mesure pas seulement à sa portée normative, mais à sa capacité à transformer les politiques publiques, les pratiques sécuritaires et les mécanismes de paix.</p>
-          <a href="#resolution-download-section" class="sidebar-link">Accéder au document officiel</a>
+          <a href="#resolution-download-section" class="sidebar-link">Voir le PDF</a>
         </div>
       </aside>
 

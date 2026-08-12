@@ -60,12 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $articleId = (int)($_POST['actu_id'] ?? 0);
-        $title = trim((string)($_POST['titre'] ?? ''));
-        $category = trim((string)($_POST['categorie'] ?? 'Actualité'));
-        $summary = trim((string)($_POST['resume'] ?? ''));
-        $rawContent = (string)($_POST['contenu'] ?? '');
+        $title = trim(actualite_normalize_utf8((string)($_POST['titre'] ?? '')));
+        $category = trim(actualite_normalize_utf8((string)($_POST['categorie'] ?? 'Actualité')));
+        $summary = trim(actualite_normalize_utf8((string)($_POST['resume'] ?? '')));
+        $rawContent = actualite_normalize_utf8((string)($_POST['contenu'] ?? ''));
         $content = actualite_sanitize_html($rawContent);
-        $author = trim((string)($_POST['auteur'] ?? ''));
+        $author = trim(actualite_normalize_utf8((string)($_POST['auteur'] ?? '')));
         $datePub = trim((string)($_POST['date_pub'] ?? '')) ?: date('Y-m-d');
         $status = (string)($_POST['statut'] ?? 'brouillon');
         $featured = isset($_POST['a_la_une']) ? 1 : 0;
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($content === '' && $summary !== '') {
-            $content = '<p>' . htmlspecialchars($summary, ENT_QUOTES, 'UTF-8') . '</p>';
+            $content = '<p>' . actualite_escape($summary) . '</p>';
         }
 
         $slug = actualite_unique_slug($pdo, $title, $articleId > 0 ? $articleId : null, $requestedSlug ?: null);
@@ -212,11 +212,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $message = '';
 if (!empty($_SESSION['flash_news'])) {
-    $message = '<div class="alert alert-success alert-dismissible fade show"><i class="bi bi-check-circle-fill me-2"></i>' . htmlspecialchars($_SESSION['flash_news']) . '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
+    $message = '<div class="alert alert-success alert-dismissible fade show"><i class="bi bi-check-circle-fill me-2"></i>' . actualite_escape($_SESSION['flash_news']) . '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
     unset($_SESSION['flash_news']);
 }
 if (!empty($_SESSION['flash_news_error'])) {
-    $message = '<div class="alert alert-danger alert-dismissible fade show"><i class="bi bi-exclamation-triangle-fill me-2"></i>' . htmlspecialchars($_SESSION['flash_news_error']) . '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
+    $message = '<div class="alert alert-danger alert-dismissible fade show"><i class="bi bi-exclamation-triangle-fill me-2"></i>' . actualite_escape($_SESSION['flash_news_error']) . '<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>';
     unset($_SESSION['flash_news_error']);
 }
 
@@ -486,23 +486,23 @@ require_once __DIR__ . '/admin_layout_top.php';
     <div class="editor-grid">
         <div class="editor-panel">
             <div class="editor-panel-header">
-                <h2><?= htmlspecialchars($formAction) ?></h2>
+                <h2><?= actualite_escape($formAction) ?></h2>
                 <button type="button" class="btn btn-outline-primary btn-sm" id="previewBtn"><i class="bi bi-eye me-1"></i>Aperçu</button>
             </div>
             <div class="editor-panel-body">
                 <div class="mb-3">
                     <label class="form-label" for="titreInput">Titre de l'actualité</label>
-                    <input type="text" name="titre" id="titreInput" class="form-control form-control-lg" required value="<?= htmlspecialchars($editing['titre'] ?? '') ?>">
+                    <input type="text" name="titre" id="titreInput" class="form-control form-control-lg" required value="<?= actualite_escape($editing['titre'] ?? '') ?>">
                 </div>
 
                 <div class="row">
                     <div class="col-lg-7 mb-3">
                         <label class="form-label" for="slugInput">Slug</label>
-                        <input type="text" name="slug" id="slugInput" class="form-control" value="<?= htmlspecialchars($editing['slug'] ?? '') ?>">
+                        <input type="text" name="slug" id="slugInput" class="form-control" value="<?= actualite_escape($editing['slug'] ?? '') ?>">
                     </div>
                     <div class="col-lg-5 mb-3">
                         <label class="form-label" for="categorieInput">Catégorie</label>
-                        <input type="text" name="categorie" id="categorieInput" class="form-control" list="categoriesList" value="<?= htmlspecialchars($editing['categorie'] ?? 'Actualité') ?>">
+                        <input type="text" name="categorie" id="categorieInput" class="form-control" list="categoriesList" value="<?= actualite_escape($editing['categorie'] ?? 'Actualité') ?>">
                         <datalist id="categoriesList">
                             <option value="Actualité">
                             <option value="Atelier">
@@ -515,7 +515,7 @@ require_once __DIR__ . '/admin_layout_top.php';
 
                 <div class="mb-3">
                     <label class="form-label" for="resumeInput">Résumé / chapeau de l'article</label>
-                    <textarea name="resume" id="resumeInput" class="form-control" rows="4"><?= htmlspecialchars($editing['resume'] ?? $editing['commentaire'] ?? '') ?></textarea>
+                    <textarea name="resume" id="resumeInput" class="form-control" rows="4"><?= actualite_escape($editing['resume'] ?? $editing['commentaire'] ?? '') ?></textarea>
                 </div>
 
                 <label class="form-label">Contenu complet</label>
@@ -566,12 +566,12 @@ require_once __DIR__ . '/admin_layout_top.php';
             <div class="editor-panel-body">
                 <div class="mb-3">
                     <label class="form-label" for="auteurInput">Auteur / journaliste</label>
-                    <input type="text" name="auteur" id="auteurInput" class="form-control" value="<?= htmlspecialchars($editing['auteur'] ?? $_SESSION['user'] ?? '') ?>">
+                    <input type="text" name="auteur" id="auteurInput" class="form-control" value="<?= actualite_escape($editing['auteur'] ?? $_SESSION['user'] ?? '') ?>">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label" for="dateInput">Date de publication</label>
-                    <input type="date" name="date_pub" id="dateInput" class="form-control" required value="<?= htmlspecialchars($editing['date_pub'] ?? date('Y-m-d')) ?>">
+                    <input type="date" name="date_pub" id="dateInput" class="form-control" required value="<?= actualite_escape($editing['date_pub'] ?? date('Y-m-d')) ?>">
                 </div>
 
                 <div class="mb-3">
@@ -594,12 +594,12 @@ require_once __DIR__ . '/admin_layout_top.php';
                     <input type="file" name="imgMise" id="coverInput" class="form-control" accept="image/*">
                 </div>
 
-                <img id="coverPreview" class="cover-preview" src="<?= htmlspecialchars($currentCoverUrl ?: IMG_DIR . 'bread-bg21.jpg') ?>" alt="">
+                <img id="coverPreview" class="cover-preview" src="<?= actualite_escape($currentCoverUrl ?: IMG_DIR . 'bread-bg21.jpg') ?>" alt="">
 
                 <div class="d-grid gap-2 mt-4">
                     <button type="submit" class="btn btn-admin-primary btn-lg"><i class="bi bi-save me-1"></i>Enregistrer</button>
                     <?php if ($editing && ($editing['statut'] ?? '') === 'publie'): ?>
-                        <a class="btn btn-outline-secondary" href="<?= htmlspecialchars(actualite_url($editing)) ?>" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right me-1"></i>Voir en ligne</a>
+                        <a class="btn btn-outline-secondary" href="<?= actualite_escape(actualite_url($editing)) ?>" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right me-1"></i>Voir en ligne</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -628,17 +628,17 @@ require_once __DIR__ . '/admin_layout_top.php';
                     <?php foreach ($articles as $article): ?>
                         <tr>
                             <td class="article-title-cell">
-                                <a href="<?= URL_ADDACTUALITES ?>?edit=<?= (int)$article['id'] ?>"><?= htmlspecialchars($article['titre']) ?></a>
-                                <small><?= htmlspecialchars('/actualites/' . ($article['slug'] ?: actualite_slugify($article['titre'] ?? 'actualite'))) ?></small>
+                                <a href="<?= URL_ADDACTUALITES ?>?edit=<?= (int)$article['id'] ?>"><?= actualite_escape($article['titre']) ?></a>
+                                <small><?= actualite_escape('/actualites/' . ($article['slug'] ?: actualite_slugify($article['titre'] ?? 'actualite'))) ?></small>
                             </td>
-                            <td><?= htmlspecialchars($article['categorie'] ?: 'Actualité') ?></td>
-                            <td><?= htmlspecialchars(actualite_published_label($article['date_pub'] ?? null)) ?></td>
+                            <td><?= actualite_escape($article['categorie'] ?: 'Actualité') ?></td>
+                            <td><?= actualite_escape(actualite_published_label($article['date_pub'] ?? null)) ?></td>
                             <td><span class="badge <?= news_editor_status_badge((string)($article['statut'] ?? 'brouillon')) ?>"><?= news_editor_status_label((string)($article['statut'] ?? 'brouillon')) ?></span></td>
                             <td><?= !empty($article['a_la_une']) ? '<span class="badge bg-warning text-dark">Oui</span>' : '<span class="text-muted">Non</span>' ?></td>
                             <td class="text-end">
                                 <div class="btn-group btn-group-sm">
                                     <?php if (($article['statut'] ?? '') === 'publie'): ?>
-                                        <a class="btn btn-outline-primary" href="<?= htmlspecialchars(actualite_url($article)) ?>" target="_blank" rel="noopener" title="Voir"><i class="bi bi-eye"></i></a>
+                                        <a class="btn btn-outline-primary" href="<?= actualite_escape(actualite_url($article)) ?>" target="_blank" rel="noopener" title="Voir"><i class="bi bi-eye"></i></a>
                                     <?php endif; ?>
                                     <a class="btn btn-outline-secondary" href="<?= URL_ADDACTUALITES ?>?edit=<?= (int)$article['id'] ?>" title="Modifier"><i class="bi bi-pencil"></i></a>
                                 </div>
@@ -688,7 +688,7 @@ require_once __DIR__ . '/admin_layout_top.php';
     const coverPreview = document.getElementById('coverPreview');
     const bodyImageInput = document.getElementById('bodyImageInput');
     const csrfToken = form.querySelector('input[name="csrf_token"]').value;
-    const uploadUrl = '<?= BASE_URL ?>pagesweb/upload_actualite_media.php';
+    const uploadUrl = <?= json_encode(BASE_URL . 'pagesweb/upload_actualite_media.php', JSON_UNESCAPED_SLASHES) ?>;
     let slugTouched = slugInput.value.trim() !== '';
     let savedRange = null;
 
@@ -708,7 +708,7 @@ require_once __DIR__ . '/admin_layout_top.php';
     function saveSelection() {
         const selection = window.getSelection();
         if (selection && selection.rangeCount > 0 && editor.contains(selection.anchorNode)) {
-            savedRange = selection.getRangeAt(0);
+            savedRange = selection.getRangeAt(0).cloneRange();
         }
     }
 
@@ -719,6 +719,22 @@ require_once __DIR__ . '/admin_layout_top.php';
             selection.removeAllRanges();
             selection.addRange(savedRange);
         }
+    }
+
+    function getEditorRange() {
+        const selection = window.getSelection();
+        if (savedRange && editor.contains(savedRange.commonAncestorContainer)) {
+            return savedRange.cloneRange();
+        }
+
+        if (selection && selection.rangeCount > 0 && editor.contains(selection.anchorNode)) {
+            return selection.getRangeAt(0).cloneRange();
+        }
+
+        const range = document.createRange();
+        range.selectNodeContents(editor);
+        range.collapse(false);
+        return range;
     }
 
     function escapeHtml(value) {
@@ -732,8 +748,24 @@ require_once __DIR__ . '/admin_layout_top.php';
     }
 
     function insertHtml(html) {
-        restoreSelection();
-        document.execCommand('insertHTML', false, html);
+        editor.focus();
+        const selection = window.getSelection();
+        const range = getEditorRange();
+        const fragment = range.createContextualFragment(html);
+        const lastNode = fragment.lastChild;
+
+        range.deleteContents();
+        range.insertNode(fragment);
+
+        if (selection && lastNode) {
+            const nextRange = document.createRange();
+            nextRange.setStartAfter(lastNode);
+            nextRange.collapse(true);
+            selection.removeAllRanges();
+            selection.addRange(nextRange);
+            savedRange = nextRange.cloneRange();
+        }
+
         syncContent();
     }
 
@@ -751,9 +783,17 @@ require_once __DIR__ . '/admin_layout_top.php';
         return match ? 'https://www.youtube.com/embed/' + match[1] : '';
     }
 
+    editor.addEventListener('focus', saveSelection);
     editor.addEventListener('keyup', saveSelection);
     editor.addEventListener('mouseup', saveSelection);
+    editor.addEventListener('touchend', saveSelection);
     editor.addEventListener('input', syncContent);
+
+    document.querySelectorAll('.toolbar button').forEach(function (button) {
+        button.addEventListener('mousedown', function (event) {
+            event.preventDefault();
+        });
+    });
 
     document.querySelectorAll('[data-command]').forEach(function (button) {
         button.addEventListener('click', function () {
@@ -818,9 +858,19 @@ require_once __DIR__ . '/admin_layout_top.php';
             const response = await fetch(uploadUrl, {
                 method: 'POST',
                 body: data,
-                credentials: 'same-origin'
+                credentials: 'same-origin',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-Token': csrfToken
+                }
             });
-            const payload = await response.json();
+            const rawResponse = (await response.text()).replace(/^\uFEFF/, '').trim();
+            let payload = {};
+            try {
+                payload = rawResponse ? JSON.parse(rawResponse) : {};
+            } catch (parseError) {
+                throw new Error('Réponse serveur invalide pendant l’envoi de l’image. Réessayez avec une image moins lourde ou rechargez la page.');
+            }
             if (!response.ok || !payload.success) {
                 throw new Error(payload.message || 'Upload impossible.');
             }

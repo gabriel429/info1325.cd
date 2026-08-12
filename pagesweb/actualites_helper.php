@@ -3,11 +3,58 @@
  * Helpers for the news publishing module.
  */
 
+function actualite_mojibake_score(string $value): int
+{
+    $markers = ["\xC3\x83", "\xC3\x82", "\xC3\xA2\xE2\x82\xAC"];
+    $score = 0;
+
+    foreach ($markers as $marker) {
+        $score += substr_count($value, $marker);
+    }
+
+    return $score;
+}
+
+function actualite_normalize_utf8(string $value): string
+{
+    if ($value === '') {
+        return '';
+    }
+
+    $value = str_replace("\0", '', $value);
+
+    if (function_exists('mb_check_encoding') && !mb_check_encoding($value, 'UTF-8')) {
+        $converted = @mb_convert_encoding($value, 'UTF-8', 'Windows-1252, ISO-8859-1, UTF-8');
+        if (is_string($converted)) {
+            $value = $converted;
+        }
+    }
+
+    if (actualite_mojibake_score($value) > 0 && function_exists('mb_convert_encoding')) {
+        $repaired = @mb_convert_encoding($value, 'Windows-1252', 'UTF-8');
+        if (is_string($repaired)
+            && (!function_exists('mb_check_encoding') || mb_check_encoding($repaired, 'UTF-8'))
+            && actualite_mojibake_score($repaired) < actualite_mojibake_score($value)
+        ) {
+            $value = $repaired;
+        }
+    }
+
+    return $value;
+}
+
+function actualite_escape($value): string
+{
+    return htmlspecialchars(actualite_normalize_utf8((string)$value), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
 function ensure_actualites_schema(PDO $pdo): void
 {
+    actualites_ensure_utf8mb4($pdo);
+
     $columns = [
         'slug' => "ALTER TABLE actualites ADD COLUMN slug VARCHAR(255) DEFAULT NULL AFTER titre",
-        'categorie' => "ALTER TABLE actualites ADD COLUMN categorie VARCHAR(120) DEFAULT 'Actualite' AFTER auteur",
+        'categorie' => "ALTER TABLE actualites ADD COLUMN categorie VARCHAR(120) DEFAULT 'Actualité' AFTER auteur",
         'resume' => "ALTER TABLE actualites ADD COLUMN resume TEXT NULL AFTER commentaire",
         'contenu' => "ALTER TABLE actualites ADD COLUMN contenu MEDIUMTEXT NULL AFTER messageFort",
         'statut' => "ALTER TABLE actualites ADD COLUMN statut VARCHAR(20) NOT NULL DEFAULT 'publie' AFTER contenu",
@@ -38,6 +85,35 @@ function ensure_actualites_schema(PDO $pdo): void
     actualites_backfill_content_and_slugs($pdo);
 }
 
+function actualites_ensure_utf8mb4(PDO $pdo): void
+{
+    try {
+        $columns = $pdo->query('SHOW FULL COLUMNS FROM actualites')->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log('actualites charset read error: ' . $e->getMessage());
+        return;
+    }
+
+    $needsConversion = false;
+    foreach ($columns as $column) {
+        $collation = (string)($column['Collation'] ?? '');
+        if ($collation !== '' && strpos($collation, 'utf8mb4_') !== 0) {
+            $needsConversion = true;
+            break;
+        }
+    }
+
+    if (!$needsConversion) {
+        return;
+    }
+
+    try {
+        $pdo->exec('ALTER TABLE actualites CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+    } catch (PDOException $e) {
+        error_log('actualites charset conversion error: ' . $e->getMessage());
+    }
+}
+
 function actualites_backfill_content_and_slugs(PDO $pdo): void
 {
     try {
@@ -62,12 +138,12 @@ function actualites_backfill_content_and_slugs(PDO $pdo): void
             for ($i = 1; $i <= 10; $i++) {
                 $value = trim((string)($row['paraph' . $i] ?? ''));
                 if ($value !== '') {
-                    $paragraphs[] = '<p>' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . '</p>';
+                    $paragraphs[] = '<p>' . actualite_escape($value) . '</p>';
                 }
             }
 
             if (empty($paragraphs) && trim((string)($row['commentaire'] ?? '')) !== '') {
-                $paragraphs[] = '<p>' . htmlspecialchars((string)$row['commentaire'], ENT_QUOTES, 'UTF-8') . '</p>';
+                $paragraphs[] = '<p>' . actualite_escape((string)$row['commentaire']) . '</p>';
             }
 
             if (!empty($paragraphs)) {
@@ -89,7 +165,7 @@ function actualites_backfill_content_and_slugs(PDO $pdo): void
 
 function actualite_slugify(string $title): string
 {
-    $title = trim($title);
+    $title = trim(actualite_normalize_utf8($title));
     if ($title === '') {
         return 'actualite';
     }
@@ -160,15 +236,15 @@ function actualite_image_url(?string $image): string
 
 function actualite_summary(array $actualite, int $length = 170): string
 {
-    $summary = trim((string)($actualite['resume'] ?? ''));
+    $summary = trim(actualite_normalize_utf8((string)($actualite['resume'] ?? '')));
     if ($summary === '') {
-        $summary = trim((string)($actualite['commentaire'] ?? ''));
+        $summary = trim(actualite_normalize_utf8((string)($actualite['commentaire'] ?? '')));
     }
     if ($summary === '') {
-        $summary = strip_tags((string)($actualite['contenu'] ?? ''));
+        $summary = strip_tags(actualite_normalize_utf8((string)($actualite['contenu'] ?? '')));
     }
     if ($summary === '') {
-        $summary = trim((string)($actualite['paraph1'] ?? ''));
+        $summary = trim(actualite_normalize_utf8((string)($actualite['paraph1'] ?? '')));
     }
 
     return mb_strimwidth(preg_replace('/\s+/', ' ', $summary), 0, $length, '...');
@@ -183,7 +259,7 @@ function actualite_published_label(?string $date): string
     try {
         return (new DateTime($date))->format('d/m/Y');
     } catch (Exception $e) {
-        return htmlspecialchars($date, ENT_QUOTES, 'UTF-8');
+        return actualite_normalize_utf8($date);
     }
 }
 
@@ -219,7 +295,7 @@ function actualite_convert_youtube_links(string $html): string
             if (!$embed) {
                 return $matches[0];
             }
-            return '<figure class="article-embed"><iframe src="' . htmlspecialchars($embed, ENT_QUOTES, 'UTF-8') . '" allowfullscreen loading="lazy"></iframe></figure>';
+            return '<figure class="article-embed"><iframe src="' . actualite_escape($embed) . '" allowfullscreen loading="lazy"></iframe></figure>';
         },
         $html
     ) ?? $html;
@@ -227,6 +303,7 @@ function actualite_convert_youtube_links(string $html): string
 
 function actualite_sanitize_html(string $html): string
 {
+    $html = actualite_normalize_utf8($html);
     $html = actualite_convert_youtube_links($html);
     $allowedTags = '<p><br><strong><b><em><i><u><h2><h3><h4><ul><ol><li><blockquote><a><img><figure><figcaption><iframe><video><source><div><span><hr>';
     $html = strip_tags($html, $allowedTags);
@@ -239,9 +316,9 @@ function actualite_sanitize_html(string $html): string
         return $html;
     }
 
-    $dom = new DOMDocument();
+    $dom = new DOMDocument('1.0', 'UTF-8');
     libxml_use_internal_errors(true);
-    $dom->loadHTML('<?xml encoding="UTF-8"><div id="root">' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $dom->loadHTML('<!doctype html><html><head><meta charset="UTF-8"></head><body><div id="root">' . $html . '</div></body></html>');
     libxml_clear_errors();
 
     $allowedAttrs = [
@@ -319,7 +396,7 @@ function actualite_sanitize_html(string $html): string
         foreach ($root->childNodes as $child) {
             $output .= $dom->saveHTML($child);
         }
-        return $output;
+        return actualite_normalize_utf8($output);
     }
 
     return $html;

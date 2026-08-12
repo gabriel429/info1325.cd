@@ -58,14 +58,14 @@
 }
 
 .contact-area {
-  padding: 0 0 84px;
+  padding: 40px 0 84px;
   background:
     radial-gradient(circle at top left, rgba(15, 99, 173, 0.12), transparent 34%),
     linear-gradient(180deg, #f5f9fd 0%, #fffdf8 42%, #f5f0e6 100%);
 }
 
 .contact-area .container {
-  margin-top: -30px;
+  margin-top: 0;
 }
 
 .contact-overview {
@@ -316,7 +316,7 @@
   }
 
   .contact-area .container {
-    margin-top: -18px;
+    margin-top: 0;
   }
 
   .card {
@@ -332,7 +332,7 @@
   }
 
   .contact-area .container {
-    margin-top: -10px;
+    margin-top: 0;
   }
 
   .caremed-hero h1 {
@@ -381,7 +381,7 @@
   }
 
   .contact-area .container {
-    margin-top: -6px;
+    margin-top: 0;
   }
 
   .contact-overview-card,

@@ -10,6 +10,7 @@ require_once __DIR__ . '/actualites_helper.php';
 ensure_actualites_schema($pdo);
 
 $pageCss = CSS_DIR . 'actualites.css';
+$SKIP_PAGE_TITLE = true;
 $slug = trim((string)($_GET['slug'] ?? ''));
 $legacyId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $isDetail = $slug !== '' || $legacyId > 0;
@@ -85,21 +86,21 @@ if ($isDetail) {
                 <div class="container">
                     <a href="<?= URL_ACTUALITES ?>" class="back-link">Actualités</a>
                     <div class="article-meta">
-                        <span><?= htmlspecialchars($actu['categorie'] ?: 'Actualité') ?></span>
-                        <span><?= htmlspecialchars(actualite_published_label($actu['date_pub'] ?? null)) ?></span>
-                        <span><?= htmlspecialchars(actualite_author($actu)) ?></span>
+                        <span><?= actualite_escape($actu['categorie'] ?: 'Actualité') ?></span>
+                        <span><?= actualite_escape(actualite_published_label($actu['date_pub'] ?? null)) ?></span>
+                        <span><?= actualite_escape(actualite_author($actu)) ?></span>
                     </div>
-                    <h1><?= htmlspecialchars($actu['titre']) ?></h1>
+                    <h1><?= actualite_escape($actu['titre']) ?></h1>
                     <?php $summary = actualite_summary($actu, 320); ?>
                     <?php if ($summary !== ''): ?>
-                        <p class="article-standfirst"><?= htmlspecialchars($summary) ?></p>
+                        <p class="article-standfirst"><?= actualite_escape($summary) ?></p>
                     <?php endif; ?>
                 </div>
             </header>
 
             <div class="container article-shell">
                 <figure class="article-cover">
-                    <img src="<?= htmlspecialchars(actualite_image_url($actu['imgMise'] ?? null)) ?>" alt="<?= htmlspecialchars($actu['titre']) ?>">
+                    <img src="<?= actualite_escape(actualite_image_url($actu['imgMise'] ?? null)) ?>" alt="<?= actualite_escape($actu['titre']) ?>">
                 </figure>
 
                 <div class="article-content">
@@ -115,17 +116,17 @@ if ($isDetail) {
                         <div class="news-grid compact-grid">
                             <?php foreach ($relatedNews as $item): ?>
                                 <article class="news-card">
-                                    <a class="news-card-image" href="<?= htmlspecialchars(actualite_url($item)) ?>">
-                                        <img src="<?= htmlspecialchars(actualite_image_url($item['imgMise'] ?? null)) ?>" alt="<?= htmlspecialchars($item['titre']) ?>">
+                                    <a class="news-card-image" href="<?= actualite_escape(actualite_url($item)) ?>">
+                                        <img src="<?= actualite_escape(actualite_image_url($item['imgMise'] ?? null)) ?>" alt="<?= actualite_escape($item['titre']) ?>">
                                     </a>
                                     <div class="news-card-body">
                                         <div class="news-card-meta">
-                                            <span><?= htmlspecialchars($item['categorie'] ?: 'Actualité') ?></span>
-                                            <time><?= htmlspecialchars(actualite_published_label($item['date_pub'] ?? null)) ?></time>
+                                            <span><?= actualite_escape($item['categorie'] ?: 'Actualité') ?></span>
+                                            <time><?= actualite_escape(actualite_published_label($item['date_pub'] ?? null)) ?></time>
                                         </div>
-                                        <h3><a href="<?= htmlspecialchars(actualite_url($item)) ?>"><?= htmlspecialchars($item['titre']) ?></a></h3>
-                                        <p><?= htmlspecialchars(actualite_summary($item, 135)) ?></p>
-                                        <a class="read-link" href="<?= htmlspecialchars(actualite_url($item)) ?>">Lire la suite</a>
+                                        <h3><a href="<?= actualite_escape(actualite_url($item)) ?>"><?= actualite_escape($item['titre']) ?></a></h3>
+                                        <p><?= actualite_escape(actualite_summary($item, 135)) ?></p>
+                                        <a class="read-link" href="<?= actualite_escape(actualite_url($item)) ?>">Lire la suite</a>
                                     </div>
                                 </article>
                             <?php endforeach; ?>
@@ -184,17 +185,17 @@ require_once $headerPath;
             <?php else: ?>
                 <?php if ($featured): ?>
                     <article class="featured-article">
-                        <a class="featured-image" href="<?= htmlspecialchars(actualite_url($featured)) ?>">
-                            <img src="<?= htmlspecialchars(actualite_image_url($featured['imgMise'] ?? null)) ?>" alt="<?= htmlspecialchars($featured['titre']) ?>">
+                        <a class="featured-image" href="<?= actualite_escape(actualite_url($featured)) ?>">
+                            <img src="<?= actualite_escape(actualite_image_url($featured['imgMise'] ?? null)) ?>" alt="<?= actualite_escape($featured['titre']) ?>">
                         </a>
                         <div class="featured-copy">
                             <div class="news-card-meta">
-                                <span><?= htmlspecialchars($featured['categorie'] ?: 'Actualité') ?></span>
-                                <time><?= htmlspecialchars(actualite_published_label($featured['date_pub'] ?? null)) ?></time>
+                                <span><?= actualite_escape($featured['categorie'] ?: 'Actualité') ?></span>
+                                <time><?= actualite_escape(actualite_published_label($featured['date_pub'] ?? null)) ?></time>
                             </div>
-                            <h2><a href="<?= htmlspecialchars(actualite_url($featured)) ?>"><?= htmlspecialchars($featured['titre']) ?></a></h2>
-                            <p><?= htmlspecialchars(actualite_summary($featured, 260)) ?></p>
-                            <a href="<?= htmlspecialchars(actualite_url($featured)) ?>" class="news-button">Lire l'article</a>
+                            <h2><a href="<?= actualite_escape(actualite_url($featured)) ?>"><?= actualite_escape($featured['titre']) ?></a></h2>
+                            <p><?= actualite_escape(actualite_summary($featured, 260)) ?></p>
+                            <a href="<?= actualite_escape(actualite_url($featured)) ?>" class="news-button">Lire l'article</a>
                         </div>
                     </article>
                 <?php endif; ?>
@@ -207,17 +208,17 @@ require_once $headerPath;
                 <div class="news-grid">
                     <?php foreach ($actualites as $item): ?>
                         <article class="news-card">
-                            <a class="news-card-image" href="<?= htmlspecialchars(actualite_url($item)) ?>">
-                                <img src="<?= htmlspecialchars(actualite_image_url($item['imgMise'] ?? null)) ?>" alt="<?= htmlspecialchars($item['titre']) ?>">
+                            <a class="news-card-image" href="<?= actualite_escape(actualite_url($item)) ?>">
+                                <img src="<?= actualite_escape(actualite_image_url($item['imgMise'] ?? null)) ?>" alt="<?= actualite_escape($item['titre']) ?>">
                             </a>
                             <div class="news-card-body">
                                 <div class="news-card-meta">
-                                    <span><?= htmlspecialchars($item['categorie'] ?: 'Actualité') ?></span>
-                                    <time><?= htmlspecialchars(actualite_published_label($item['date_pub'] ?? null)) ?></time>
+                                    <span><?= actualite_escape($item['categorie'] ?: 'Actualité') ?></span>
+                                    <time><?= actualite_escape(actualite_published_label($item['date_pub'] ?? null)) ?></time>
                                 </div>
-                                <h3><a href="<?= htmlspecialchars(actualite_url($item)) ?>"><?= htmlspecialchars($item['titre']) ?></a></h3>
-                                <p><?= htmlspecialchars(actualite_summary($item, 165)) ?></p>
-                                <a class="read-link" href="<?= htmlspecialchars(actualite_url($item)) ?>">Lire la suite</a>
+                                <h3><a href="<?= actualite_escape(actualite_url($item)) ?>"><?= actualite_escape($item['titre']) ?></a></h3>
+                                <p><?= actualite_escape(actualite_summary($item, 165)) ?></p>
+                                <a class="read-link" href="<?= actualite_escape(actualite_url($item)) ?>">Lire la suite</a>
                             </div>
                         </article>
                     <?php endforeach; ?>

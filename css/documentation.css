@@ -80,15 +80,19 @@
 }
 
 .documentation-intro.section {
-  padding: 0 0 30px;
+  padding: 38px 0 30px;
 }
 
 .documentation-grid.section {
-  padding: 0 0 72px;
+  padding: 28px 0 72px;
 }
 
 .documentation-intro .container {
-  margin-top: -34px;
+  margin-top: 0;
+}
+
+.library-heading {
+  margin-bottom: 22px;
 }
 
 .documentation-overview {
@@ -344,7 +348,7 @@
   }
 
   .documentation-intro .container {
-    margin-top: -16px;
+    margin-top: 0;
   }
 
   .documentation-overview,

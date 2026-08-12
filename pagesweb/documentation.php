@@ -48,45 +48,17 @@ require_once $headerPath;
         <div class="hero-content">
             <div class="hero-breadcrumb">Accueil / Documentation</div>
             <h1>Documentation 1325</h1>
-            <p class="lead">Retrouvez les publications, rapports, plans d’action et ressources de référence mobilisés par le Secrétariat National 1325.</p>
+            <p class="lead">Publications, rapports, plans d’action et ressources de référence mobilisés par le Secrétariat National 1325.</p>
         </div>
     </div>
 </section>
 
 <section class="documentation-intro section">
     <div class="container">
-        <div class="documentation-overview">
-            <article class="overview-card">
-                <span class="overview-label">Bibliothèque active</span>
-                <strong><?= $totalDocs ?> ressources</strong>
-                <p>Ensemble des publications, textes normatifs et rapports archivés sur la plateforme.</p>
-            </article>
-            <article class="overview-card">
-                <span class="overview-label">Mise à jour</span>
-                <strong><?= htmlspecialchars((string) $latestDocYear) ?></strong>
-                <p>Année la plus récente disponible dans la collection documentaire publiée.</p>
-            </article>
-            <article class="overview-card">
-                <span class="overview-label">Accès</span>
-                <strong>Lecture et téléchargement</strong>
-                <p>Chaque ressource peut être consultée en ligne ou récupérée pour diffusion et travail interne.</p>
-            </article>
-        </div>
-
-        <div class="doc-lead-panel">
-            <div class="lead-copy">
-                <span class="section-kicker">Centre de ressources</span>
-                <h2>Une bibliothèque documentaire au service du plaidoyer et de l’action</h2>
-                <p>Cette page rassemble les outils de référence utiles aux institutions, partenaires techniques, organisations de la société civile, chercheurs et praticiens investis dans l’agenda Femmes, Paix et Sécurité.</p>
-            </div>
-            <div class="lead-aside">
-                <span class="aside-label">Repères rapides</span>
-                <ul class="lead-points">
-                    <li>Plans d’action nationaux et rapports pays</li>
-                    <li>Cadres juridiques et textes de référence</li>
-                    <li>Accès direct aux fichiers PDF suivis par la plateforme</li>
-                </ul>
-            </div>
+        <div class="section-heading library-heading">
+            <span class="section-kicker">Publications récentes</span>
+            <h3>Documents de référence</h3>
+            <p><?= $totalDocs ?> ressources disponibles · Dernière mise à jour <?= htmlspecialchars((string) $latestDocYear) ?></p>
         </div>
 
         <?php if (!empty($featuredDocs)): ?>
@@ -126,7 +98,7 @@ require_once $headerPath;
         <div class="section-heading">
             <span class="section-kicker">Bibliothèque complète</span>
             <h3>Toutes les publications disponibles</h3>
-            <p>Parcourez l’ensemble des documents archivés et accédez rapidement aux versions de consultation et de téléchargement.</p>
+            <p>Rapports, plans d’action, textes de référence et publications institutionnelles.</p>
         </div>
 
         <div class="doc-library-grid">

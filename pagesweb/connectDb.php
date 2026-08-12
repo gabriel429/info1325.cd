@@ -28,6 +28,11 @@ $user    = $isLocal ? SECRET_DB_LOCAL_USER : SECRET_DB_PROD_USER;
 $pass    = $isLocal ? SECRET_DB_LOCAL_PASS : SECRET_DB_PROD_PASS;
 $charset = 'utf8mb4';
 
+ini_set('default_charset', 'UTF-8');
+if (function_exists('mb_internal_encoding')) {
+    mb_internal_encoding('UTF-8');
+}
+
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -38,6 +43,7 @@ $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo->exec("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
 } catch (PDOException $e) {
     error_log('Erreur de connexion à la BDD : ' . $e->getMessage());
     die('Une erreur technique est survenue. Veuillez réessayer plus tard.');

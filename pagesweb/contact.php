@@ -23,41 +23,23 @@
 		<!-- Hero -->
 		<section class="caremed-hero contact-hero" style="background:linear-gradient(90deg, rgba(17,82,147,0.9), rgba(0,123,193,0.9));">
 			<div class="container">
-				<div class="hero-content">
-					<div class="hero-breadcrumb">Accueil / Contact</div>
-					<h1>Contactez le Secrétariat</h1>
-					<p class="lead">Prenez contact avec l’équipe de coordination pour toute demande d’information, de partenariat institutionnel ou de collaboration technique.</p>
-				</div>
+					<div class="hero-content">
+						<div class="hero-breadcrumb">Accueil / Contact</div>
+						<h1>Contactez le Secrétariat</h1>
+						<p class="lead">Point de contact institutionnel pour les demandes d’information, les partenariats et les collaborations techniques.</p>
+					</div>
 			</div>
 		</section>
 
 		<!-- Contact area -->
 		<section class="contact-area section">
 			<div class="container">
-				<div class="contact-overview">
-					<article class="contact-overview-card">
-						<span class="overview-label">Canal principal</span>
-						<strong>Messagerie directe</strong>
-						<p>Adressez vos demandes officielles, besoins d’information et sollicitations de partenariat via le formulaire dédié.</p>
-					</article>
-					<article class="contact-overview-card">
-						<span class="overview-label">Disponibilité</span>
-						<strong>Lundi au vendredi</strong>
-						<p>Accueil du public et traitement des demandes de 8h00 à 16h00 selon les horaires du secrétariat.</p>
-					</article>
-					<article class="contact-overview-card">
-						<span class="overview-label">Localisation</span>
-						<strong>Kinshasa-Gombe</strong>
-						<p>Concession du Secrétariat au Développement Rural, en diagonale du Premier Shopping Mall.</p>
-					</article>
-				</div>
 				<div class="row align-items-stretch">
 					<div class="col-lg-6">
 						<div class="contact-form card">
 							<div class="section-intro">
-								<span class="section-kicker">Formulaire de contact</span>
+								<span class="section-kicker">Correspondance officielle</span>
 								<h3>Adressez votre demande au Secrétariat</h3>
-								<p>Décrivez votre besoin avec précision afin de faciliter son orientation vers le service compétent.</p>
 							</div>
 							<?php if ($simple_mail_sent === true): ?>
 								<div class="alert alert-success">Merci — votre message a été envoyé.</div>
@@ -100,7 +82,6 @@
 									</div>
 									<div class="col-12 form-actions">
 										<button class="btn-primary" type="submit" id="submitBtn">Envoyer</button>
-										<small class="text-muted d-block mt-2">* Tous les champs sont obligatoires et traités par l’équipe de coordination.</small>
 									</div>
 								</div>
 							</form>
@@ -110,8 +91,7 @@
 						<div class="contact-map card">
 							<div class="section-intro map-intro">
 								<span class="section-kicker">Coordonnées</span>
-								<h3>Retrouvez le Secrétariat</h3>
-								<p>Le bureau national assure l’accueil, l’orientation et le relais des demandes adressées au mécanisme de coordination.</p>
+								<h3>Secrétariat National 1325</h3>
 							</div>
 							<div class="map-embed" style="height:320px; border-radius:8px; overflow:hidden">
 								<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3978.5619295358747!2d15.297094775712122!3d-4.304897446378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2scd!4v1770377691242!5m2!1sfr!2scd" width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -140,7 +120,7 @@
 								</div>
 							</div>
 							<div class="contact-note">
-								<p>Pour une demande officielle, privilégiez le formulaire ou l’adresse e-mail institutionnelle afin d’assurer un traitement rapide et traçable.</p>
+								<p>Kinshasa-Gombe, concession du Secrétariat au Développement Rural, en diagonale du Premier Shopping Mall.</p>
 							</div>
 						</div>
 					</div>

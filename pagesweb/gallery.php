@@ -61,54 +61,20 @@ require_once $headerPath;
         <div class="hero-content">
             <div class="hero-breadcrumb">Accueil / Galerie</div>
             <h1>Galerie photo du SN1325</h1>
-            <p class="lead">Retrouvez les temps forts, ateliers, activites mediatiques et moments institutionnels documentes par le Secretariat National 1325.</p>
+            <p class="lead">Temps forts, ateliers, activités médiatiques et moments institutionnels documentés par le Secrétariat National 1325.</p>
         </div>
     </div>
 </section>
 
 <section class="gallery-shell gallery-intro section">
     <div class="container">
-        <div class="gallery-overview">
-            <article class="overview-card">
-                <span class="overview-label">Collection active</span>
-                <strong><?= count($items) ?> visuels</strong>
-                <p>Une archive photographique organisee par activite pour documenter les actions menees autour de la Resolution 1325.</p>
-            </article>
-            <article class="overview-card">
-                <span class="overview-label">Categories</span>
-                <strong><?= count($activityCounts) ?> rubriques</strong>
-                <p>Les albums sont filtrables par evenement, emission, atelier ou sequence institutionnelle.</p>
-            </article>
-            <article class="overview-card">
-                <span class="overview-label">Derniere mise a jour</span>
-                <strong><?= h($latestPublication) ?></strong>
-                <p>Les nouvelles images sont integrees au fil des activites relayees par la plateforme.</p>
-            </article>
-        </div>
-
-        <div class="gallery-lead-panel">
-            <div>
-                <span class="section-kicker">Parcours visuel</span>
-                <h2>Une galerie alignee sur l'identite editoriale du site</h2>
-                <p>Cette page reprend le meme header, le meme footer et la meme logique visuelle que les autres espaces editoriaux du site, tout en conservant un acces rapide aux images et aux filtres par activite.</p>
-            </div>
-            <div>
-                <span class="section-kicker">Navigation</span>
-                <ul class="gallery-points">
-                    <li>Filtrez les images par activite ou affichez l'ensemble de la collection.</li>
-                    <li>Cliquez sur une vignette pour ouvrir l'image en grand format.</li>
-                    <li>Conservez un parcours coherent avec le header et le footer partages du site.</li>
-                </ul>
-            </div>
-        </div>
-
         <div class="gallery-filters-panel">
             <div class="gallery-filters-header">
                 <div>
-                    <span class="section-kicker">Filtrer la galerie</span>
+                    <span class="section-kicker">Photothèque</span>
                     <h2><?= h($currentActivityLabel) ?></h2>
                 </div>
-                <p><?= count($filtered) ?> image<?= count($filtered) > 1 ? 's' : '' ?> affichee<?= count($filtered) > 1 ? 's' : '' ?></p>
+                <p><?= count($filtered) ?> image<?= count($filtered) > 1 ? 's' : '' ?> publiée<?= count($filtered) > 1 ? 's' : '' ?> · <?= count($activityCounts) ?> rubrique<?= count($activityCounts) > 1 ? 's' : '' ?></p>
             </div>
 
             <div class="gallery-filters">
@@ -128,8 +94,7 @@ require_once $headerPath;
         <?php if (empty($filtered)): ?>
             <div class="gallery-empty">
                 <span class="section-kicker">Aucune image</span>
-                <h3>Cette activite ne contient pas encore de visuels publies</h3>
-                <p>Choisissez une autre rubrique ou revenez a l'ensemble de la galerie pour continuer la navigation.</p>
+                <h3>Aucun visuel publié pour cette rubrique</h3>
             </div>
         <?php else: ?>
             <div class="gallery-grid">

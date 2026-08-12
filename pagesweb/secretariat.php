@@ -213,9 +213,9 @@
 
                                             <section class="engagement-band">
                                                 <div>
-                                                    <span class="section-kicker">Rester connecté</span>
-                                                    <h3>Suivre les actions du Secrétariat</h3>
-                                                    <p>Retrouvez les publications, interventions publiques, informations institutionnelles et actualités liées à la mise en œuvre de la Résolution 1325 en RDC.</p>
+                                                    <span class="section-kicker">Actualité institutionnelle</span>
+                                                    <h3>Actions du Secrétariat</h3>
+                                                    <p>Publications, interventions publiques et informations institutionnelles liées à la mise en œuvre de la Résolution 1325 en RDC.</p>
                                                 </div>
                                                 <div class="share">
                                     <h4>Nous suivre</h4>
@@ -232,7 +232,7 @@
                                     <aside class="secretariat-sidebar">
                                         <div class="sidebar-stack">
                                             <article class="sidebar-card quick-nav-card">
-                                                <span class="sidebar-label">Navigation rapide</span>
+                                                <span class="sidebar-label">Sommaire</span>
                                                 <ul>
                                                     <li><a href="#contexte">Composition</a></li>
                                                     <li><a href="#missions">Missions</a></li>

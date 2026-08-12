@@ -78,7 +78,7 @@ body {
 }
 
 .resolution-framework.section {
-  padding: 0 0 28px;
+  padding: 38px 0 28px;
 }
 
 .framework-header {
@@ -452,6 +452,7 @@ body {
   }
 
   .resolution-framework.section {
+    padding-top: 30px;
     padding-bottom: 20px;
   }
 

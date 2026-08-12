@@ -69,15 +69,14 @@ if (!function_exists('slideImagePath')) {
             <?php foreach ($featuredNews as $news): ?>
                 <div class="single-slider" style="background-image:url('<?= htmlspecialchars(actualite_image_url($news['imgMise'] ?? null)) ?>')">
                     <div class="container">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-lg-7">
-                                <div class="text">
-                                    <div style="background: rgba(16,35,63,0.78); display: inline-block; padding: 18px 24px; border-radius: 6px;">
-                                        <h1 style="color:#fff; margin:0;"><?= htmlspecialchars($news['titre']) ?></h1>
-                                    </div>
-                                    <p style="margin-top:14px;font-weight:700;"><?= htmlspecialchars(actualite_published_label($news['date_pub'] ?? null)) ?></p>
-                                    <p><?= htmlspecialchars(actualite_summary($news, 170)) ?></p>
-                                    <div class="button">
+                                <div class="text hero-slide-copy">
+                                    <span class="hero-slide-eyebrow">Actualité à la une</span>
+                                    <h1><?= htmlspecialchars($news['titre']) ?></h1>
+                                    <div class="hero-slide-meta"><?= htmlspecialchars(actualite_published_label($news['date_pub'] ?? null)) ?></div>
+                                    <p class="hero-slide-summary"><?= htmlspecialchars(actualite_summary($news, 170)) ?></p>
+                                    <div class="button hero-slide-actions">
                                         <a href="<?= htmlspecialchars(actualite_url($news)) ?>" class="btn">Lire la suite</a>
                                     </div>
                                 </div>
@@ -90,19 +89,18 @@ if (!function_exists('slideImagePath')) {
             <?php foreach ($manualSlides as $slide): $img = slideImagePath($slide, (int)($slide['position'] ?? 1)); ?>
                 <div class="single-slider" style="background-image:url('<?= htmlspecialchars($img) ?>')">
                     <div class="container">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-lg-7">
-                                <div class="text">
+                                <div class="text hero-slide-copy">
                                     <?php if (!empty($slide['title'])): ?>
-                                        <div style="background: rgba(16,35,63,0.72); display: inline-block; padding: 18px 24px; border-radius: 6px;">
-                                            <h1 style="color:#fff; margin:0;"><?= htmlspecialchars($slide['title']) ?></h1>
-                                        </div>
+                                        <span class="hero-slide-eyebrow">SN1325</span>
+                                        <h1><?= htmlspecialchars($slide['title']) ?></h1>
                                     <?php endif; ?>
                                     <?php if (!empty($slide['subtitle'])): ?>
-                                        <p><?= nl2br(htmlspecialchars($slide['subtitle'])) ?></p>
+                                        <p class="hero-slide-summary"><?= nl2br(htmlspecialchars($slide['subtitle'])) ?></p>
                                     <?php endif; ?>
                                     <?php if (!empty($slide['btn_text'])): ?>
-                                        <div class="button">
+                                        <div class="button hero-slide-actions">
                                             <a href="<?= htmlspecialchars($slide['btn_url'] ?: '#') ?>" class="btn"><?= htmlspecialchars($slide['btn_text']) ?></a>
                                         </div>
                                     <?php endif; ?>
@@ -114,16 +112,16 @@ if (!function_exists('slideImagePath')) {
             <?php endforeach; ?>
         <?php else: ?>
             <div class="single-slider" style="background-image:url('<?= IMG_DIR ?>femme.jpg')">
-                <div class="container"><div class="row"><div class="col-lg-7"><div class="text"><div style="background: rgba(16,35,63,0.72); display: inline-block; padding: 18px 24px; border-radius: 6px;"><h1 style="color:#FFF; margin:0;">La RDC, marquée par des décennies de conflits armés dans l'Est du pays, est un cas prioritaire pour l'application de la Résolution 1325.</h1></div><p></p></div></div></div></div>
+                <div class="container"><div class="row align-items-center"><div class="col-lg-7"><div class="text hero-slide-copy"><span class="hero-slide-eyebrow">SN1325</span><h1>La RDC, cas prioritaire pour l'application de la Résolution 1325</h1></div></div></div></div>
             </div>
             <div class="single-slider" style="background-image:url('<?= IMG_DIR ?>ministre.jpeg')">
-                <div class="container"><div class="row"><div class="col-lg-7"><div class="text"><h1>République Démocratique du Congo <span>SN1325</span></h1><p>Assurer la participation effective des femmes à la prévention et résolution des conflits en RDC.</p><div class="button"><a href="https://genre.gouv.cd/" class="btn">MINGENRE</a></div></div></div></div></div>
+                <div class="container"><div class="row align-items-center"><div class="col-lg-7"><div class="text hero-slide-copy"><span class="hero-slide-eyebrow">SN1325</span><h1>République Démocratique du Congo</h1><p class="hero-slide-summary">Participation effective des femmes à la prévention et à la résolution des conflits en RDC.</p><div class="button hero-slide-actions"><a href="https://genre.gouv.cd/" class="btn">MINGENRE</a></div></div></div></div></div>
             </div>
             <div class="single-slider" style="background-image:url('<?= IMG_DIR ?>banner3.png')">
-                <div class="container"><div class="row"><div class="col-lg-7"><div class="text"><div style="background: rgba(16,35,63,0.72); display: inline-block; padding: 18px 24px; border-radius: 6px;"><h1 style="color:#fff; margin:0;">La RDC est considérée comme un cas emblématique pour l'application de la Résolution 1325.</h1></div><p></p><div class="button"><a href="mailto:lapiardidier561@gmail.com" target="_blank" class="btn primary">Contacter le Secrétariat National</a></div></div></div></div></div>
+                <div class="container"><div class="row align-items-center"><div class="col-lg-7"><div class="text hero-slide-copy"><span class="hero-slide-eyebrow">Résolution 1325</span><h1>Un cadre national pour l'agenda Femmes, Paix et Sécurité</h1><div class="button hero-slide-actions"><a href="mailto:lapiardidier561@gmail.com" target="_blank" class="btn primary">Contacter le Secrétariat</a></div></div></div></div></div>
             </div>
             <div class="single-slider" style="background-image:url('<?= IMG_DIR ?>PAN.png')">
-                <div class="container"><div class="row"><div class="col-lg-7"><div class="text"><div style="background: rgba(16,35,63,0.72); display: inline-block; padding: 18px 24px; border-radius: 6px;"><h1 style="color:#fff; margin:0;">Vulgarisation du Plan d'Action National - 3ème génération</h1></div><p></p><div class="button"><a href="pagesweb/Plan d'Action National 3eme génération_125445.pdf" class="btn primary">Consulter</a></div></div></div></div></div>
+                <div class="container"><div class="row align-items-center"><div class="col-lg-7"><div class="text hero-slide-copy"><span class="hero-slide-eyebrow">Plan d'Action National</span><h1>Vulgarisation du PAN 1325 de troisième génération</h1><div class="button hero-slide-actions"><a href="pagesweb/Plan d'Action National 3eme génération_125445.pdf" class="btn primary">Consulter</a></div></div></div></div></div>
             </div>
         <?php endif; ?>
     </div>
