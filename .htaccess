@@ -21,7 +21,7 @@ Options -Indexes
     Header always set X-XSS-Protection "1; mode=block"
 
     # Content Security Policy — autorise YouTube, Google Maps et les CDN utilisés
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com fonts.googleapis.com maps.googleapis.com; style-src 'self' 'unsafe-inline' cdn.jsdelivr.net fonts.googleapis.com fonts.gstatic.com; font-src 'self' cdn.jsdelivr.net fonts.googleapis.com fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' https: blob:; connect-src 'self' maps.googleapis.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com; object-src 'none';"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com fonts.googleapis.com maps.googleapis.com www.googletagmanager.com www.googleadservices.com www.google.com googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline' cdn.jsdelivr.net fonts.googleapis.com fonts.gstatic.com; font-src 'self' cdn.jsdelivr.net fonts.googleapis.com fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' https: blob:; connect-src 'self' cdn.jsdelivr.net cdnjs.cloudflare.com maps.googleapis.com www.google-analytics.com analytics.google.com stats.g.doubleclick.net www.google.com googleads.g.doubleclick.net; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com; object-src 'none';"
 
     # Empêche l'envoi du header Server avec la version du serveur web
     Header unset Server
@@ -59,6 +59,9 @@ Options -Indexes
     RewriteRule ^actualites/?$ pagesweb/actualites.php [L,QSA]
     RewriteRule ^actualites/([^/]+)/?$ pagesweb/actualites.php?slug=$1 [L,QSA]
 
+    # Endpoint JSON d'upload media : ne jamais rediriger un POST vers une URL sans .php
+    RewriteRule ^pagesweb/upload_actualite_media/?$ pagesweb/upload_actualite_media.php [L,QSA]
+
     # Règle explicite pour documentation_event (préserve la query string)
     RewriteRule ^pagesweb/documentation_event/?$ pagesweb/documentation_event.php [L,QSA]
 
@@ -72,6 +75,7 @@ Options -Indexes
     #    Exception: documentation_event.php (doit garder ses paramètres GET)
     RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
     RewriteCond %{THE_REQUEST} !pagesweb/documentation_event\.php [NC]
+    RewriteCond %{THE_REQUEST} !pagesweb/upload_actualite_media\.php [NC]
     RewriteCond %{THE_REQUEST} !mail/mail\.php [NC]
     RewriteCond %{THE_REQUEST} !mail/newsletter\.php [NC]
     RewriteRule ^ %1/ [R=301,L,QSA]

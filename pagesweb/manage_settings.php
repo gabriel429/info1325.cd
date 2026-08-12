@@ -49,7 +49,7 @@ try {
             // SEO
             ['seo_meta_title', 'SN1325 - Plateforme Nationale', 'seo', 'Titre meta par défaut'],
             ['seo_meta_description', 'Plateforme de mise en œuvre de la Résolution 1325', 'seo', 'Description meta par défaut'],
-            ['seo_google_analytics', '', 'seo', 'Code Google Analytics (GA-XXXXXXX)'],
+            ['seo_google_analytics', '', 'seo', 'ID Google tag pour Analytics ou Ads (G-..., AW-...)'],
 
             // Features
             ['enable_comments', '1', 'features', 'Activer les commentaires sur actualités'],

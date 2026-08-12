@@ -688,7 +688,7 @@ require_once __DIR__ . '/admin_layout_top.php';
     const coverPreview = document.getElementById('coverPreview');
     const bodyImageInput = document.getElementById('bodyImageInput');
     const csrfToken = form.querySelector('input[name="csrf_token"]').value;
-    const uploadUrl = <?= json_encode(BASE_URL . 'pagesweb/upload_actualite_media.php', JSON_UNESCAPED_SLASHES) ?>;
+    const uploadUrl = <?= json_encode(BASE_URL . 'pagesweb/upload_actualite_media/', JSON_UNESCAPED_SLASHES) ?>;
     let slugTouched = slugInput.value.trim() !== '';
     let savedRange = null;
 

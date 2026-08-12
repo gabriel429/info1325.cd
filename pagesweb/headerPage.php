@@ -73,6 +73,21 @@ $metaUrl = meta_absolute_url($pageUrl ?? ($_SERVER['REQUEST_URI'] ?? BASE_URL));
 $metaImage = meta_absolute_url($pageImage ?? (IMG_DIR . 'logo.png'));
 $metaImageAlt = meta_plain_text($pageImageAlt ?? $metaTitle, 120);
 $metaType = $pageType ?? 'website';
+$googleTagId = '';
+try {
+	$settingsHelperPath = __DIR__ . '/settings_helper.php';
+	if (file_exists($settingsHelperPath)) {
+		require_once $settingsHelperPath;
+		if (function_exists('get_setting')) {
+			$googleTagRaw = trim((string)get_setting('seo_google_analytics', ''));
+			if (preg_match('/\b(G-[A-Z0-9-]+|AW-\d+|GT-[A-Z0-9-]+)\b/i', $googleTagRaw, $googleTagMatch)) {
+				$googleTagId = strtoupper($googleTagMatch[1]);
+			}
+		}
+	}
+} catch (Throwable $e) {
+	error_log('Google tag settings error: ' . $e->getMessage());
+}
 ?>
 <!doctype html>
 
@@ -113,6 +128,15 @@ $metaType = $pageType ?? 'website';
 		<?php endif; ?>
 		<?php if (!empty($pageAuthor)): ?>
 			<meta property="article:author" content="<?= meta_escape($pageAuthor) ?>">
+		<?php endif; ?>
+		<?php if ($googleTagId !== ''): ?>
+			<script async src="https://www.googletagmanager.com/gtag/js?id=<?= meta_escape($googleTagId) ?>"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+				gtag('config', '<?= meta_escape($googleTagId) ?>');
+			</script>
 		<?php endif; ?>
 
 		
