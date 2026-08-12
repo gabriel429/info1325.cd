@@ -207,6 +207,27 @@ button.btn {
   text-decoration: none !important;
 }
 
+/* Bouton du slider d'accueil : garde le style éditorial blanc malgré l'override global. */
+.slider .single-slider .hero-slide-actions .btn,
+.slider .single-slider .hero-slide-actions a.btn,
+.slider .single-slider .hero-slide-actions .btn:not(:hover),
+.slider .single-slider .hero-slide-actions a.btn:not(:hover) {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #151923 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.22) !important;
+}
+
+.slider .single-slider .hero-slide-actions .btn:hover,
+.slider .single-slider .hero-slide-actions a.btn:hover {
+  background: #ffd166 !important;
+  background-color: #ffd166 !important;
+  border-color: #ffd166 !important;
+  color: #111827 !important;
+}
+
 /* ===== ÉTAPE 9 : Enlever les ombres des conteneurs ===== */
 .doc-card,
 .doc-actions,

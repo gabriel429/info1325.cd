@@ -37,10 +37,20 @@ try {
         $featuredNews = array_merge($featuredNews, $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC));
     }
 
+    $teaserStmt = $pdo->query("
+        SELECT *
+        FROM actualites
+        WHERE statut = 'publie'
+        ORDER BY a_la_une DESC, date_pub DESC, id DESC
+        LIMIT 3
+    ");
+    $heroTeasers = $teaserStmt->fetchAll(PDO::FETCH_ASSOC);
+
     $stmt = $pdo->query('SELECT * FROM slides WHERE active = 1 ORDER BY `position` ASC');
     $manualSlides = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
     $featuredNews = [];
+    $heroTeasers = [];
     $manualSlides = [];
 }
 
@@ -61,6 +71,7 @@ if (!function_exists('slideImagePath')) {
         return IMG_DIR . 'banner3.png';
     }
 }
+
 ?>
 
 <section class="slider">
@@ -79,12 +90,31 @@ if (!function_exists('slideImagePath')) {
                                     <div class="hero-slide-meta"><?= htmlspecialchars(actualite_published_label($news['date_pub'] ?? null)) ?></div>
                                     <p class="hero-slide-summary"><?= htmlspecialchars(actualite_summary($news, 170)) ?></p>
                                     <div class="button hero-slide-actions">
-                                        <a href="<?= htmlspecialchars(actualite_url($news)) ?>" class="btn">Lire la suite</a>
+                                        <a href="<?= htmlspecialchars(actualite_url($news)) ?>" class="btn">En savoir plus</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php if (!empty($heroTeasers)): ?>
+                        <div class="hero-teaser-strip" aria-label="Actualités mises en avant">
+                            <?php foreach ($heroTeasers as $teaserIndex => $teaser): ?>
+                                <?php
+                                $teaserText = actualite_summary($teaser, 96);
+                                if ($teaserText === '') {
+                                    $teaserText = (string)($teaser['titre'] ?? '');
+                                }
+                                $teaserIsActive = (int)($teaser['id'] ?? 0) === (int)($news['id'] ?? 0);
+                                if (!$teaserIsActive && (int)($news['id'] ?? 0) === 0) {
+                                    $teaserIsActive = $teaserIndex === 0;
+                                }
+                                ?>
+                                <a class="hero-teaser <?= $teaserIsActive ? 'is-active' : '' ?>" href="<?= htmlspecialchars(actualite_url($teaser), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
+                                    <span><?= htmlspecialchars($teaserText, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></span>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
 

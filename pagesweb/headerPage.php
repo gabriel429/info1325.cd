@@ -339,46 +339,32 @@ $headerSocialLinks = [
 
 				<div class="container">
 
-					<div class="row">
+					<div class="topbar-grid">
 
-						<div class="col-lg-6 col-md-5 col-12">
-
-							<!-- Contact -->
-							<div class="topbar-left">
-								<ul class="top-social" aria-label="Réseaux sociaux">
-									<?php foreach ($headerSocialLinks as $socialLink): ?>
-										<li>
-											<a href="<?= meta_escape($socialLink['url']) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= meta_escape($socialLink['label']) ?>">
-												<?= $socialLink['icon'] ?>
-											</a>
-										</li>
-									<?php endforeach; ?>
-								</ul>
-								<ul class="top-link">
-									<li><a href="<?= URL_SECRETAIRIATNATIONAL ?>">A propos</a></li>
-									<li><a href="<?= URL_CONTACT ?>">Contact</a></li>
-								</ul>
-							</div>
-
-							<!-- End Contact -->
-
-						</div>
-
-						<div class="col-lg-6 col-md-7 col-12">
-
-							<!-- Top Contact -->
-
-							<ul class="top-contact">
-
-								<li><i class="fa fa-phone"></i>+243 *** *** ***</li>
-
-								<li><i class="fa fa-envelope"></i><a href="mailto:lapiardidier561@gmail.com">Secretariat1325</a></li>
-
+						<nav class="topbar-links" aria-label="Liens rapides">
+							<ul class="top-link">
+								<li><a href="<?= URL_SECRETAIRIATNATIONAL ?>">A propos</a></li>
+								<li><a href="<?= URL_CONTACT ?>">Contact</a></li>
 							</ul>
+						</nav>
 
-							<!-- End Top Contact -->
+						<ul class="top-social" aria-label="Réseaux sociaux">
+							<?php foreach ($headerSocialLinks as $socialLink): ?>
+								<li>
+									<a href="<?= meta_escape($socialLink['url']) ?>" target="_blank" rel="noopener noreferrer" aria-label="<?= meta_escape($socialLink['label']) ?>">
+										<?= $socialLink['icon'] ?>
+									</a>
+								</li>
+							<?php endforeach; ?>
+						</ul>
 
-						</div>
+						<ul class="top-contact">
+
+							<li><i class="fa fa-phone"></i>+243 *** *** ***</li>
+
+							<li><i class="fa fa-envelope"></i><a href="mailto:lapiardidier561@gmail.com">Secretariat1325</a></li>
+
+						</ul>
 
 					</div>
 

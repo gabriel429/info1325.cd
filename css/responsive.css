@@ -50,11 +50,23 @@ Version:	1.1
 .header .top-link li a {
 	font-size: 13px;
 }
+.header .topbar-grid {
+	grid-template-columns: minmax(120px, 1fr) auto minmax(220px, 1fr);
+	gap: 10px;
+}
+.header .topbar-links {
+	justify-content: flex-start;
+}
+.header .top-link {
+	gap: 12px;
+	margin-bottom: 0;
+}
 .header .topbar-left {
 	gap: 10px;
 }
 .header .top-social {
 	gap: 6px;
+	justify-self: center;
 }
 .header .top-social a {
 	width: 28px;
@@ -72,6 +84,7 @@ Version:	1.1
 }
 .header .top-contact {
 	gap: 14px;
+	justify-content: flex-end;
 }
 .header .header-inner .get-quote {
 	margin-top: 12px;
