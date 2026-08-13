@@ -229,6 +229,11 @@ body {
   overflow: hidden;
 }
 
+.gallery-card.is-target {
+  outline: 3px solid rgba(15, 99, 173, 0.42);
+  box-shadow: 0 28px 70px rgba(15, 99, 173, 0.18);
+}
+
 .gallery-link {
   display: block;
   height: 100%;

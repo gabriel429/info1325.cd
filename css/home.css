@@ -752,8 +752,27 @@ body > h2:first-of-type {
   height: 220px !important;
 }
 
-.portfolio .img-galery {
+.portfolio .single-pf::before {
+  pointer-events: none;
+}
+
+.portfolio .single-pf .portfolio-gallery-link {
+  display: block;
+  position: relative;
   height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.portfolio .single-pf .btn {
+  pointer-events: none;
+}
+
+.portfolio .img-galery {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.22s ease;
 }
 
