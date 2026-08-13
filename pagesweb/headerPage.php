@@ -79,7 +79,7 @@ try {
 	if (file_exists($settingsHelperPath)) {
 		require_once $settingsHelperPath;
 		if (function_exists('get_setting')) {
-			$googleTagRaw = trim((string)get_setting('seo_google_analytics', ''));
+			$googleTagRaw = trim((string)get_setting('seo_google_analytics', 'G-90MYBP8M9J'));
 			if (preg_match('/\b(G-[A-Z0-9-]+|AW-\d+|GT-[A-Z0-9-]+)\b/i', $googleTagRaw, $googleTagMatch)) {
 				$googleTagId = strtoupper($googleTagMatch[1]);
 			}
@@ -87,6 +87,9 @@ try {
 	}
 } catch (Throwable $e) {
 	error_log('Google tag settings error: ' . $e->getMessage());
+}
+if ($googleTagId === '') {
+	$googleTagId = 'G-90MYBP8M9J';
 }
 
 if (!function_exists('header_social_url')) {

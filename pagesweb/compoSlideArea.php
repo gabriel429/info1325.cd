@@ -14,15 +14,15 @@ try {
         FROM actualites
         WHERE statut = 'publie' AND a_la_une = 1
         ORDER BY date_pub DESC, id DESC
-        LIMIT 2
+        LIMIT 3
     ");
     $featuredNews = $featuredStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    if (count($featuredNews) < 2) {
+    if (count($featuredNews) < 3) {
         $excludeIds = array_map(static function ($row) {
             return (int)$row['id'];
         }, $featuredNews);
-        $limit = 2 - count($featuredNews);
+        $limit = 3 - count($featuredNews);
         $sql = "
             SELECT *
             FROM actualites
@@ -106,7 +106,7 @@ if (!function_exists('renderHeroTeasers')) {
     <div class="hero-slider">
         <?php if (!empty($featuredNews) || !empty($manualSlides)): ?>
             <?php foreach ($featuredNews as $news): $featuredImage = actualite_image_url($news['imgMise'] ?? null); ?>
-                <div class="single-slider featured-news-slide">
+                <div class="single-slider featured-news-slide has-hero-teasers">
                     <div class="slide-backdrop" style="background-image:url('<?= htmlspecialchars($featuredImage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>')" aria-hidden="true"></div>
                     <img class="slide-image" src="<?= htmlspecialchars($featuredImage, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" alt="" aria-hidden="true" decoding="async">
                     <div class="container">
@@ -129,7 +129,7 @@ if (!function_exists('renderHeroTeasers')) {
             <?php endforeach; ?>
 
             <?php foreach ($manualSlides as $slide): $img = slideImagePath($slide, (int)($slide['position'] ?? 1)); ?>
-                <div class="single-slider featured-news-slide manual-hero-slide">
+                <div class="single-slider featured-news-slide manual-hero-slide has-hero-teasers">
                     <div class="slide-backdrop" style="background-image:url('<?= htmlspecialchars($img, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>')" aria-hidden="true"></div>
                     <img class="slide-image" src="<?= htmlspecialchars($img, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>" alt="" aria-hidden="true" decoding="async">
                     <div class="container">
@@ -144,8 +144,19 @@ if (!function_exists('renderHeroTeasers')) {
                                         <p class="hero-slide-summary"><?= nl2br(htmlspecialchars($slide['subtitle'])) ?></p>
                                     <?php endif; ?>
                                     <?php if (!empty($slide['btn_text'])): ?>
+                                        <?php
+                                        $manualButtonText = trim((string)$slide['btn_text']);
+                                        if (function_exists('mb_strtolower')) {
+                                            $manualButtonCompare = mb_strtolower($manualButtonText, 'UTF-8');
+                                        } else {
+                                            $manualButtonCompare = strtolower($manualButtonText);
+                                        }
+                                        if ($manualButtonCompare === 'lire') {
+                                            $manualButtonText = 'En savoir plus';
+                                        }
+                                        ?>
                                         <div class="button hero-slide-actions">
-                                            <a href="<?= htmlspecialchars($slide['btn_url'] ?: '#') ?>" class="btn"><?= htmlspecialchars($slide['btn_text']) ?></a>
+                                            <a href="<?= htmlspecialchars($slide['btn_url'] ?: '#') ?>" class="btn"><?= htmlspecialchars($manualButtonText) ?></a>
                                         </div>
                                     <?php endif; ?>
                                 </div>
